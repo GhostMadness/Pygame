@@ -1,4 +1,5 @@
 import pygame
+# UTF-8
 
 if __name__ == "__main__":
     pygame.init()
@@ -27,19 +28,19 @@ if __name__ == "__main__":
                     if pos[1] >= 167 and pos[1] <= 503:
                         running = False
                         print('goodbye')
-                        #ÇÄÅÑÜ ÏÎÒÎÌ ÁÓÄÅÌ ÇÀÃÐÓÆÀÒÜ ÎÒÄÅËÜÍÓÞ ÑÖÅÍÓ ÈÃÐÛ
+                        #ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if pos[0] >= 46 and pos[0] <= 715:
                     if pos[1] >= 502 and pos[1] <= 913:
                         running = False
                         print('goodbye2')
-                        #ÂÛÕÎÄ
+                        #ï¿½ï¿½ï¿½ï¿½ï¿½
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if pos[0] >= 45 and pos[0] <= 503:
                     if pos[1] >= 441 and pos[1] <= 640:
                         running = False
                         print('goodbye1')
-                        #ÇÄÅÑÜ ÏÎÒÎÌ ÁÓÄÅÌ ÇÀÃÐÓÆÀÒÜ ÎÒÄÅËÜÍÓÞ ÑÖÅÍÓ ÍÀÑÒÐÎÅÊ
+                        #ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         screen.fill((0, 0, 0))
         screen.blit(IMG_MENU, (0, 0))
