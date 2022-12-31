@@ -3,13 +3,15 @@ import pytmx
 
 class Heroy(pygame.sprite.Sprite):
     def __init__(self):
-        super()
+        super().__init__()
         self.image= pygame.image.load('SPRITE\гг.png')
-        self.image = pygame.transform.scale(self.image, (250, 250))
+        self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
         self.rect.bottom = infoObject.current_h // 2
         self.rect.right = infoObject.current_w // 2
+        # self.rect.bottom = 400
+        # self.rect.left = 300
     
     def update(self):
         pass
@@ -17,35 +19,45 @@ class Heroy(pygame.sprite.Sprite):
     def top(self):
         global y
         self.image= pygame.image.load('SPRITE\гг.png')
-        self.image = pygame.transform.scale(self.image, (250, 250))
-        print(pygame.sprite.collide_mask(self, dc1))
-        if not pygame.sprite.collide_mask(self, dc1):
-            y += 3
+        self.image = pygame.transform.scale(self.image, (100, 100))
+        if not pygame.sprite.spritecollideany(self, top_sprites):
+            self.rect.y -= 10
     
     def botton(self):
         global y
         self.image= pygame.image.load('SPRITE\гг.png')
-        self.image = pygame.transform.scale(self.image, (250, 250))
-        y -= 3
+        self.image = pygame.transform.scale(self.image, (100, 100))
+        if not pygame.sprite.spritecollideany(self, bottom_sprites):
+            self.rect.y += 10
     
     def right(self):
         global x
         self.image = pygame.image.load('SPRITE\гг_2.png')
-        self.image = pygame.transform.scale(self.image, (250, 250))
-        x -= 3
+        self.image = pygame.transform.scale(self.image, (100, 100))
+        if not pygame.sprite.spritecollideany(self, right_sprites):
+            self.rect.x += 10
     
     def left(self):
         global x
         self.image = pygame.image.load('SPRITE\гг_1.png')
-        self.image = pygame.transform.scale(self.image, (250, 250))
-        x += 3
+        self.image = pygame.transform.scale(self.image, (100, 100))
+        if not pygame.sprite.spritecollideany(self, left_sprites):
+            self.rect.x -= 10
 
 
 class Stop(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, filename, coords, i):
         super().__init__()
-        self.image = pygame.transform.scale(pygame.image.load('location_1.png'), (infoObject.current_w, infoObject.current_h))
-        self.rect= self.image.get_rect()
+        if i == 'l':
+            self.image = pygame.transform.scale(pygame.image.load(filename), (infoObject.current_w // 3, infoObject.current_h))
+        elif i == 't':
+            self.image = pygame.transform.scale(pygame.image.load(filename), (infoObject.current_w, infoObject.current_h // 3))
+        elif i == 'b':
+            self.image = pygame.transform.scale(pygame.image.load(filename), (infoObject.current_w, infoObject.current_h // 3))
+        # self.image = pygame.image.load(filename)
+        self.rect = self.image.get_rect()
+        self.rect.x = coords[0]
+        self.rect.y = coords[1]
 
 
 if __name__ == '__main__':
@@ -53,24 +65,31 @@ if __name__ == '__main__':
     pygame.display.set_caption("Локация 1")
     infoObject = pygame.display.Info()
     screen = pygame.display.set_mode((infoObject.current_w, infoObject.current_h))
+    # screen = pygame.display.set_mode((800, 600))
     screen.fill((0, 0, 0))
     tmxdata = pytmx.load_pygame("location_6432.tmx")
+    
+    top_sprites = pygame.sprite.Group()
+    bottom_sprites = pygame.sprite.Group()
+    right_sprites = pygame.sprite.Group()
+    left_sprites = pygame.sprite.Group()
+    
+    left_sprites.add(Stop('location_1c0.png', (0, 0), 'l'))
+    top_sprites.add(Stop('location_1c1.png', (0, 80), 't'))
+    bottom_sprites.add(Stop('location_1c2.png', (infoObject.current_w // 3, infoObject.current_h // 3 * 2), 'b'))
+    
     gg = Heroy()
+    
     clock = pygame.time.Clock()
     
     sc1 = pygame.Surface((2048, 1024))
-    
-    dc1 =pygame.sprite.Sprite()
-    dc1.image = 
-    dc1.rect = dc1.image.get_rect()
-    dc1. = pygame.mask.from_surface(dc1.image)
     
     for i in range(64):
         for j in range(32):
             image = tmxdata.get_tile_image(i, j, 0)
             sc1.blit(image, (0 + i * 32, 0 + j * 32))
             pygame.display.flip()
-    sc1 = pygame.transform.rotozoom(sc1, 0, 1)
+    # sc1 = pygame.transform.rotozoom(sc1, 0, 1)
     running = True
     x, y = 0, 0
     
@@ -87,8 +106,11 @@ if __name__ == '__main__':
             gg.top()
         if key[pygame.K_s]:
             gg.botton()
-        screen.blit(dc1.image, (x, y))
-        # screen.blit(sc1, (x, y))
+        screen.blit(sc1, (x, y))
+        top_sprites.draw(screen)
+        bottom_sprites.draw(screen)
+        right_sprites.draw(screen)
+        left_sprites.draw(screen)
         screen.blit(gg.image, gg.rect)
         pygame.display.flip()
         clock.tick(200)
