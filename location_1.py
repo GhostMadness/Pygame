@@ -49,7 +49,7 @@ class Stop(pygame.sprite.Sprite):
     def __init__(self, filename, coords, i):
         super().__init__()
         if i == 'l':
-            self.image = pygame.transform.scale(pygame.image.load(filename), (infoObject.current_w // 3, infoObject.current_h))
+            self.image = pygame.transform.scale(pygame.image.load(filename), (infoObject.current_w // 6 - 60, infoObject.current_h))
         elif i == 't':
             self.image = pygame.transform.scale(pygame.image.load(filename), (infoObject.current_w, infoObject.current_h // 3))
         elif i == 'b':
@@ -75,8 +75,8 @@ if __name__ == '__main__':
     left_sprites = pygame.sprite.Group()
     
     left_sprites.add(Stop('location_1c0.png', (0, 0), 'l'))
-    top_sprites.add(Stop('location_1c1.png', (0, 80), 't'))
-    bottom_sprites.add(Stop('location_1c2.png', (infoObject.current_w // 3, infoObject.current_h // 3 * 2), 'b'))
+    top_sprites.add(Stop('location_1c1.png', (0, -120), 't'))
+    bottom_sprites.add(Stop('location_1c2.png', (0, infoObject.current_h // 3 * 2 + 40), 'b'))
     
     gg = Heroy()
     
@@ -93,6 +93,12 @@ if __name__ == '__main__':
     running = True
     x, y = 0, 0
     
+    top_sprites.draw(screen)
+    bottom_sprites.draw(screen)
+    right_sprites.draw(screen)
+    left_sprites.draw(screen)
+    screen.blit(gg.image, gg.rect)
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -107,11 +113,7 @@ if __name__ == '__main__':
         if key[pygame.K_s]:
             gg.botton()
         screen.blit(sc1, (x, y))
-        top_sprites.draw(screen)
-        bottom_sprites.draw(screen)
-        right_sprites.draw(screen)
-        left_sprites.draw(screen)
         screen.blit(gg.image, gg.rect)
         pygame.display.flip()
-        clock.tick(200)
+        clock.tick(60)
     pygame.quit()
