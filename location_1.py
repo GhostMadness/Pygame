@@ -97,7 +97,6 @@ if __name__ == '__main__':
     bottom_sprites.draw(screen)
     right_sprites.draw(screen)
     left_sprites.draw(screen)
-    screen.blit(gg.image, gg.rect)
 
     while running:
         for event in pygame.event.get():
