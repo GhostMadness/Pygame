@@ -60,8 +60,10 @@ class Stop(pygame.sprite.Sprite):
 class Shiza(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load('SPRITE\Shiza_01')
+        self.image = pygame.image.load('SPRITE\Shiza_01.png')
         self.rect = self.image.get_rect()
+        self.rect.bottom = infoObject.current_h // 3 * 2 + 40
+        self.rect.right = infoObject.current_w // 6 - 60
         
     def update(self):
         pass
@@ -85,6 +87,8 @@ if __name__ == '__main__':
     bottom_sprites.add(Stop('location_1c2.png', (0, infoObject.current_h // 3 * 2 + 40), 'b'))
     
     gg = Heroy()
+    
+    sh1 = Shiza()
     
     clock = pygame.time.Clock()
     
@@ -119,6 +123,7 @@ if __name__ == '__main__':
             gg.botton()
         screen.blit(sc1, (x, y))
         screen.blit(gg.image, gg.rect)
+        screen.blit(sh1.image, sh1.rect)
         pygame.display.flip()
         clock.tick(60)
     pygame.quit()
