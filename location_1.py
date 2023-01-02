@@ -10,8 +10,6 @@ class Heroy(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.rect.bottom = infoObject.current_h // 2
         self.rect.right = infoObject.current_w // 2
-        # self.rect.bottom = 400
-        # self.rect.left = 300
     
     def update(self):
         pass
@@ -54,10 +52,19 @@ class Stop(pygame.sprite.Sprite):
             self.image = pygame.transform.scale(pygame.image.load(filename), (infoObject.current_w, infoObject.current_h // 3))
         elif i == 'b':
             self.image = pygame.transform.scale(pygame.image.load(filename), (infoObject.current_w, infoObject.current_h // 3))
-        # self.image = pygame.image.load(filename)
         self.rect = self.image.get_rect()
         self.rect.x = coords[0]
         self.rect.y = coords[1]
+
+
+class Shiza(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load('SPRITE\Shiza_01')
+        self.rect = self.image.get_rect()
+        
+    def update(self):
+        pass
 
 
 if __name__ == '__main__':
@@ -65,7 +72,6 @@ if __name__ == '__main__':
     pygame.display.set_caption("Локация 1")
     infoObject = pygame.display.Info()
     screen = pygame.display.set_mode((infoObject.current_w, infoObject.current_h))
-    # screen = pygame.display.set_mode((800, 600))
     screen.fill((0, 0, 0))
     tmxdata = pytmx.load_pygame("location_6432.tmx")
     
