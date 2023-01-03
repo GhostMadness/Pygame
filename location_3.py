@@ -73,7 +73,7 @@ if __name__ == '__main__':
 
     bottom_sprite = pygame.sprite.Group()
     right_sprite = pygame.sprite.Group()
-    bottom_sprite.add(Stop("location_house\sprite_collide\ottom_grass.png", (0, 250)))
+    bottom_sprite.add(Stop("location_house\sprite_collide\ottom_grass.png", (0, 265)))
     right_sprite.add(Stop("location_house\sprite_collide\ght_grass.png", (830, 0)))
 
     clock = pygame.time.Clock()

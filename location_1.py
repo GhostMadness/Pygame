@@ -55,8 +55,6 @@ class Stop(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = coords[0]
         self.rect.y = coords[1]
-        screen.blit(self.image, self.rect)
-        pygame.display.flip()
 
 
 class Shiza(pygame.sprite.Sprite):
@@ -94,7 +92,7 @@ if __name__ == '__main__':
     clock = pygame.time.Clock()
     
     sc1 = pygame.Surface((2048, 1024))
-
+    # sc1 = pygame.transform.rotozoom(sc1, 0, 1)
     running = True
     x, y = 0, 0
     
