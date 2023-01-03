@@ -129,7 +129,7 @@ if __name__ == '__main__':
     text_w = text.get_width()
     text_h = text.get_height()
     screen.blit(text, (text_x, text_y))
-    pygame.draw.rect(screen, (255, 255, 255), (text_x - 10, text_y - 10,
+    ataka = pygame.draw.rect(screen, (255, 255, 255), (text_x - 10, text_y - 10,
                                         text_w + 20, text_h + 20), 1)
     
     text = font.render("ДЕЙСТВИЕ", True, (100, 255, 100))
@@ -138,7 +138,7 @@ if __name__ == '__main__':
     text_w = text.get_width()
     text_h = text.get_height()
     screen.blit(text, (text_x, text_y))
-    pygame.draw.rect(screen, (255, 255, 255), (text_x - 10, text_y - 10,
+    deistvie = pygame.draw.rect(screen, (255, 255, 255), (text_x - 10, text_y - 10,
                                         text_w + 20, text_h + 20), 1)
     
     text = font.render("ИНВЕНТАРЬ", True, (100, 255, 100))
@@ -147,7 +147,7 @@ if __name__ == '__main__':
     text_w = text.get_width()
     text_h = text.get_height()
     screen.blit(text, (text_x, text_y))
-    pygame.draw.rect(screen, (255, 255, 255), (text_x - 10, text_y - 10,
+    inventar = pygame.draw.rect(screen, (255, 255, 255), (text_x - 10, text_y - 10,
                                         text_w + 20, text_h + 20), 1)
     
     text = font.render("ПОЩАДА", True, (100, 255, 100))
@@ -156,7 +156,7 @@ if __name__ == '__main__':
     text_w = text.get_width()
     text_h = text.get_height()
     screen.blit(text, (text_x, text_y))
-    pygame.draw.rect(screen, (255, 255, 255), (text_x - 10, text_y - 10,
+    posada = pygame.draw.rect(screen, (255, 255, 255), (text_x - 10, text_y - 10,
                                         text_w + 20, text_h + 20), 1)
     
     number = 20
