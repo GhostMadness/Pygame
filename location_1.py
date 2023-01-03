@@ -56,6 +56,7 @@ class Stop(pygame.sprite.Sprite):
         self.rect.x = coords[0]
         self.rect.y = coords[1]
         screen.blit(self.image, self.rect)
+        pygame.display.flip()
 
 
 class Shiza(pygame.sprite.Sprite):
