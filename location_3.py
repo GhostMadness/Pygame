@@ -15,6 +15,7 @@ class Heroy(pygame.sprite.Sprite):
 
         self.image_grass_bottom = pygame.image.load("location_house\sprite_collide\ottom_grass.png")
         self.image_grass_right = pygame.image.load("location_house\sprite_collide\ght_grass.png")
+        
     
     def update(self):
         pass
@@ -23,7 +24,8 @@ class Heroy(pygame.sprite.Sprite):
         global y
         self.image= pygame.image.load('SPRITE\гг.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        self.rect.y -= 6
+        if not pygame.sprite.spritecollideany(self, bottom_sprite):
+            self.rect.y -= 6
     
     def botton(self):
         global y
@@ -43,7 +45,18 @@ class Heroy(pygame.sprite.Sprite):
         global x
         self.image = pygame.image.load('SPRITE\гг_1.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        self.rect.x -= 6
+        if not pygame.sprite.spritecollideany(self, right_sprite):
+            self.rect.x -= 6
+
+class Stop(pygame.sprite.Sprite):
+    def __init__(self, filename, coord):
+        super().__init__()
+        self.image = pygame.image.load(filename)
+        self.rect = self.image.get_rect()
+        self.rect.x = coord[0]
+        self.rect.y = coord[1]
+
+
 
 if __name__ == '__main__':
     pygame.init()
@@ -57,6 +70,12 @@ if __name__ == '__main__':
     sc1.blit(image_background, (0, 0))
     sc1.blit(image_2, (0, 0))
     sc1.blit(image_1, (0, 0))
+
+    bottom_sprite = pygame.sprite.Group()
+    right_sprite = pygame.sprite.Group()
+    bottom_sprite.add(Stop("location_house\sprite_collide\ottom_grass.png", (0, 250)))
+    right_sprite.add(Stop("location_house\sprite_collide\ght_grass.png", (830, 0)))
+
     clock = pygame.time.Clock()
 
     gg = Heroy()

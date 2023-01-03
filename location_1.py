@@ -55,6 +55,7 @@ class Stop(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = coords[0]
         self.rect.y = coords[1]
+        screen.blit(self.image, self.rect)
 
 
 class Shiza(pygame.sprite.Sprite):
@@ -75,16 +76,15 @@ if __name__ == '__main__':
     infoObject = pygame.display.Info()
     screen = pygame.display.set_mode((infoObject.current_w, infoObject.current_h))
     screen.fill((0, 0, 0))
-    tmxdata = pytmx.load_pygame("location_6432.tmx")
     
     top_sprites = pygame.sprite.Group()
     bottom_sprites = pygame.sprite.Group()
     right_sprites = pygame.sprite.Group()
     left_sprites = pygame.sprite.Group()
     
-    left_sprites.add(Stop('location_1c0.png', (0, 0), 'l'))
-    top_sprites.add(Stop('location_1c1.png', (0, -120), 't'))
-    bottom_sprites.add(Stop('location_1c2.png', (0, infoObject.current_h // 3 * 2 + 40), 'b'))
+    left_sprites.add(Stop('SPRITE\location_1c0.png', (0, 0), 'l'))
+    top_sprites.add(Stop('SPRITE\location_1c1.png', (0, -120), 't'))
+    bottom_sprites.add(Stop('SPRITE\location_1c2.png', (0, infoObject.current_h // 3 * 2 + 40), 'b'))
     
     gg = Heroy()
     
@@ -93,13 +93,7 @@ if __name__ == '__main__':
     clock = pygame.time.Clock()
     
     sc1 = pygame.Surface((2048, 1024))
-    
-    for i in range(64):
-        for j in range(32):
-            image = tmxdata.get_tile_image(i, j, 0)
-            sc1.blit(image, (0 + i * 32, 0 + j * 32))
-            pygame.display.flip()
-    # sc1 = pygame.transform.rotozoom(sc1, 0, 1)
+
     running = True
     x, y = 0, 0
     
