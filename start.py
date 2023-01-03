@@ -132,6 +132,23 @@ class Cell(pygame.sprite.Sprite):
         self.rect.left = 750     
 
 
+def war_1(q):
+    if q % 20 == 0:
+        War('SPRITE\war_1.png')
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_d]:
+        heart.right()
+    elif keys[pygame.K_a]:
+        heart.left()
+    elif keys[pygame.K_w]:
+        heart.top()
+    elif keys[pygame.K_s]:
+        heart.bottom()
+    screen.blit(cell.image, cell.rect)
+    all_wars.draw(screen)
+    all_wars.update()
+    screen.blit(heart.image, heart.rect)
+
 if __name__ == '__main__':
     pygame.init()
     size = width, height = 1920, 1080
@@ -212,21 +229,7 @@ if __name__ == '__main__':
                 elif posada[0] < event.pos[0] < posada[0] + posada[2] and posada[1] < event.pos[1] < posada[1] + posada[3]:
                     print(4)
         if not heart.update_yes():
-            if q % 20 == 0:
-                War('SPRITE\war_1.png')
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_d]:
-                heart.right()
-            elif keys[pygame.K_a]:
-                heart.left()
-            elif keys[pygame.K_w]:
-                heart.top()
-            elif keys[pygame.K_s]:
-                heart.bottom()
-            screen.blit(cell.image, cell.rect)
-            all_wars.draw(screen)
-            all_wars.update()
-            screen.blit(heart.image, heart.rect)
+            war_1(q)
             pygame.display.update()
             clock.tick(100)
             q += 1
