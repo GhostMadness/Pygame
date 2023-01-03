@@ -12,6 +12,9 @@ class Heroy(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.rect.bottom = infoObject.current_h // 2
         self.rect.right = infoObject.current_w // 2
+
+        self.image_grass_bottom = pygame.image.load("location_house\sprite_collide\ottom_grass.png")
+        self.image_grass_right = pygame.image.load("location_house\sprite_collide\ght_grass.png")
     
     def update(self):
         pass
