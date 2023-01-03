@@ -26,18 +26,21 @@ class Heroy(pygame.sprite.Sprite):
         global y
         self.image= pygame.image.load('SPRITE\гг.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
+        self.rect.y += 10
 
     
     def right(self):
         global x
         self.image = pygame.image.load('SPRITE\гг_2.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
+        self.rect.x += 10
 
     
     def left(self):
         global x
         self.image = pygame.image.load('SPRITE\гг_1.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
+        self.rect.x -= 10
 
 
 if __name__ == '__main__':
