@@ -42,7 +42,6 @@ class Heroy(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect.x -= 6
 
-
 if __name__ == '__main__':
     pygame.init()
     pygame.display.set_caption("Phantom")
@@ -64,6 +63,8 @@ if __name__ == '__main__':
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            elif event.type == pygame.MOUSEMOTION:
+                print(event.pos)
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
             gg.right()
