@@ -177,6 +177,15 @@ if __name__ == '__main__':
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if ataka[0] < event.pos[0] < ataka[0] + ataka[2] and ataka[1] < event.pos[1] < ataka[1] + ataka[3]:
+                    print(1)
+                elif deistvie[0] < event.pos[0] < deistvie[0] + deistvie[2] and deistvie[1] < event.pos[1] < deistvie[1] + deistvie[3]:
+                    print(2)
+                elif inventar[0] < event.pos[0] < inventar[0] + inventar[2] and inventar[1] < event.pos[1] < inventar[1] + inventar[3]:
+                    print(3)
+                elif posada[0] < event.pos[0] < posada[0] + posada[2] and posada[1] < event.pos[1] < posada[1] + posada[3]:
+                    print(4)
         if not heart.update_yes():
             if q % 20 == 0:
                 War('SPRITE\war_1.png')
