@@ -132,6 +132,18 @@ class Cell(pygame.sprite.Sprite):
         self.rect.left = 750     
 
 
+def war_0(q):
+    global flag
+    if q % 2 == 0:
+        flag = True
+    else:
+        flag = False
+    if not flag:
+        war_1(q)
+    if flag:
+        war_2(q)
+
+
 def war_1(q):
     if q % 20 == 0:
         War('SPRITE\war_1.png')
@@ -148,6 +160,25 @@ def war_1(q):
     all_wars.draw(screen)
     all_wars.update()
     screen.blit(heart.image, heart.rect)
+
+
+def war_2(q):
+    if q % 20 == 0:
+        War('SPRITE\war_2.png')
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_d]:
+        heart.right()
+    elif keys[pygame.K_a]:
+        heart.left()
+    elif keys[pygame.K_w]:
+        heart.top()
+    elif keys[pygame.K_s]:
+        heart.bottom()
+    screen.blit(cell.image, cell.rect)
+    all_wars.draw(screen)
+    all_wars.update()
+    screen.blit(heart.image, heart.rect)
+
 
 if __name__ == '__main__':
     pygame.init()
@@ -214,6 +245,7 @@ if __name__ == '__main__':
     running = True
     flag = True
     q = 0
+    flag = True
     
     while running:
         for event in pygame.event.get():
@@ -229,10 +261,11 @@ if __name__ == '__main__':
                 elif posada[0] < event.pos[0] < posada[0] + posada[2] and posada[1] < event.pos[1] < posada[1] + posada[3]:
                     print(4)
         if not heart.update_yes():
-            war_1(q)
+            war_0(q)
             pygame.display.update()
             clock.tick(100)
             q += 1
+            print(q)
         elif flag:
             heart.update()
             flag = False
