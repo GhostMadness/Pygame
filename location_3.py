@@ -48,19 +48,12 @@ if __name__ == '__main__':
     pygame.display.set_caption("Phantom")
     size = width, height = 1920, 1080
     screen = pygame.display.set_mode(size)
-    tmxdata_one = pytmx.load_pygame("location_house\\location_3.tmx")
+    image_background = pygame.image.load("location_house\ckground.png")
     image_1 = pygame.image.load("location_house\location_3.png")
     image_2 = pygame.image.load("location_house\location_3_house.png")
     clock = pygame.time.Clock()
 
     gg = Heroy()
-
-    screen.fill((0, 0, 0))
-    for i in range(60):
-        for j in range(34):
-            image = tmxdata_one.get_tile_image(i, j, 0)
-            screen.blit(image, (0 + i * 32, 0 + j * 32))
-    pygame.display.flip()
 
     running = True
     while running:
@@ -76,6 +69,7 @@ if __name__ == '__main__':
             gg.top()
         if key[pygame.K_s]:
             gg.botton()
+        screen.blit(image_background, (0, 0))
         screen.blit(image_1, (0, 0))
         screen.blit(image_2, (0, 0))
         screen.blit(gg.image, gg.rect)
