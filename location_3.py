@@ -20,27 +20,27 @@ class Heroy(pygame.sprite.Sprite):
         global y
         self.image= pygame.image.load('SPRITE\гг.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        self.rect.y -= 10
+        self.rect.y -= 20
     
     def botton(self):
         global y
         self.image= pygame.image.load('SPRITE\гг.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        self.rect.y += 10
+        self.rect.y += 20
 
     
     def right(self):
         global x
         self.image = pygame.image.load('SPRITE\гг_2.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        self.rect.x += 10
+        self.rect.x += 20
 
     
     def left(self):
         global x
         self.image = pygame.image.load('SPRITE\гг_1.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        self.rect.x -= 10
+        self.rect.x -= 20
 
 
 if __name__ == '__main__':
@@ -49,6 +49,8 @@ if __name__ == '__main__':
     size = width, height = 1920, 1080
     screen = pygame.display.set_mode(size)
     image_background = pygame.image.load("location_house\ckground.png")
+    sc1 = pygame.Surface((1920, 1080))
+    sc1.blit(image_background, (0, 0))
     image_1 = pygame.image.load("location_house\location_3.png")
     image_2 = pygame.image.load("location_house\location_3_house.png")
     clock = pygame.time.Clock()
@@ -69,10 +71,10 @@ if __name__ == '__main__':
             gg.top()
         if key[pygame.K_s]:
             gg.botton()
-        screen.blit(image_background, (0, 0))
+        screen.blit(sc1, (0, 0))
         screen.blit(image_1, (0, 0))
         screen.blit(image_2, (0, 0))
         screen.blit(gg.image, gg.rect)
         pygame.display.flip()
-        clock.tick(60)
+        clock.tick(100)
 pygame.quit()
