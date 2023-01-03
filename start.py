@@ -132,34 +132,27 @@ class Cell(pygame.sprite.Sprite):
         self.rect.left = 750     
 
 
-def war_0(q):
-    global flag
-    if q > 500:
-        flag = False
-    else:
-        flag = True
-    if not flag:
-        war_1(q)
-    if flag:
-        war_2(q)
-
-
-def war_1(q):
-    if q % 20 == 0:
-        War('SPRITE\war_1.png')
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_d]:
-        heart.right()
-    elif keys[pygame.K_a]:
-        heart.left()
-    elif keys[pygame.K_w]:
-        heart.top()
-    elif keys[pygame.K_s]:
-        heart.bottom()
-    screen.blit(cell.image, cell.rect)
-    all_wars.draw(screen)
-    all_wars.update()
-    screen.blit(heart.image, heart.rect)
+def war_1():
+    clock1 = pygame.time.Clock()
+    for i in range(100):
+        print(10)
+        if i % 20 == 0:
+            War('SPRITE\war_1.png')
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_d]:
+            heart.right()
+        elif keys[pygame.K_a]:
+            heart.left()
+        elif keys[pygame.K_w]:
+            heart.top()
+        elif keys[pygame.K_s]:
+            heart.bottom()
+        screen.blit(cell.image, cell.rect)
+        all_wars.draw(screen)
+        all_wars.update()
+        screen.blit(heart.image, heart.rect)
+        clock1.tick(60)
+        pygame.display.flip()
 
 
 def war_2(q):
@@ -247,6 +240,8 @@ if __name__ == '__main__':
     q = 0
     flag = True
     
+    war_1()
+    
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -260,13 +255,5 @@ if __name__ == '__main__':
                     print(3)
                 elif posada[0] < event.pos[0] < posada[0] + posada[2] and posada[1] < event.pos[1] < posada[1] + posada[3]:
                     print(4)
-        if not heart.update_yes():
-            war_0(q)
-            pygame.display.update()
-            clock.tick(100)
-            q += 1
-            print(q)
-        elif flag:
-            heart.update()
-            flag = False
+        heart.update()
     pygame.quit()
