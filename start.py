@@ -133,11 +133,42 @@ class Cell(pygame.sprite.Sprite):
 
 
 def war_1():
-    clock1 = pygame.time.Clock()
-    for i in range(100):
-        print(10)
-        if i % 20 == 0:
-            War('SPRITE\war_1.png')
+    global w
+    War('SPRITE\war_1.png')
+    w += 1
+
+
+def war_2():
+    War('SPRITE\war_2.png')
+
+
+def dialog_1():
+    pass
+
+def dialog_2():
+    pass
+
+def dialog_3():
+    pass
+
+def war_3():
+    pass
+
+
+wars = {'dialog_1': dialog_1, 'war_1': war_1, 'dialog_2': dialog_2, 'war_2': war_2, 'dialog_3': dialog_3, 'war_3': war_3}
+file_wars = open('wars.txt').readlines()
+w = 0
+
+
+def one():
+    global running
+    global q
+    if not heart.update_yes():
+        if q % 20 == 0:
+            if w <= 100:
+                wars[file_wars[1].rstrip()]()
+            else:
+                wars[file_wars[3].rstrip()]()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
             heart.right()
@@ -147,31 +178,17 @@ def war_1():
             heart.top()
         elif keys[pygame.K_s]:
             heart.bottom()
+        elif keys[pygame.K_KP_ENTER]:
+            print(100)
         screen.blit(cell.image, cell.rect)
         all_wars.draw(screen)
         all_wars.update()
         screen.blit(heart.image, heart.rect)
-        clock1.tick(60)
         pygame.display.flip()
-
-
-def war_2(q):
-    if q % 20 == 0:
-        War('SPRITE\war_2.png')
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_d]:
-        heart.right()
-    elif keys[pygame.K_a]:
-        heart.left()
-    elif keys[pygame.K_w]:
-        heart.top()
-    elif keys[pygame.K_s]:
-        heart.bottom()
-    screen.blit(cell.image, cell.rect)
-    all_wars.draw(screen)
-    all_wars.update()
-    screen.blit(heart.image, heart.rect)
-
+        q += 1
+    else:
+        heart.update()
+        running = False
 
 if __name__ == '__main__':
     pygame.init()
@@ -255,5 +272,5 @@ if __name__ == '__main__':
                     print(3)
                 elif posada[0] < event.pos[0] < posada[0] + posada[2] and posada[1] < event.pos[1] < posada[1] + posada[3]:
                     print(4)
-        heart.update()
+        one()
     pygame.quit()
