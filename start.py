@@ -134,10 +134,10 @@ class Cell(pygame.sprite.Sprite):
 
 def war_0(q):
     global flag
-    if q % 2 == 0:
-        flag = True
-    else:
+    if q > 500:
         flag = False
+    else:
+        flag = True
     if not flag:
         war_1(q)
     if flag:
