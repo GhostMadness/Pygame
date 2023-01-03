@@ -62,7 +62,7 @@ class Shiza(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load('SPRITE\Shiza_01.png')
         self.rect = self.image.get_rect()
-        self.rect.bottom = infoObject.current_h // 3 * 2 + 40
+        self.rect.bottom = infoObject.current_h // 3 * 2 + 250
         self.rect.right = infoObject.current_w // 6 - 60
         
     def update(self):
@@ -81,15 +81,17 @@ if __name__ == '__main__':
     right_sprites = pygame.sprite.Group()
     left_sprites = pygame.sprite.Group()
     
-    left_sprites.add(Stop('SPRITE\location_1c0.png', (0, 0), 'l'))
-    top_sprites.add(Stop('SPRITE\location_1c1.png', (0, -120), 't'))
-    bottom_sprites.add(Stop('SPRITE\location_1c2.png', (0, infoObject.current_h // 3 * 2 + 40), 'b'))
+    left_sprites.add(Stop('SPRITE\location_1c0.png', (-70, 0), 'l'))
+    top_sprites.add(Stop('SPRITE\location_1c1.png', (0, -40), 't'))
+    bottom_sprites.add(Stop('SPRITE\location_1c2.png', (0, infoObject.current_h // 3 * 2 - 50), 'b'))
     
     gg = Heroy()
     
     sh1 = Shiza()
     
     clock = pygame.time.Clock()
+
+    img = pygame.transform.scale(pygame.image.load("SPRITE\location_1.png"), (2048, 1024))
     
     sc1 = pygame.Surface((2048, 1024))
     # sc1 = pygame.transform.rotozoom(sc1, 0, 1)
@@ -114,9 +116,9 @@ if __name__ == '__main__':
             gg.top()
         if key[pygame.K_s]:
             gg.botton()
-        screen.blit(sc1, (x, y))
+        screen.blit(img, (x, y))
         screen.blit(gg.image, gg.rect)
         screen.blit(sh1.image, sh1.rect)
         pygame.display.flip()
-        clock.tick(60)
+        clock.tick(100)
     pygame.quit()
