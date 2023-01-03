@@ -14,7 +14,7 @@ class War(pygame.sprite.Sprite):
     
     def update(self):
         global number
-        self.rect = self.rect.move(random.randrange(-3, 5), 1)
+        self.rect = self.rect.move(random.randrange(-5, 5), 1)
         if self.rect.centery >= cell.rect.bottom - 5 or self.rect.centerx >= cell.rect.right - 5 or self.rect.centerx <= cell.rect.left + 5:
             self.kill()
         if pygame.sprite.collide_mask(self, heart):
@@ -92,8 +92,8 @@ class Heart(pygame.sprite.Sprite):
 
 def hp(number):
     text = font.render(f"{number} HP", True, (200, 255, 100))
-    text_x = cell.rect.right + 20
-    text_y = cell.rect.bottom - text.get_height()
+    text_x = 1130 + 20
+    text_y = 780 - text.get_height()
     screen.fill((0, 0, 0), pygame.Rect(text_x, text_y, text.get_width() + 10, text.get_height()))
     screen.blit(text, (text_x, text_y))
 
@@ -124,26 +124,30 @@ class Dialog:
 
 
 class Cell(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, filename, top, left):
         super().__init__()
-        self.image = pygame.image.load('SPRITE\для update-export.png')  
+        self.image = pygame.image.load(filename)
         self.rect = self.image.get_rect()
-        self.rect.top = 400
-        self.rect.left = 750     
+        self.rect.top = top
+        self.rect.left = left     
 
 
 def war_1():
     global w
+    global cell
+    cell = Cell('SPRITE\для update-export.png', 400, 750)
     War('SPRITE\war_1.png')
     w += 1
 
 
 def war_2():
+    Cell('SPRITE\для update-export.png', 400, 750)
     War('SPRITE\war_2.png')
 
 
 def dialog_1():
-    pass
+    global cell
+    cell = Cell('SPRITE\для диалога.png', 400, 600)
 
 def dialog_2():
     pass
@@ -163,32 +167,53 @@ w = 0
 def one():
     global running
     global q
-    if not heart.update_yes():
-        if q % 20 == 0:
-            if w <= 100:
-                wars[file_wars[1].rstrip()]()
-            else:
-                wars[file_wars[3].rstrip()]()
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_d]:
-            heart.right()
-        elif keys[pygame.K_a]:
-            heart.left()
-        elif keys[pygame.K_w]:
-            heart.top()
-        elif keys[pygame.K_s]:
-            heart.bottom()
-        elif keys[pygame.K_KP_ENTER]:
-            print(100)
+    global s
+    global heart
+    global flag
+    try:
+        if not heart.update_yes():
+            if q % 20 == 0:
+                wars[file_wars[s].rstrip()]()
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_d]:
+                heart.right()
+            elif keys[pygame.K_a]:
+                heart.left()
+            elif keys[pygame.K_w]:
+                heart.top()
+            elif keys[pygame.K_s]:
+                heart.bottom()
+            screen.blit(cell.image, cell.rect)
+            all_wars.draw(screen)
+            all_wars.update()
+            screen.blit(heart.image, heart.rect)
+            pygame.display.flip()
+            q += 1
+            if w == 0:
+                s = 0
+            elif w <= 100 and flag:
+                heart = Heart()
+                s = 1
+                flag = False
+            elif w > 100 and not flag:
+                heart = Heart()
+                s = 3
+                flag = True
+        else:
+            heart.update()
+            running = False
+        hp(number)
+    except:
+        print(10)
+        if w == 0:
+            wars[file_wars[0].rstrip()]()
+        elif w <= 100:
+            heart = Heart()
+            wars[file_wars[1].rstrip()]()
         screen.blit(cell.image, cell.rect)
         all_wars.draw(screen)
         all_wars.update()
-        screen.blit(heart.image, heart.rect)
         pygame.display.flip()
-        q += 1
-    else:
-        heart.update()
-        running = False
 
 
 if __name__ == '__main__':
@@ -201,15 +226,17 @@ if __name__ == '__main__':
     
     image1 = pygame.image.load('SPRITE\Hide_1.png')
     
+    s = 0
+    
+    flag = True
+    
     screen.blit(image1, (800, 100))
     pygame.display.flip()
-    
-    cell = Cell()
     
     font = pygame.font.Font(None, 50)
     text = font.render("АТАКА", True, (100, 255, 100))
     text_x = 500
-    text_y = cell.rect.bottom + 20
+    text_y = 800
     text_w = text.get_width()
     text_h = text.get_height()
     screen.blit(text, (text_x, text_y))
@@ -218,7 +245,6 @@ if __name__ == '__main__':
     
     text = font.render("ДЕЙСТВИЕ", True, (100, 255, 100))
     text_x = text_x + text_w + 50
-    text_y = cell.rect.bottom + 20
     text_w = text.get_width()
     text_h = text.get_height()
     screen.blit(text, (text_x, text_y))
@@ -227,7 +253,6 @@ if __name__ == '__main__':
     
     text = font.render("ИНВЕНТАРЬ", True, (100, 255, 100))
     text_x = text_x + text_w + 50
-    text_y = cell.rect.bottom + 20
     text_w = text.get_width()
     text_h = text.get_height()
     screen.blit(text, (text_x, text_y))
@@ -236,7 +261,6 @@ if __name__ == '__main__':
     
     text = font.render("ПОЩАДА", True, (100, 255, 100))
     text_x = text_x + text_w + 50
-    text_y = cell.rect.bottom + 20
     text_w = text.get_width()
     text_h = text.get_height()
     screen.blit(text, (text_x, text_y))
@@ -244,10 +268,6 @@ if __name__ == '__main__':
                                         text_w + 20, text_h + 20), 1)
     
     number = 20
-    
-    hp(number)
-    
-    heart = Heart()
     
     all_wars = pygame.sprite.Group()
     
@@ -257,8 +277,6 @@ if __name__ == '__main__':
     flag = True
     q = 0
     flag = True
-    
-    war_1()
     
     while running:
         for event in pygame.event.get():
@@ -273,5 +291,10 @@ if __name__ == '__main__':
                     print(3)
                 elif posada[0] < event.pos[0] < posada[0] + posada[2] and posada[1] < event.pos[1] < posada[1] + posada[3]:
                     print(4)
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    w = 1
         one()
+        screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, cell.rect.bottom - cell.rect.y))
+        print(cell.rect.right, cell.rect.bottom)
     pygame.quit()
