@@ -98,6 +98,31 @@ def hp(number):
     screen.blit(text, (text_x, text_y))
 
 
+class Ataka:
+    def __init__(self):
+        pass
+
+
+class Deistvie:
+    def __init__(self):
+        pass
+
+
+class Inventar:
+    def __init__(self):
+        pass
+
+
+class Posada:
+    def __init__(self):
+        pass
+
+
+class Dialog:
+    def __init__(self):
+        pass
+
+
 class Cell(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
