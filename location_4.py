@@ -30,7 +30,8 @@ class Heroy(pygame.sprite.Sprite):
         global y
         self.image= pygame.image.load('SPRITE\гг.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        self.rect.y += 6
+        if not pygame.sprite.spritecollideany(self, top_sprites):
+            self.rect.y += 6
 
     
     def right(self):
@@ -70,7 +71,10 @@ if __name__ == '__main__':
     sc1.blit(image_1, (0, 0))
 
     bottom_sprites = pygame.sprite.Group()
+    top_sprites = pygame.sprite.Group()
+    other_sprites = pygame.sprite.Group()
     bottom_sprites.add(Stop("location_4\esult_sprite\house_2.png", (0, 0)))
+    top_sprites.add(Stop("location_4\esult_sprite\ground_bottom.png", (0, 716)))
 
     clock = pygame.time.Clock()
 
@@ -93,7 +97,7 @@ if __name__ == '__main__':
         if key[pygame.K_s]:
             gg.botton()
         screen.blit(sc1, (0, 0))
-        screen.blit(gg.image, gg.rect)
+        screen.blit(gg.image, (50, 500))
         pygame.display.flip()
         clock.tick(60)
 pygame.quit()
