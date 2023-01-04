@@ -1,18 +1,5 @@
 import pygame
 
-class Camera:
-    def __init__(self):
-        self.dx = 0
-        self.dy = 0
-
-    def apply(self, obj):
-        obj.rect.x += self.dx
-        obj.rect.y += self.dy
-    
-    def update(self, target):
-        self.dx = -(target.rect.x + target.rect.w // 2 - width // 2)
-        self.dy = -(target.rect.y + target.rect.h // 2 - height // 2)
-
 class Heroy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -79,6 +66,10 @@ class Shiza(pygame.sprite.Sprite):
         
     def update(self):
         pass
+class Lind(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.draw.line(screen, (255, 0, 255), (1537, 481), (1919, 782), 1)
 
 def local_1():
     music.set_volume(0.2)
@@ -86,7 +77,9 @@ def local_1():
     screen.blit(img, (x, y))
     screen.blit(gg.image, gg.rect)
     screen.blit(sh1.image, sh1.rect)
-    pygame.draw.line(screen, (255, 0, 255), (1537, 481), (1919, 782), 1)
+    other_sprites(Lind)
+    if pygame.sprite.spritecollide(gg, other_sprites):
+        start()
     pygame.display.flip()
 
 
@@ -166,12 +159,12 @@ if __name__ == '__main__':
 
 
 
-bottom_sprites = pygame.sprite.Group()
-top_sprites = pygame.sprite.Group()
-bottom_sprites.add(Stop("location_4\esult_sprite\house_2.png", (0, 0)))
-top_sprites.add(Stop("location_4\esult_sprite\ground_bottom.png", (0, 716)))
 
 def start():
+    bottom_sprites = pygame.sprite.Group()
+    top_sprites = pygame.sprite.Group()
+    bottom_sprites.add(Stop("location_4\esult_sprite\house_2.png", (0, 0)))
+    top_sprites.add(Stop("location_4\esult_sprite\ground_bottom.png", (0, 716)))
     if __name__ == '__main__':
         pygame.init()
         pygame.display.set_caption("Phantom")
