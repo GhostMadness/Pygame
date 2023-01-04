@@ -1,5 +1,4 @@
 import pygame
-import pytmx
 from location_1 import Stop
 
 class Heroy(pygame.sprite.Sprite):
