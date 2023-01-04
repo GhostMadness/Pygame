@@ -71,6 +71,8 @@ class Shiza(pygame.sprite.Sprite):
 
 if __name__ == '__main__':
     pygame.init()
+    running = True
+    x, y = 0, 0
     pygame.display.set_caption("Локация 1")
     infoObject = pygame.display.Info()
     screen = pygame.display.set_mode((infoObject.current_w, infoObject.current_h))
@@ -94,9 +96,9 @@ if __name__ == '__main__':
     img = pygame.transform.scale(pygame.image.load("SPRITE\location_1.png"), (2048, 1024))
     
     sc1 = pygame.Surface((2048, 1024))
+    sc1.blit(img, (x, y))
+    pygame.display.flip()
     # sc1 = pygame.transform.rotozoom(sc1, 0, 1)
-    running = True
-    x, y = 0, 0
     
     top_sprites.draw(screen)
     bottom_sprites.draw(screen)
@@ -116,9 +118,8 @@ if __name__ == '__main__':
             gg.top()
         if key[pygame.K_s]:
             gg.botton()
-        screen.blit(img, (x, y))
         screen.blit(gg.image, gg.rect)
         screen.blit(sh1.image, sh1.rect)
         pygame.display.flip()
-        clock.tick(100)
+        clock.tick(60)
     pygame.quit()
