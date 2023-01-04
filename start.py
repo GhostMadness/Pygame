@@ -50,6 +50,9 @@ class Heart(pygame.sprite.Sprite):
     
     def update(self):
         if number == 0:
+            music = pygame.mixer.Sound('MUSIC\DOUBLE\DEATH.mp3')
+            music.set_volume(0.2)
+            music.play(-1)
             self.image = pygame.image.load('SPRITE\сердце-export.png')
             self.rect = self.image.get_rect()
             self.rect.center = cell.rect.center
@@ -83,6 +86,7 @@ class Heart(pygame.sprite.Sprite):
             screen.blit(self.image, self.rect)
             pygame.display.flip()
             time.sleep(1)
+            music.stop()
     
     def update_yes(self):
         if number == 0:
