@@ -1,5 +1,4 @@
 import pygame
-from location_1 import Stop
 
 class Heroy(pygame.sprite.Sprite):
     def __init__(self):
