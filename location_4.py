@@ -11,9 +11,6 @@ class Heroy(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.rect.bottom = infoObject.current_h // 2
         self.rect.right = infoObject.current_w // 2
-
-        self.image_grass_bottom = pygame.image.load("location_house\sprite_collide\ottom_grass.png")
-        self.image_grass_right = pygame.image.load("location_house\sprite_collide\ght_grass.png")
         
     
     def update(self):
@@ -72,7 +69,6 @@ if __name__ == '__main__':
 
     bottom_sprites = pygame.sprite.Group()
     top_sprites = pygame.sprite.Group()
-    other_sprites = pygame.sprite.Group()
     bottom_sprites.add(Stop("location_4\esult_sprite\house_2.png", (0, 0)))
     top_sprites.add(Stop("location_4\esult_sprite\ground_bottom.png", (0, 716)))
 
@@ -97,7 +93,7 @@ if __name__ == '__main__':
         if key[pygame.K_s]:
             gg.botton()
         screen.blit(sc1, (0, 0))
-        screen.blit(gg.image, (50, 500))
+        screen.blit(gg.image, gg.rect)
         pygame.display.flip()
         clock.tick(60)
 pygame.quit()
