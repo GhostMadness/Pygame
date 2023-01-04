@@ -67,6 +67,8 @@ if __name__ == '__main__':
     sc1.blit(image_2, (0, 0))
     sc1.blit(image_1, (0, 0))
 
+    music = pygame.mixer.Sound('MUSIC\DOUBLE\location_2.mp3')
+
     bottom_sprites = pygame.sprite.Group()
     top_sprites = pygame.sprite.Group()
     bottom_sprites.add(Stop("location_4\esult_sprite\house_2.png", (0, 0)))
@@ -94,6 +96,11 @@ if __name__ == '__main__':
             gg.botton()
         screen.blit(sc1, (0, 0))
         screen.blit(gg.image, gg.rect)
+
+        music.set_volume(0.2)
+        music.play(-1)
+        
         pygame.display.flip()
         clock.tick(60)
 pygame.quit()
+#location_2
