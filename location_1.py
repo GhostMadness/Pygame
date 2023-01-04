@@ -1,5 +1,5 @@
 import pygame
-import location_2_exmp
+from location_2 import stra
 
 class Heroy(pygame.sprite.Sprite):
     def __init__(self):
@@ -32,15 +32,13 @@ class Heroy(pygame.sprite.Sprite):
         global x
         self.image = pygame.image.load('SPRITE\гг_2.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (100, 100))
-        if not pygame.sprite.spritecollideany(self, right_sprites):
-            self.rect.x += 10
+        x -= 10
     
     def left(self):
         global x
         self.image = pygame.image.load('SPRITE\гг_1.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (100, 100))
-        if not pygame.sprite.spritecollideany(self, left_sprites):
-            self.rect.x -= 10
+        x += 10
 
 
 class Stop(pygame.sprite.Sprite):
@@ -68,13 +66,27 @@ class Shiza(pygame.sprite.Sprite):
     def update(self):
         pass
 
+def local_1():
+    music.set_volume(0.2)
+    music.play(-1)
+
+    screen.blit(img, (x, y))
+    screen.blit(gg.image, gg.rect)
+    screen.blit(sh1.image, sh1.rect)
+
+    pygame.draw.line(screen, (255, 0, 255), (1537, 481), (1919, 782), 1)
+
+    pygame.display.flip()
+    
 
 if __name__ == '__main__':
     pygame.init()
+
     running = True
     x, y = 0, 0
     pygame.display.set_caption("Локация 1")
     infoObject = pygame.display.Info()
+    width, height = 1920, 1080
     screen = pygame.display.set_mode((infoObject.current_w, infoObject.current_h))
     screen.fill((0, 0, 0))
     
@@ -82,10 +94,17 @@ if __name__ == '__main__':
     bottom_sprites = pygame.sprite.Group()
     right_sprites = pygame.sprite.Group()
     left_sprites = pygame.sprite.Group()
+
+    other_sprites = pygame.sprite.Group()
     
     left_sprites.add(Stop('SPRITE\location_1c0.png', (-50, 0), 'l'))
     top_sprites.add(Stop('SPRITE\location_1c1.png', (0, 50), 't'))
     bottom_sprites.add(Stop('SPRITE\location_1c2.png', (0, infoObject.current_h // 3 * 2 + 60), 'b'))
+
+    image_background = pygame.image.load("location_4\esult_sprite\map.png")
+    image_1 = pygame.image.load("location_4\esult_sprite\house.png")
+    image_2 = pygame.image.load("location_4\esult_sprite\other.png")
+
 
     music = pygame.mixer.Sound('MUSIC\DOUBLE\location_1.mp3')
     
@@ -108,6 +127,7 @@ if __name__ == '__main__':
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
             gg.right()
@@ -117,17 +137,82 @@ if __name__ == '__main__':
             gg.top()
         if key[pygame.K_s]:
             gg.botton()
-        
-        if gg.rect.x >= 1918 or gg.rect.y >= 483:
-            if gg.rect.x <= 1919 or gg.rect.y <= 782:
-                location_2_exmp.main()
-        screen.blit(img, (x, y))
-        screen.blit(gg.image, gg.rect)
-        screen.blit(sh1.image, sh1.rect)
-
-        music.set_volume(0.2)
-        music.play(-1)
-        pygame.display.flip()
+        local_1()
         clock.tick(60)
     pygame.quit()
-    # (1918, 483), (1919, 782)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bottom_sprites = pygame.sprite.Group()
+top_sprites = pygame.sprite.Group()
+bottom_sprites.add(Stop("location_4\esult_sprite\house_2.png", (0, 0)))
+top_sprites.add(Stop("location_4\esult_sprite\ground_bottom.png", (0, 716)))
+
+def start():
+    if __name__ == '__main__':
+        pygame.init()
+        pygame.display.set_caption("Phantom")
+        sc1 = pygame.Surface((1920, 1080))
+        sc1.blit(image_background, (0, 0))
+        sc1.blit(image_2, (0, 0))
+        sc1.blit(image_1, (0, 0))
+
+        music = pygame.mixer.Sound('MUSIC\DOUBLE\location_2.mp3')
+
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                elif event.type == pygame.MOUSEMOTION:
+                    print(event.pos)
+            key = pygame.key.get_pressed()
+            if key[pygame.K_d]:
+                gg.right()
+            if key[pygame.K_a]:
+                gg.left()
+            if key[pygame.K_w]:
+                gg.top()
+            if key[pygame.K_s]:
+                gg.botton()
+            
+            screen.blit(sc1, (0, 0))
+            screen.blit(gg.image, gg.rect)
+
+            music.set_volume(0.2)
+            music.play(-1)
+
+            pygame.display.flip()
+            clock.tick(60)
+    pygame.quit()
+#location_2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
