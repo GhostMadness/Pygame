@@ -83,9 +83,9 @@ if __name__ == '__main__':
     right_sprites = pygame.sprite.Group()
     left_sprites = pygame.sprite.Group()
     
-    left_sprites.add(Stop('SPRITE\location_1c0.png', (-70, 0), 'l'))
-    top_sprites.add(Stop('SPRITE\location_1c1.png', (0, -40), 't'))
-    bottom_sprites.add(Stop('SPRITE\location_1c2.png', (0, infoObject.current_h // 3 * 2 - 50), 'b'))
+    left_sprites.add(Stop('SPRITE\location_1c0.png', (-50, 0), 'l'))
+    top_sprites.add(Stop('SPRITE\location_1c1.png', (0, 50), 't'))
+    bottom_sprites.add(Stop('SPRITE\location_1c2.png', (0, infoObject.current_h // 3 * 2 + 60), 'b'))
     
     gg = Heroy()
     
@@ -93,10 +93,9 @@ if __name__ == '__main__':
     
     clock = pygame.time.Clock()
 
-    img = pygame.transform.scale(pygame.image.load("SPRITE\location_1.png").convert_alpha(), (2048, 1024))
+    img = pygame.transform.scale(pygame.image.load("location_1\location_1.png").convert_alpha(), (2048, 1024))
     
     sc1 = pygame.Surface((2048, 1024))
-    # sc1 = pygame.transform.rotozoom(sc1, 0, 1)
     
     top_sprites.draw(screen)
     bottom_sprites.draw(screen)
