@@ -66,10 +66,12 @@ class Shiza(pygame.sprite.Sprite):
         
     def update(self):
         pass
+
 class Lind(pygame.sprite.Sprite):
     def __init__(self):
-        super().__init__()
+        pygame.sprite.Sprite.__init__(self)
         self.image = pygame.draw.line(screen, (255, 0, 255), (1537, 481), (1919, 782), 1)
+        self.rect = 1
 
 def local_1():
     music.set_volume(0.2)
@@ -77,7 +79,8 @@ def local_1():
     screen.blit(img, (x, y))
     screen.blit(gg.image, gg.rect)
     screen.blit(sh1.image, sh1.rect)
-    other_sprites(Lind)
+    line = Lind()
+    other_sprites(line)
     if pygame.sprite.spritecollide(gg, other_sprites):
         start()
     pygame.display.flip()
