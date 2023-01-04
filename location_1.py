@@ -86,6 +86,10 @@ if __name__ == '__main__':
     left_sprites.add(Stop('SPRITE\location_1c0.png', (-50, 0), 'l'))
     top_sprites.add(Stop('SPRITE\location_1c1.png', (0, 50), 't'))
     bottom_sprites.add(Stop('SPRITE\location_1c2.png', (0, infoObject.current_h // 3 * 2 + 60), 'b'))
+
+    music = pygame.mixer.Sound('MUSIC\DOUBLE\location_1.mp3')
+    music.set_volume(0.05)
+    music.play(-1)
     
     gg = Heroy()
     
