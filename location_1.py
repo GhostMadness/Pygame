@@ -1,5 +1,17 @@
 import pygame
-from location_2 import stra
+
+class Camera:
+    def __init__(self):
+        self.dx = 0
+        self.dy = 0
+
+    def apply(self, obj):
+        obj.rect.x += self.dx
+        obj.rect.y += self.dy
+    
+    def update(self, target):
+        self.dx = -(target.rect.x + target.rect.w // 2 - width // 2)
+        self.dy = -(target.rect.y + target.rect.h // 2 - height // 2)
 
 class Heroy(pygame.sprite.Sprite):
     def __init__(self):
@@ -32,13 +44,13 @@ class Heroy(pygame.sprite.Sprite):
         global x
         self.image = pygame.image.load('SPRITE\гг_2.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (100, 100))
-        x -= 10
+        self.rect.x -= 10
     
     def left(self):
         global x
         self.image = pygame.image.load('SPRITE\гг_1.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (100, 100))
-        x += 10
+        self.rect.x += 10
 
 
 class Stop(pygame.sprite.Sprite):
@@ -69,15 +81,12 @@ class Shiza(pygame.sprite.Sprite):
 def local_1():
     music.set_volume(0.2)
     music.play(-1)
-
     screen.blit(img, (x, y))
     screen.blit(gg.image, gg.rect)
     screen.blit(sh1.image, sh1.rect)
-
     pygame.draw.line(screen, (255, 0, 255), (1537, 481), (1919, 782), 1)
-
     pygame.display.flip()
-    
+
 
 if __name__ == '__main__':
     pygame.init()
@@ -96,6 +105,8 @@ if __name__ == '__main__':
     left_sprites = pygame.sprite.Group()
 
     other_sprites = pygame.sprite.Group()
+
+    camera = Camera()
     
     left_sprites.add(Stop('SPRITE\location_1c0.png', (-50, 0), 'l'))
     top_sprites.add(Stop('SPRITE\location_1c1.png', (0, 50), 't'))
@@ -104,7 +115,6 @@ if __name__ == '__main__':
     image_background = pygame.image.load("location_4\esult_sprite\map.png")
     image_1 = pygame.image.load("location_4\esult_sprite\house.png")
     image_2 = pygame.image.load("location_4\esult_sprite\other.png")
-
 
     music = pygame.mixer.Sound('MUSIC\DOUBLE\location_1.mp3')
     
@@ -123,6 +133,18 @@ if __name__ == '__main__':
     right_sprites.draw(screen)
     left_sprites.draw(screen)
 
+    all_sprites = pygame.sprite.Group()
+    all_sprites.add(image_background)
+    all_sprites.add(image_1)
+    all_sprites.add(image_2)
+    all_sprites.add(img)
+    all_sprites.add(top_sprites)
+    all_sprites.add(bottom_sprites)
+    all_sprites.add(right_sprites)
+    all_sprites.add(left_sprites)
+
+    
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -138,6 +160,12 @@ if __name__ == '__main__':
         if key[pygame.K_s]:
             gg.botton()
         local_1()
+        # изменяем ракурс камеры
+        camera.update(gg); 
+        # обновляем положение всех спрайтов
+        for sprite in all_sprites:
+            camera.apply(sprite)
+
         clock.tick(60)
     pygame.quit()
 
