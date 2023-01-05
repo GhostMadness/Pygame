@@ -74,6 +74,8 @@ if __name__ == '__main__':
     bottom_sprite.add(Stop("location_house\sprite_collide\ottom_grass.png", (0, 265)))
     right_sprite.add(Stop("location_house\sprite_collide\ght_grass.png", (830, 0)))
 
+    music = pygame.mixer.Sound('MUSIC\FIRST\LOCATION_3_1.mp3')
+
     clock = pygame.time.Clock()
 
     gg = Heroy()
@@ -96,6 +98,10 @@ if __name__ == '__main__':
             gg.botton()
         screen.blit(sc1, (0, 0))
         screen.blit(gg.image, gg.rect)
+
+        music.set_volume(0.2)
+        music.play(-1)
+                
         pygame.display.flip()
         clock.tick(60)
 pygame.quit()
