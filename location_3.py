@@ -23,20 +23,20 @@ class Heroy(pygame.sprite.Sprite):
         self.image= pygame.image.load('SPRITE\гг.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
         if not pygame.sprite.spritecollideany(self, bottom_sprite):
-            self.rect.y -= 6
+            self.rect.y -= 5
     
     def botton(self):
         global y
         self.image= pygame.image.load('SPRITE\гг.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        self.rect.y += 6
+        self.rect.y += 5
 
     
     def right(self):
         global x
         self.image = pygame.image.load('SPRITE\гг_2.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        self.rect.x += 6
+        self.rect.x += 5
 
     
     def left(self):
@@ -44,7 +44,7 @@ class Heroy(pygame.sprite.Sprite):
         self.image = pygame.image.load('SPRITE\гг_1.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
         if not pygame.sprite.spritecollideany(self, right_sprite):
-            self.rect.x -= 6
+            self.rect.x -= 5
 
 class Stop(pygame.sprite.Sprite):
     def __init__(self, filename, coord):

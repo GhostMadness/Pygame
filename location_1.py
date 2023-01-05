@@ -7,8 +7,8 @@ class Heroy(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
-        self.rect.bottom = infoObject.current_h // 2
-        self.rect.right = infoObject.current_w // 2
+        self.rect.bottom = 600
+        self.rect.right = 400
     
     def update(self):
         pass
@@ -18,28 +18,28 @@ class Heroy(pygame.sprite.Sprite):
         self.image= pygame.image.load('SPRITE\гг.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (100, 100))
         if not pygame.sprite.spritecollideany(self, top_sprites):
-            self.rect.y -= 10
+            self.rect.y -= 5
     
     def botton(self):
         global y
         self.image= pygame.image.load('SPRITE\гг.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (100, 100))
         if not pygame.sprite.spritecollideany(self, bottom_sprites):
-            self.rect.y += 10
+            self.rect.y += 5
     
     def right(self):
         global x
         self.image = pygame.image.load('SPRITE\гг_2.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (100, 100))
         if not pygame.sprite.spritecollideany(self, right_sprites):
-            self.rect.x += 10
+            self.rect.x += 5
     
     def left(self):
         global x
         self.image = pygame.image.load('SPRITE\гг_1.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (100, 100))
         if not pygame.sprite.spritecollideany(self, left_sprites):
-            self.rect.x -= 10
+            self.rect.x -= 5
 
 
 class Stop(pygame.sprite.Sprite):
@@ -94,7 +94,7 @@ if __name__ == '__main__':
     
     left_sprites.add(Stop('SPRITE\location_1c0.png', (-50, 0), 'l'))
     top_sprites.add(Stop('SPRITE\location_1c1.png', (0, 50), 't'))
-    bottom_sprites.add(Stop('SPRITE\location_1c2.png', (0, infoObject.current_h // 3 * 2 + 60), 'b'))
+    bottom_sprites.add(Stop('SPRITE\location_1c2.png', (0, infoObject.current_h // 3 * 2 + 70), 'b'))
 
     image_background = pygame.image.load("location_4\esult_sprite\map.png")
     image_1 = pygame.image.load("location_4\esult_sprite\house.png")
@@ -121,6 +121,8 @@ if __name__ == '__main__':
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            elif event.type == pygame.MOUSEMOTION:
+                print(event.pos)
 
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
