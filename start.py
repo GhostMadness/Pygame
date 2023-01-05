@@ -105,15 +105,12 @@ def hp(number):
     text = font.render(f"{number} HP", True, (200, 255, 100))
     text_x = 1130 + 20
     text_y = 780 - text.get_height()
-    screen.fill((0, 0, 0), (text_x, text_y, text.get_width(), text.get_height()))
-    screen.fill((0, 0, 0), pygame.Rect(text_x, text_y, text.get_width() + 10, text.get_height()))
+    screen.fill((0, 0, 0), pygame.Rect(text_x, text_y, text.get_width() + 100, text.get_height()))
     screen.blit(text, (text_x, text_y))
 
 
-class Ataka:
-    def __init__(self):
-        pass
-
+def fight():
+    pass
 
 class Deistvie:
     def __init__(self):
@@ -318,7 +315,6 @@ if __name__ == '__main__':
     clock = pygame.time.Clock()
     
     running = True
-    flag = True
     q = 0
     flag = True
     
