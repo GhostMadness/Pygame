@@ -109,10 +109,8 @@ def hp(number):
     screen.blit(text, (text_x, text_y))
 
 
-class Ataka:
-    def __init__(self):
-        pass
-
+def fight():
+    pass
 
 class Deistvie:
     def __init__(self):
