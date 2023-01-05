@@ -1,4 +1,5 @@
 import pygame
+import location_2
 
 class Heroy(pygame.sprite.Sprite):
     def __init__(self):
@@ -67,6 +68,14 @@ class Shiza(pygame.sprite.Sprite):
     def update(self):
         pass
 
+class ExIt(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.vixod = pygame.image.load("SPRITE\VIXOD_LOC.png")
+        self.rect = self.vixod.get_rect()
+        self.rect.x = 1896
+        self.rect.y = 589
+
 def local_1():
     music.set_volume(0.2)
     music.play(-1)
@@ -117,6 +126,9 @@ if __name__ == '__main__':
     right_sprites.draw(screen)
     left_sprites.draw(screen)
 
+    other_sprites = pygame.sprite.Group()
+    other_sprites.add(ExIt)
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -134,5 +146,7 @@ if __name__ == '__main__':
         if key[pygame.K_s]:
             gg.botton()
         local_1()
+        if pygame.sprite.spritecollideany(gg, other_sprites):
+            location_2.start_location_2()
         clock.tick(60)
     pygame.quit()
