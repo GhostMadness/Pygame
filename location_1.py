@@ -80,8 +80,8 @@ def local_1():
     screen.blit(gg.image, gg.rect)
     screen.blit(sh1.image, sh1.rect)
     line = Lind()
-    other_sprites(line)
-    if pygame.sprite.spritecollide(gg, other_sprites):
+    other_sprites.add(line)
+    if pygame.sprite.spritecollideany(gg, other_sprites):
         start()
     pygame.display.flip()
 

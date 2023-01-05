@@ -142,19 +142,35 @@ def war_1():
     cell = Cell('SPRITE\для update-export.png', 400, 750)
     War('SPRITE\war_1.png')
     w += 1
+    screen.blit(cell.image, cell.rect)
 
 
 def war_2():
-    Cell('SPRITE\для update-export.png', 400, 750)
+    global cell
+    cell = Cell('SPRITE\для update-export.png', 400, 750)
     War('SPRITE\war_2.png')
+    screen.blit(cell.image, cell.rect)
 
 
 def dialog_1():
     global cell
     cell = Cell('SPRITE\для диалога.png', 400, 600)
+    font = pygame.font.Font(None, 50)
+    text = font.render("Призрак не выражает эмоций", True, (100, 150, 100))
+    text_x = cell.rect.x + 10
+    text_y = cell.rect.y + 10
+    screen.blit(cell.image, cell.rect)
+    screen.blit(text, (text_x, text_y))
 
 def dialog_2():
-    pass
+    global cell
+    cell = Cell('SPRITE\для диалога.png', 400, 600)
+    font = pygame.font.Font(None, 50)
+    text = font.render("Призрак о чём-то думает", True, (100, 150, 100))
+    text_x = cell.rect.x + 10
+    text_y = cell.rect.y + 10
+    screen.blit(cell.image, cell.rect)
+    screen.blit(text, (text_x, text_y))
 
 def dialog_3():
     pass
@@ -187,7 +203,6 @@ def one():
                 heart.top()
             elif keys[pygame.K_s]:
                 heart.bottom()
-            screen.blit(cell.image, cell.rect)
             all_wars.draw(screen)
             all_wars.update()
             screen.blit(heart.image, heart.rect)
@@ -195,10 +210,13 @@ def one():
             q += 1
             if w == 0:
                 s = 0
-            elif w <= 100 and flag:
+            elif w < 100 and flag:
                 heart = Heart()
                 s = 1
                 flag = False
+            elif w == 100:
+                heart.kill()
+                s = 2
             elif w > 100 and not flag:
                 heart = Heart()
                 s = 3
@@ -208,13 +226,11 @@ def one():
             running = False
         hp(number)
     except:
-        print(10)
         if w == 0:
             wars[file_wars[0].rstrip()]()
         elif w <= 100:
             heart = Heart()
             wars[file_wars[1].rstrip()]()
-        screen.blit(cell.image, cell.rect)
         all_wars.draw(screen)
         all_wars.update()
         pygame.display.flip()
@@ -297,8 +313,7 @@ if __name__ == '__main__':
                     print(4)
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    w = 1
+                    w += 1
         one()
-        screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, cell.rect.bottom - cell.rect.y))
-        print(cell.rect.right, cell.rect.bottom)
+        screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, cell.rect.bottom - cell.rect.y + 10))
     pygame.quit()
