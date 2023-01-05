@@ -139,17 +139,20 @@ class Cell(pygame.sprite.Sprite):
 def war_1():
     global w
     global cell
-    cell = Cell('SPRITE\для update-export.png', 400, 750)
+    if cell != Cell('SPRITE\для update-export.png', 400, 750):
+        cell = Cell('SPRITE\для update-export.png', 400, 750)
+        screen.blit(cell.image, cell.rect)
     War('SPRITE\war_1.png')
     w += 1
-    screen.blit(cell.image, cell.rect)
 
 
 def war_2():
     global cell
-    cell = Cell('SPRITE\для update-export.png', 400, 750)
+    if cell != Cell('SPRITE\для update-export.png', 400, 750):
+        cell = Cell('SPRITE\для update-export.png', 400, 750)
+        screen.blit(cell.image, cell.rect)
     War('SPRITE\war_2.png')
-    screen.blit(cell.image, cell.rect)
+    w += 1
 
 
 def dialog_1():
@@ -162,6 +165,7 @@ def dialog_1():
     screen.blit(cell.image, cell.rect)
     screen.blit(text, (text_x, text_y))
 
+
 def dialog_2():
     global cell
     cell = Cell('SPRITE\для диалога.png', 400, 600)
@@ -173,7 +177,14 @@ def dialog_2():
     screen.blit(text, (text_x, text_y))
 
 def dialog_3():
-    pass
+    global cell
+    cell = Cell('SPRITE\для диалога.png', 400, 600)
+    font = pygame.font.Font(None, 50)
+    text = font.render("Призрак не понимает, что он тут делает", True, (100, 150, 100))
+    text_x = cell.rect.x + 10
+    text_y = cell.rect.y + 10
+    screen.blit(cell.image, cell.rect)
+    screen.blit(text, (text_x, text_y))
 
 def war_3():
     pass
@@ -221,6 +232,9 @@ def one():
                 heart = Heart()
                 s = 3
                 flag = True
+            elif w == 200:
+                heart.kill()
+                s = 4
         else:
             heart.update()
             running = False
@@ -315,5 +329,5 @@ if __name__ == '__main__':
                 if event.key == pygame.K_RETURN:
                     w += 1
         one()
-        screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, cell.rect.bottom - cell.rect.y + 10))
+        screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x + 5, 780 - cell.rect.y))
     pygame.quit()
