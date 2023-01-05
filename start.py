@@ -105,6 +105,7 @@ def hp(number):
     text = font.render(f"{number} HP", True, (200, 255, 100))
     text_x = 1130 + 20
     text_y = 780 - text.get_height()
+    screen.fill((0, 0, 0), (text_x, text_y, text.get_width(), text.get_height()))
     screen.fill((0, 0, 0), pygame.Rect(text_x, text_y, text.get_width() + 10, text.get_height()))
     screen.blit(text, (text_x, text_y))
 
@@ -145,15 +146,12 @@ class Cell(pygame.sprite.Sprite):
 
 def war_1():
     global w
-    global cell
-    cell = Cell('SPRITE\для update-export.png', 400, 750)
     War('SPRITE\war_1.png')
     w += 1
 
 
 def war_2():
-    global cell
-    cell = Cell('SPRITE\для update-export.png', 400, 750)
+    global w
     War('SPRITE\war_2.png')
     w += 1
 
@@ -171,7 +169,6 @@ def dialog_1():
 
 def dialog_2():
     global cell
-    cell = Cell('SPRITE\для диалога.png', 400, 600)
     font = pygame.font.Font(None, 50)
     text = font.render("Призрак о чём-то думает", True, (100, 150, 100))
     text_x = cell.rect.x + 10
@@ -181,7 +178,6 @@ def dialog_2():
 
 def dialog_3():
     global cell
-    cell = Cell('SPRITE\для диалога.png', 400, 600)
     font = pygame.font.Font(None, 50)
     text = font.render("Призрак не понимает, что он тут делает", True, (100, 150, 100))
     text_x = cell.rect.x + 10
@@ -205,44 +201,62 @@ def one():
     global heart
     global flag
     global b
-    if q % 20 == 0:
-        wars[file_wars[s].rstrip()]()
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_d]:
-        heart.right()
-    elif keys[pygame.K_a]:
-        heart.left()
-    elif keys[pygame.K_w]:
-        heart.top()
-    elif keys[pygame.K_s]:
-        heart.bottom()
-    q += 1
-    if b == 1:
-        screen.blit(cell.image, cell.rect)
-    all_wars.draw(screen)
-    all_wars.update()
-    if heart:
+    global cell
+    if not heart.update_yes():
+        if q % 20 == 0:
+            wars[file_wars[s].rstrip()]()
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_d]:
+            heart.right()
+        elif keys[pygame.K_a]:
+            heart.left()
+        elif keys[pygame.K_w]:
+            heart.top()
+        elif keys[pygame.K_s]:
+            heart.bottom()
+        q += 1
+        if b == 1:
+            screen.blit(cell.image, cell.rect)
+        all_wars.draw(screen)
+        all_wars.update()
         screen.blit(heart.image, heart.rect)
-    pygame.display.flip()
-    if w == 0:
-        s = 0
-    elif w < 100 and flag:
-        screen.fill((0, 0, 0), cell.rect)
-        heart.live()
-        s = 1
-        flag = False
-        b = 1
-    elif w == 100:
-        heart.death()
-        s = 2
-        b = 0
-    # elif w > 100 and not flag:
-    #     heart = Heart()
-    #     s = 3
-    #     flag = True
-    # elif w == 200:
-    #     heart.kill()
-    #     s = 4
+        pygame.display.flip()
+        if w == 0:
+            s = 0
+        elif w < 100 and flag:
+            screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, cell.rect.bottom - cell.rect.y))
+            cell = Cell('SPRITE\для update-export.png', 400, 750)
+            heart.rect.center = cell.rect.center
+            heart.live()
+            s = 1
+            flag = False
+            b = 1
+        elif w == 100 and not flag:
+            screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, cell.rect.bottom - cell.rect.y))
+            cell = Cell('SPRITE\для диалога.png', 400, 600)
+            heart.death()
+            s = 2
+            b = 0
+            flag = True
+        elif 100 < w < 200 and flag:
+            screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, cell.rect.bottom - cell.rect.y))
+            cell = Cell('SPRITE\для update-export.png', 400, 750)
+            heart.rect.center = cell.rect.center
+            heart.live()
+            s = 3
+            b = 1
+            flag = False
+        elif w == 200 and not flag:
+            screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, cell.rect.bottom - cell.rect.y))
+            cell = Cell('SPRITE\для диалога.png', 400, 600)
+            heart.death()
+            s = 4
+            b = 0
+            flag = True
+        hp(number)
+    else:
+        heart.update()
+        running = False
 
 
 if __name__ == '__main__':
@@ -308,9 +322,12 @@ if __name__ == '__main__':
     q = 0
     flag = True
     
+    hp(number)
+    
     dialog_1()
     
     heart = Heart()
+    heart.death()
     
     while running:
         for event in pygame.event.get():
