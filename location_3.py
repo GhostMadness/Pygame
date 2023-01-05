@@ -8,8 +8,8 @@ class Heroy(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
-        self.rect.bottom = infoObject.current_h // 2
-        self.rect.right = infoObject.current_w // 2
+        self.rect.bottom = 570
+        self.rect.right = 100
 
         self.image_grass_bottom = pygame.image.load("location_house\sprite_collide\ottom_grass.png")
         self.image_grass_right = pygame.image.load("location_house\sprite_collide\ght_grass.png")
