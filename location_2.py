@@ -11,8 +11,8 @@ class Heroy(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
-        self.rect.bottom = infoObject.current_h // 2
-        self.rect.right = infoObject.current_w // 2
+        self.rect.bottom = 600
+        self.rect.right = 100
         
     
     def update(self):
@@ -23,28 +23,28 @@ class Heroy(pygame.sprite.Sprite):
         self.image= pygame.image.load('SPRITE\гг.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
         if not pygame.sprite.spritecollideany(self, bottom_sprites):
-            self.rect.y -= 6
+            self.rect.y -= 5
     
     def botton(self):
         global y
         self.image= pygame.image.load('SPRITE\гг.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
         if not pygame.sprite.spritecollideany(self, top_sprites):
-            self.rect.y += 6
+            self.rect.y += 5
 
     
     def right(self):
         global x
         self.image = pygame.image.load('SPRITE\гг_2.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        self.rect.x += 6
+        self.rect.x += 5
 
     
     def left(self):
         global x
         self.image = pygame.image.load('SPRITE\гг_1.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        self.rect.x -= 6
+        self.rect.x -= 5
 
 class Stop(pygame.sprite.Sprite):
     def __init__(self, filename, coord):
@@ -63,7 +63,7 @@ if __name__ == '__main__':
     pygame.init()
     pygame.display.set_caption("Phantom")
     size = width, height = 1920, 1080
-    screen = pygame.display.set_mode(size)
+    screen_local_2 = pygame.display.set_mode(size)
     image_background = pygame.image.load("location_4\esult_sprite\map.png")
     image_1 = pygame.image.load("location_4\esult_sprite\house.png")
     image_2 = pygame.image.load("location_4\esult_sprite\other.png")
@@ -94,8 +94,8 @@ if __name__ == '__main__':
             gg.top()
         if key[pygame.K_s]:
             gg.botton()
-        screen.blit(sc1, (0, 0))
-        screen.blit(gg.image, gg.rect)
+        screen_local_2.blit(sc1, (0, 0))
+        screen_local_2.blit(gg.image, gg.rect)
 
         music.set_volume(0.2)
         music.play(-1)

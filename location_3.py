@@ -8,8 +8,8 @@ class Heroy(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
-        self.rect.bottom = infoObject.current_h // 2
-        self.rect.right = infoObject.current_w // 2
+        self.rect.bottom = 570
+        self.rect.right = 100
 
         self.image_grass_bottom = pygame.image.load("location_house\sprite_collide\ottom_grass.png")
         self.image_grass_right = pygame.image.load("location_house\sprite_collide\ght_grass.png")
@@ -23,20 +23,20 @@ class Heroy(pygame.sprite.Sprite):
         self.image= pygame.image.load('SPRITE\гг.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
         if not pygame.sprite.spritecollideany(self, bottom_sprite):
-            self.rect.y -= 6
+            self.rect.y -= 5
     
     def botton(self):
         global y
         self.image= pygame.image.load('SPRITE\гг.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        self.rect.y += 6
+        self.rect.y += 5
 
     
     def right(self):
         global x
         self.image = pygame.image.load('SPRITE\гг_2.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        self.rect.x += 6
+        self.rect.x += 5
 
     
     def left(self):
@@ -44,7 +44,7 @@ class Heroy(pygame.sprite.Sprite):
         self.image = pygame.image.load('SPRITE\гг_1.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
         if not pygame.sprite.spritecollideany(self, right_sprite):
-            self.rect.x -= 6
+            self.rect.x -= 5
 
 class Stop(pygame.sprite.Sprite):
     def __init__(self, filename, coord):
@@ -74,6 +74,8 @@ if __name__ == '__main__':
     bottom_sprite.add(Stop("location_house\sprite_collide\ottom_grass.png", (0, 265)))
     right_sprite.add(Stop("location_house\sprite_collide\ght_grass.png", (830, 0)))
 
+    music = pygame.mixer.Sound('MUSIC\FIRST\LOCATION_3_1.mp3')
+
     clock = pygame.time.Clock()
 
     gg = Heroy()
@@ -96,6 +98,10 @@ if __name__ == '__main__':
             gg.botton()
         screen.blit(sc1, (0, 0))
         screen.blit(gg.image, gg.rect)
+
+        music.set_volume(0.2)
+        music.play(-1)
+                
         pygame.display.flip()
         clock.tick(60)
 pygame.quit()
