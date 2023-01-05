@@ -76,6 +76,14 @@ class ExIt(pygame.sprite.Sprite):
         self.rect.x = 1896
         self.rect.y = 589
 
+class Stop_local_2(pygame.sprite.Sprite):
+    def __init__(self, filename, coord):
+        super().__init__()
+        self.image = pygame.image.load(filename)
+        self.rect = self.image.get_rect()
+        self.rect.x = coord[0]
+        self.rect.y = coord[1]
+
 def local_1():
     music.set_volume(0.2)
     music.play(-1)
@@ -127,7 +135,7 @@ if __name__ == '__main__':
     left_sprites.draw(screen)
 
     other_sprites = pygame.sprite.Group()
-    other_sprites.add(ExIt)
+    other_sprites.add(Stop_local_2("SPRITE\VIXOD_LOC.png", (1896, 590), ))
 
     while running:
         for event in pygame.event.get():
