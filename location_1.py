@@ -353,10 +353,15 @@ class Location_2():
             image_background = pygame.image.load("location_4\esult_sprite\map.png")
             image_1 = pygame.image.load("location_4\esult_sprite\house.png")
             image_2 = pygame.image.load("location_4\esult_sprite\other.png")
+
+            image_npc_1 = pygame.image.load("SPRITE\pNPC\selski_men.png")
+            image_npc_1_scale = pygame.transform.scale(image_npc_1, (100, 100))
+
             sc1 = pygame.Surface((1920, 1080))
             sc1.blit(image_background, (0, 0))
             sc1.blit(image_2, (0, 0))
             sc1.blit(image_1, (0, 0))
+            sc1.blit(image_npc_1_scale, (672, 420))
 
             music_2 = pygame.mixer.Sound('MUSIC\DOUBLE\location_2.mp3')
 
