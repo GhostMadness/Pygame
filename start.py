@@ -62,31 +62,31 @@ class Heart(pygame.sprite.Sprite):
             screen.blit(cell.image, cell.rect)
             screen.blit(self.image, self.rect)
             pygame.display.flip()
-            time.sleep(1)
+            time.sleep(0.5)
             self.image = pygame.image.load('SPRITE\сердце_2-export.png')
             self.rect.center = cell.rect.center
             screen.blit(cell.image, cell.rect)
             screen.blit(self.image, self.rect)
             pygame.display.flip()
-            time.sleep(1)
+            time.sleep(0.5)
             self.image = pygame.image.load('SPRITE\сердце_3-export.png')
             self.rect.center = cell.rect.center
             screen.blit(cell.image, cell.rect)
             screen.blit(self.image, self.rect)
             pygame.display.flip()
-            time.sleep(1)
+            time.sleep(0.5)
             self.image = pygame.image.load('SPRITE\сердце_4-export.png')
             self.rect.center = cell.rect.center
             screen.blit(cell.image, cell.rect)
             screen.blit(self.image, self.rect)
             pygame.display.flip()
-            time.sleep(1)
+            time.sleep(0.5)
             self.image = pygame.image.load('SPRITE\сердце_5-export.png')
             self.rect.center = cell.rect.center
             screen.blit(cell.image, cell.rect)
             screen.blit(self.image, self.rect)
             pygame.display.flip()
-            time.sleep(1)
+            time.sleep(0.5)
             music.stop()
     
     def update_yes(self):
@@ -252,8 +252,11 @@ def one():
             flag = True
         hp(number)
     else:
+        ARGH = pygame.mixer.Sound('MUSIC\FIRST\ARGH.mp3')
+        ARGH.play()
         heart.update()
         running = False
+        ARGH.stop()
 
 
 if __name__ == '__main__':
@@ -265,6 +268,10 @@ if __name__ == '__main__':
     screen.fill((0, 0, 0))
     
     image1 = pygame.image.load('SPRITE\Hide_1.png')
+    music_fight = pygame.mixer.Sound('MUSIC\DOUBLE\IGHT_BOSS.mp3')
+
+    music_fight.play()
+    music_fight.set_volume(0.20)
     
     s = 0
     b = 0
