@@ -74,12 +74,16 @@ class Location_4():
             image_4 = pygame.image.load("location_5_men\RESULT\oxes.png")
             image_5 = pygame.image.load("location_5_men\RESULT\object.png")
 
+            image_npc_men = pygame.image.load("SPRITE\pNPC\Sprite-0001.png")
+            image_npc_men_scale = pygame.transform.scale(image_npc_men, (100, 100))
+
             sc1 = pygame.Surface((1920, 1080))
             sc1.blit(image_background, (0, 0))
             sc1.blit(image_1, (0, 0))
             sc1.blit(image_3, (0, 0))
             sc1.blit(image_4, (0, 0))
             sc1.blit(image_5, (0, 0))
+            sc1.blit(image_npc_men_scale, (200, 50))
 
             bottom_sprite = pygame.sprite.Group()
             right_sprite = pygame.sprite.Group()
