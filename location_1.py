@@ -226,7 +226,7 @@ class Location_3():
             right_sprite.add(Stop("location_house\sprite_collide\ght_grass.png", (830, 0)))
 
             music_3 = pygame.mixer.Sound('MUSIC\FIRST\LOCATION_3_1.mp3')
-            music_3.set_volume(0.2)
+            music_3.set_volume(0.1)
             music_3.play(-1)
 
             clock = pygame.time.Clock()
