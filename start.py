@@ -13,14 +13,17 @@ class War(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
     
     def update(self):
-        global number
+        global number, ARGH
         self.rect = self.rect.move(random.randrange(-5, 5), 1)
         if self.rect.centery >= cell.rect.bottom - 5 or self.rect.centerx >= cell.rect.right - 5 or self.rect.centerx <= cell.rect.left + 5:
             self.kill()
         if pygame.sprite.collide_mask(self, heart):
+            pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
+            pygame.mixer.music.set_volume(0.2)
             number -= 1
-            hp(number) 
+            hp(number)
             self.kill()
+            pygame.mixer.music.play(0)
 
 
 class Heart(pygame.sprite.Sprite):
@@ -54,6 +57,7 @@ class Heart(pygame.sprite.Sprite):
             music = pygame.mixer.Sound('MUSIC\DOUBLE\DEATH.mp3')
             music.set_volume(0.2)
             music.play(-1)
+            music_fight.stop()
             self.image = pygame.image.load('SPRITE\сердце-export.png')
             self.rect = self.image.get_rect()
             self.rect.center = cell.rect.center
@@ -252,11 +256,8 @@ def one():
             flag = True
         hp(number)
     else:
-        ARGH = pygame.mixer.Sound('MUSIC\FIRST\ARGH.mp3')
-        ARGH.play()
         heart.update()
         running = False
-        ARGH.stop()
 
 
 if __name__ == '__main__':
