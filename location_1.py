@@ -96,6 +96,8 @@ class Location_4():
             top_sprites.add(Stop("location_5_men\RESULT\object_collide.png", (895, 0)))
 
             music_4 = pygame.mixer.Sound('MUSIC\FIRST\HOME.mp3')
+            music_4.set_volume(0.2)
+            music_4.play(-1)
 
             clock = pygame.time.Clock()
 
@@ -122,9 +124,6 @@ class Location_4():
                     gg.botton()
                 screen.blit(sc1, (0, 0))
                 screen.blit(gg.image, gg.rect)
-
-                music_4.set_volume(0.2)
-                music_4.play(-1)
 
                 if pygame.sprite.spritecollideany(gg, other_sprites_exit):
                     music_4.stop()
@@ -227,6 +226,8 @@ class Location_3():
             right_sprite.add(Stop("location_house\sprite_collide\ght_grass.png", (830, 0)))
 
             music_3 = pygame.mixer.Sound('MUSIC\FIRST\LOCATION_3_1.mp3')
+            music_3.set_volume(0.2)
+            music_3.play(-1)
 
             clock = pygame.time.Clock()
 
@@ -256,9 +257,6 @@ class Location_3():
                     gg_3.botton()
                 screen_3.blit(sc1, (0, 0))
                 screen_3.blit(gg_3.image, gg_3.rect)
-
-                music_3.set_volume(0.2)
-                music_3.play(-1)
                 
                 if pygame.sprite.spritecollideany(gg_3, other_sprites_exit):
                     music_3.stop()
