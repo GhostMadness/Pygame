@@ -8,8 +8,8 @@ class Heroy(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
-        self.rect.bottom = 570
-        self.rect.right = 100
+        self.rect.bottom = 1100
+        self.rect.right = 990
 
         self.image_grass_bottom = pygame.image.load("location_house\sprite_collide\ottom_grass.png")
         self.image_grass_right = pygame.image.load("location_house\sprite_collide\ght_grass.png")
@@ -22,21 +22,22 @@ class Heroy(pygame.sprite.Sprite):
         global y
         self.image= pygame.image.load('SPRITE\гг.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        if not pygame.sprite.spritecollideany(self, bottom_sprite):
+        if not pygame.sprite.spritecollideany(self, bottom_sprite) and not pygame.sprite.spritecollideany(self, top_sprites):
             self.rect.y -= 5
     
     def botton(self):
         global y
         self.image= pygame.image.load('SPRITE\гг.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        self.rect.y += 5
+        if not pygame.sprite.spritecollideany(self, left_sprites):
+            self.rect.y += 5
 
     
     def right(self):
         global x
         self.image = pygame.image.load('SPRITE\гг_2.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        if not pygame.sprite.spritecollideany(self, right_sprite):
+        if not pygame.sprite.spritecollideany(self, right_sprite) and not pygame.sprite.spritecollideany(self, top_sprites):
             self.rect.x += 5
 
     
@@ -44,7 +45,8 @@ class Heroy(pygame.sprite.Sprite):
         global x
         self.image = pygame.image.load('SPRITE\гг_1.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        self.rect.x -= 5
+        if not pygame.sprite.spritecollideany(self, left_sprites) and not pygame.sprite.spritecollideany(self, top_sprites):
+            self.rect.x -= 5
 
 class Stop(pygame.sprite.Sprite):
     def __init__(self, filename, coord):
@@ -77,8 +79,14 @@ if __name__ == '__main__':
 
     bottom_sprite = pygame.sprite.Group()
     right_sprite = pygame.sprite.Group()
-    bottom_sprite.add(Stop("location_5_men\RESULT\iblioteka_bottom_collide.png", (1542, 266)))
-    right_sprite.add(Stop("location_5_men\RESULT\iblioteka_right_collide.png", (1542, 8)))
+    left_sprites = pygame.sprite.Group()
+    top_sprites = pygame.sprite.Group()
+    bottom_sprite.add(Stop("location_5_men\RESULT\iblioteka_bottom_collide.png", (1542, 220)))
+    right_sprite.add(Stop("location_5_men\RESULT\iblioteka_right_collide.png", (1570, 8)))
+    right_sprite.add(Stop("location_5_men\RESULT\iblioteka_other.png", (1670, 479)))
+    left_sprites.add(Stop("location_5_men\RESULT\oxes_collide.png", (0, 913)))
+    top_sprites.add(Stop("location_5_men\RESULT\object_collide.png", (895, 0)))
+    #object_collide
 
     music = pygame.mixer.Sound('MUSIC\FIRST\LOCATION_3_1.mp3')
 
