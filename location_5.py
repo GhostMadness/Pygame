@@ -29,8 +29,7 @@ class Heroy(pygame.sprite.Sprite):
         global y
         self.image= pygame.image.load('SPRITE\гг.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
-        if not pygame.sprite.spritecollideany(self, right_sprite):
-            self.rect.y += 5
+        self.rect.y += 5
 
     
     def right(self):
@@ -78,9 +77,8 @@ if __name__ == '__main__':
 
     bottom_sprite = pygame.sprite.Group()
     right_sprite = pygame.sprite.Group()
-    bottom_sprite.add(Stop("location_house\sprite_collide\ottom_grass.png", (0, 265)))
-    right_sprite.add(Stop("location_5_men\RESULT\iblioteka_sprite_collide.png", (1542, 8)))
-    #right_sprite.add(Stop("location_5_men\RESULT\iblioteka_sprite_collide_2.png", (1542, 8)))
+    bottom_sprite.add(Stop("location_5_men\RESULT\iblioteka_bottom_collide.png", (1542, 266)))
+    right_sprite.add(Stop("location_5_men\RESULT\iblioteka_right_collide.png", (1542, 8)))
 
     music = pygame.mixer.Sound('MUSIC\FIRST\LOCATION_3_1.mp3')
 
