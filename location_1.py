@@ -1,6 +1,7 @@
 import pygame
 import time
 from start import screen, start_fn
+from location_2 import start_dias
 
 class Heroy(pygame.sprite.Sprite):
         def __init__(self):
@@ -127,6 +128,10 @@ if __name__ == '__main__':
     other_sprite = pygame.sprite.Group()
     other_sprite.add(Stop_local_2("SPRITE\VIXOD_LOC.png", (1920 // 2, 1080 // 2)))
 
+    other_sprite_2 = pygame.sprite.Group()
+    other_sprite_2.add(Stop_local_2("SPRITE\VIXOD_LOC.png", (1916, 572)))
+
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -153,6 +158,10 @@ if __name__ == '__main__':
             start_fn(event)
             sdegfoin = False
             music.play(-1)
+        if pygame.sprite.spritecollideany(gg, other_sprite_2):
+            music.stop()
+            start_dias(screen)
+
         pygame.display.flip()
         clock.tick(60)
     pygame.quit()

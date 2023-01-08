@@ -56,49 +56,48 @@ top_sprites = pygame.sprite.Group()
 bottom_sprites.add(Stop("location_4\esult_sprite\house_2.png", (0, 0)))
 top_sprites.add(Stop("location_4\esult_sprite\ground_bottom.png", (0, 716)))
 
+def start_dias(screen):
+    if __name__ == '__main__':
+        pygame.init()
+        pygame.display.set_caption("Phantom")
+        size = width, height = 1920, 1080
+        screen_local_2 = pygame.display.set_mode(size)
+        image_background = pygame.image.load("location_4\esult_sprite\map.png")
+        image_1 = pygame.image.load("location_4\esult_sprite\house.png")
+        image_2 = pygame.image.load("location_4\esult_sprite\other.png")
+        sc1 = pygame.Surface((1920, 1080))
+        sc1.blit(image_background, (0, 0))
+        sc1.blit(image_2, (0, 0))
+        sc1.blit(image_1, (0, 0))
 
-if __name__ == '__main__':
-    pygame.init()
-    pygame.display.set_caption("Phantom")
-    size = width, height = 1920, 1080
-    screen_local_2 = pygame.display.set_mode(size)
-    image_background = pygame.image.load("location_4\esult_sprite\map.png")
-    image_1 = pygame.image.load("location_4\esult_sprite\house.png")
-    image_2 = pygame.image.load("location_4\esult_sprite\other.png")
-    sc1 = pygame.Surface((1920, 1080))
-    sc1.blit(image_background, (0, 0))
-    sc1.blit(image_2, (0, 0))
-    sc1.blit(image_1, (0, 0))
+        music = pygame.mixer.Sound('MUSIC\DOUBLE\location_2.mp3')
 
-    music = pygame.mixer.Sound('MUSIC\DOUBLE\location_2.mp3')
+        clock = pygame.time.Clock()
 
-    clock = pygame.time.Clock()
+        gg = Heroy()
 
-    gg = Heroy()
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                elif event.type == pygame.MOUSEMOTION:
+                    print(event.pos)
+            key = pygame.key.get_pressed()
+            if key[pygame.K_d]:
+                gg.right()
+            if key[pygame.K_a]:
+                gg.left()
+            if key[pygame.K_w]:
+                gg.top()
+            if key[pygame.K_s]:
+                gg.botton()
+            screen_local_2.blit(sc1, (0, 0))
+            screen_local_2.blit(gg.image, gg.rect)
 
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            elif event.type == pygame.MOUSEMOTION:
-                print(event.pos)
-        key = pygame.key.get_pressed()
-        if key[pygame.K_d]:
-            gg.right()
-        if key[pygame.K_a]:
-            gg.left()
-        if key[pygame.K_w]:
-            gg.top()
-        if key[pygame.K_s]:
-            gg.botton()
-        screen_local_2.blit(sc1, (0, 0))
-        screen_local_2.blit(gg.image, gg.rect)
+            music.set_volume(0.2)
+            music.play(-1)
 
-        music.set_volume(0.2)
-        music.play(-1)
-
-        pygame.display.flip()
-        clock.tick(60)
-pygame.quit()
-#location_2
+            pygame.display.flip()
+            clock.tick(60)
+    pygame.quit()
