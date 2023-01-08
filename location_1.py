@@ -273,14 +273,6 @@ if __name__ == '__main__':
             self.rect.x = coord[0]
             self.rect.y = coord[1]
 
-    def local_1():
-        music.set_volume(0.2)
-        music.play(-1)
-        screen.blit(img, (x, y))
-        screen.blit(gg.image, gg.rect)
-        screen.blit(sh1.image, sh1.rect)
-        pygame.display.flip()
-
 
     running = True
     x, y = 0, 0
@@ -338,6 +330,11 @@ if __name__ == '__main__':
             gg.top()
         if key[pygame.K_s]:
             gg.botton()
-        local_1()
+        music.set_volume(0.2)
+        music.play(-1)
+        screen.blit(img, (x, y))
+        screen.blit(gg.image, gg.rect)
+        screen.blit(sh1.image, sh1.rect)
+        pygame.display.flip()
         clock.tick(60)
     pygame.quit()
