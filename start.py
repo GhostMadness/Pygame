@@ -57,6 +57,7 @@ class Heart(pygame.sprite.Sprite):
             self.rect= self.rect.move(0, 3)
     
     def update(self):
+        global Death_fLag
         if number == 0:
             music = pygame.mixer.Sound('MUSIC\DOUBLE\DEATH.mp3')
             music.set_volume(0.2)
@@ -96,15 +97,14 @@ class Heart(pygame.sprite.Sprite):
             pygame.display.flip()
             time.sleep(0.5)
             music.stop()
+            Death_fLag = True
         music.stop()
     
     def update_yes(self):
         global music_fight
         if number == 0:
             return True
-            music_fight.stop()
         return False
-        music_fight.stop()
     
     def death(self):
         self.image = pygame.Surface((0, 0))
@@ -319,13 +319,15 @@ def one():
         hp(number)
     else:
         heart.update()
-        Death_fLag = True
+        #Death_fLag = True
         running = False
 
 class Death_hide_cl():
     def death_hide(self):
         global running
         global image1, go_or_no
+        global Death_fLag
+        Death_fLag = False
         screen.fill((0, 0, 0), (800, 100, 300, 300))
         pygame.display.update()
         image1 = pygame.image.load('SPRITE\Hide_2.png')
@@ -343,6 +345,8 @@ class Live_hide_cl():
         global running
         global cell
         global go_or_no
+        global Death_fLag
+        Death_fLag = False
         cell = Cell('SPRITE\для диалога.png', 400, 600)
         font = pygame.font.Font(None, 50)
         text = font.render("Призрак уходит.", True, (100, 150, 100))
@@ -434,6 +438,9 @@ def start_fn(event):
     
     heart = Heart()
     heart.death()
+
+    Death_hide_class = Death_hide_cl()
+    Live_hide_class = Live_hide_cl()
     
     while running:
         for event in pygame.event.get():
@@ -450,9 +457,9 @@ def start_fn(event):
                         w += 1
         one()
         if hp_Hide <= 0:
-            Death_hide_cl.death_hide()
+            Death_hide_class.death_hide()
             music_fight.stop()
         if hp_Hide > 30:
-            Live_hide_cl.live_hide()
+            Live_hide_class.live_hide()
             music_fight.stop()
     return Death_fLag

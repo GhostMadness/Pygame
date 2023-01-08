@@ -415,10 +415,10 @@ def start_location_1():
             if pygame.sprite.spritecollideany(gg, other_sprite_2):
                 music.stop()
                 start_location_2()
-            if go_or_no == False:
-                screen.blit(img_hide_scale, (1920 // 2, 1080 // 2))
-            if go_or_no or l_d[0] or l_d[1]:
+            if l_d[0] == True or l_d[1] == True:
                 sdegfoin = False
+            if (l_d[0] == False and l_d[1] == False):
+                screen.blit(img_hide_scale, (1920 // 2, 1080 // 2))
 
             pygame.display.flip()
             clock.tick(60)
