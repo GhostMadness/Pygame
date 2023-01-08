@@ -103,6 +103,9 @@ if __name__ == '__main__':
     image_2 = pygame.image.load("location_4\esult_sprite\other.png")
     image_sprite = pygame.image.load("SPRITE\VIXOD_LOC.png")
 
+    music.set_volume(0.2)
+    music.play(-1)
+
     gg = Heroy()
 
     sh1 = Shiza()
@@ -142,8 +145,6 @@ if __name__ == '__main__':
             gg.top()
         if key[pygame.K_s]:
             gg.botton()
-        music.set_volume(0.2)
-        music.play(-1)
         screen.blit(img, (x, y))
         screen.blit(gg.image, gg.rect)
         screen.blit(sh1.image, sh1.rect)
