@@ -396,7 +396,6 @@ def start_location_1():
             screen.blit(img, (x, y))
             screen.blit(gg.image, gg.rect)
             screen.blit(sh1.image, sh1.rect)
-
             if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
                 music.stop()
                 a = start_fn(event)

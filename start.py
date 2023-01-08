@@ -315,7 +315,7 @@ def one():
             flag = True
             Fight = False
         elif w > 300:
-            w = 1
+            w = 0
         hp(number)
     else:
         heart.update()
@@ -370,6 +370,7 @@ def start_fn(event):
     texth = ''
     text_xh = ''
     text_yh = ''
+    w = 0
 
     screen.fill((0, 0, 0))
     
