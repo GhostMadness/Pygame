@@ -1,6 +1,6 @@
 import pygame
 import time
-from start import screen, start_fn, Death_fLag
+from start import screen, start_fn, Death_fLag, go_or_no
 from location_2 import start_dias
 
 location_3 = False
@@ -317,7 +317,7 @@ class Stop_2(pygame.sprite.Sprite):
 
 def start_location_1():
     if __name__ == '__main__':
-        global location_1, gg, Death_fLag
+        global location_1, gg, Death_fLag, go_or_no
         pygame.init()
         running = True
         x, y = 0, 0
@@ -353,7 +353,6 @@ def start_location_1():
 
         sh1 = Shiza()
 
-        ferowguib = False
         sdegfoin = True
 
         clock = pygame.time.Clock()
@@ -383,8 +382,6 @@ def start_location_1():
                     running = False
                 elif event.type == pygame.MOUSEMOTION:
                     print(event.pos)
-                if ferowguib:
-                    start_fn(event)
 
             key = pygame.key.get_pressed()
             if key[pygame.K_d]:
@@ -399,7 +396,7 @@ def start_location_1():
             screen.blit(gg.image, gg.rect)
             screen.blit(sh1.image, sh1.rect)
 
-            if pygame.sprite.spritecollideany(gg, other_sprite):
+            if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
                 music.stop()
                 a = start_fn(event)
                 music.play(-1)
@@ -409,11 +406,14 @@ def start_location_1():
                     Death_fLag = False
                     screen.blit(gg.image, gg.rect)
 
-
             if pygame.sprite.spritecollideany(gg, other_sprite_2):
                 music.stop()
                 start_location_2()
-            screen.blit(img_hide_scale, (1920 // 2, 1080 // 2))
+            if go_or_no == False:
+                screen.blit(img_hide_scale, (1920 // 2, 1080 // 2))
+            elif go_or_no:
+                sdegfoin = False
+
             pygame.display.flip()
             clock.tick(60)
         pygame.quit()

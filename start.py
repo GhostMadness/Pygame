@@ -4,6 +4,7 @@ import time
 
 screen = pygame.display.set_mode((1920, 1080))
 Death_fLag = False
+go_or_no = False
 
 class War(pygame.sprite.Sprite):
     def __init__(self, filename):
@@ -87,7 +88,7 @@ class Heart(pygame.sprite.Sprite):
             screen.blit(cell.image, cell.rect)
             screen.blit(self.image, self.rect)
             pygame.display.flip()
-            time.sleep(0.5)
+            time.sleep(0.9)
             self.image = pygame.image.load('SPRITE\сердце_5-export.png')
             self.rect.center = cell.rect.center
             screen.blit(cell.image, cell.rect)
@@ -130,6 +131,7 @@ def fight():
     text_yh = 100 + image1.get_rect().top
     screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
     screen.blit(texth, (text_xh, text_yh))
+
 
 
 def bag():
@@ -268,7 +270,7 @@ def one():
             Fight = True
             b = 1
         elif w == 100 and not flag:
-            screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
+            #screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
             cell = Cell('SPRITE\для диалога.png', 400, 600)
             heart.death()
@@ -286,7 +288,7 @@ def one():
             flag = False
             Fight = True
         elif w == 200 and not flag:
-            screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
+            #screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
             cell = Cell('SPRITE\для диалога.png', 400, 600)
             heart.death()
@@ -304,7 +306,7 @@ def one():
             flag = False
             Fight = True
         elif w == 300 and not flag:
-            screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
+            #screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
             cell = Cell('SPRITE\для диалога.png', 400, 600)
             heart.death()
@@ -323,19 +325,20 @@ def one():
 
 def death_hide():
     global running
-    global image1
+    global image1, go_or_no
     screen.fill((0, 0, 0), (800, 100, 300, 300))
     pygame.display.update()
     image1 = pygame.image.load('SPRITE\Hide_2.png')
     screen.blit(image1, (800, 100))
     pygame.display.update()
     time.sleep(2)
+    go_or_no = True
     running = False
 
 
 def live_hide():
     global running
-    global cell
+    global cell, go_or_no
     cell = Cell('SPRITE\для диалога.png', 400, 600)
     font = pygame.font.Font(None, 50)
     text = font.render("Призрак уходит.", True, (100, 150, 100))
@@ -349,6 +352,8 @@ def live_hide():
     screen.blit(text, (text_x, text_y))
     pygame.display.update()
     time.sleep(2)
+    music_fight.stop()
+    go_or_no = True
     running = False
 
 
@@ -406,6 +411,8 @@ def start_fn(event):
                                         text_w + 20, text_h + 20), 1)
     
     number = 20
+
+    go_or_no = False
     
     all_wars = pygame.sprite.Group()
     
