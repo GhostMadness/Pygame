@@ -95,11 +95,15 @@ class Heart(pygame.sprite.Sprite):
             pygame.display.flip()
             time.sleep(0.5)
             music.stop()
+        music.stop()
     
     def update_yes(self):
+        global music_fight
         if number == 0:
             return True
+            music_fight.stop()
         return False
+        music_fight.stop()
     
     def death(self):
         self.image = pygame.Surface((0, 0))
@@ -434,6 +438,7 @@ def start_fn(event):
         one()
         if hp_Hide <= 0:
             death_hide()
+            music_fight.stop()
         if hp_Hide > 30:
             live_hide()
     return Death_fLag

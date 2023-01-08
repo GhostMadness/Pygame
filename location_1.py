@@ -355,6 +355,7 @@ def start_location_1():
 
         ferowguib = False
         sdegfoin = True
+        go_or_no = True
 
         clock = pygame.time.Clock()
 
@@ -368,10 +369,13 @@ def start_location_1():
         left_sprites.draw(screen)
 
         other_sprite = pygame.sprite.Group()
-        other_sprite.add(Stop_2("SPRITE\HIDE_1.png", (1920 // 2, 1080 // 2)))
+        other_sprite.add(Stop_2("Hide_1.png", (1920 // 2 + 5, 1080 // 2)))
 
         other_sprite_2 = pygame.sprite.Group()
         other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1916, 572)))
+
+        img_hide = pygame.image.load("SPRITE\HIDE_1_BACKGROUND.png")
+        img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
 
 
         while running:
@@ -397,6 +401,7 @@ def start_location_1():
             screen.blit(sh1.image, sh1.rect)
 
             if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
+                go_or_no = False
                 music.stop()
                 a = start_fn(event)
                 sdegfoin = False
@@ -410,7 +415,8 @@ def start_location_1():
             if pygame.sprite.spritecollideany(gg, other_sprite_2):
                 music.stop()
                 start_location_2()
-            other_sprite.draw(screen)
+            if go_or_no:
+                screen.blit(img_hide_scale, (1920 // 2, 1080 // 2))
             pygame.display.flip()
             clock.tick(60)
         pygame.quit()
