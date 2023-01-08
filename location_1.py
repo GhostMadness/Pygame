@@ -355,7 +355,6 @@ def start_location_1():
 
         ferowguib = False
         sdegfoin = True
-        go_or_no = True
 
         clock = pygame.time.Clock()
 
@@ -400,11 +399,9 @@ def start_location_1():
             screen.blit(gg.image, gg.rect)
             screen.blit(sh1.image, sh1.rect)
 
-            if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
-                go_or_no = False
+            if pygame.sprite.spritecollideany(gg, other_sprite):
                 music.stop()
                 a = start_fn(event)
-                sdegfoin = False
                 music.play(-1)
                 if a:
                     gg.rect.x = 324
@@ -412,11 +409,11 @@ def start_location_1():
                     Death_fLag = False
                     screen.blit(gg.image, gg.rect)
 
+
             if pygame.sprite.spritecollideany(gg, other_sprite_2):
                 music.stop()
                 start_location_2()
-            if go_or_no:
-                screen.blit(img_hide_scale, (1920 // 2, 1080 // 2))
+            screen.blit(img_hide_scale, (1920 // 2, 1080 // 2))
             pygame.display.flip()
             clock.tick(60)
         pygame.quit()
