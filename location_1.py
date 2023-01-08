@@ -342,10 +342,6 @@ def start_location_1():
             gg.rect.y = 572
             location_1 = False
             
-        if Death_fLag:
-            gg.rect.x = 600
-            gg.rect.y = 400
-            Death_fLag = False
 
         sh1 = Shiza()
 
@@ -394,9 +390,14 @@ def start_location_1():
 
             if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
                 music.stop()
-                start_fn(event)
+                a = start_fn(event)
                 sdegfoin = False
                 music.play(-1)
+                if a:
+                    gg.rect.x = 600
+                    gg.rect.y = 400
+                    Death_fLag = False
+                    screen.blit(gg.image, gg.rect)
 
             if pygame.sprite.spritecollideany(gg, other_sprite_2):
                 music.stop()

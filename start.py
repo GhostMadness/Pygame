@@ -57,8 +57,6 @@ class Heart(pygame.sprite.Sprite):
     
     def update(self):
         if number == 0:
-            global Death_fLag
-            Death_fLag = True
             music = pygame.mixer.Sound('MUSIC\DOUBLE\DEATH.mp3')
             music.set_volume(0.2)
             music.play(-1)
@@ -233,7 +231,7 @@ def one():
     global texth
     global text_yh
     global text_xh
-    global w
+    global w, Death_fLag
     if not heart.update_yes():
         if q % 20 == 0:
             wars[file_wars[s].rstrip()]()
@@ -315,6 +313,7 @@ def one():
         hp(number)
     else:
         heart.update()
+        Death_fLag = True
         running = False
 
 
@@ -350,7 +349,7 @@ def live_hide():
 
 
 def start_fn(event):
-    global texth, text_xh, text_yh, image1, flag, Fight, s, b, music_fight, hp_Hide, font, myfont, number, all_wars, q, running, heart, w
+    global texth, text_xh, text_yh, image1, flag, Fight, s, b, music_fight, hp_Hide, font, myfont, number, all_wars, q, running, heart, w, Death_fLag
     
     texth = ''
     text_xh = ''
@@ -437,3 +436,4 @@ def start_fn(event):
             death_hide()
         if hp_Hide > 30:
             live_hide()
+    return Death_fLag
