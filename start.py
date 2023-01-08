@@ -15,7 +15,7 @@ class War(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
     
     def update(self):
-        global number, ARGH
+        global number
         self.rect = self.rect.move(random.randrange(-5, 5), 1)
         if self.rect.centery >= cell.rect.bottom - 5 or self.rect.centerx >= cell.rect.right - 5 or self.rect.centerx <= cell.rect.left + 5:
             self.kill()
