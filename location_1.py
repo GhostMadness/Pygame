@@ -1,11 +1,12 @@
 import pygame
 import time
-from start import screen, start_fn, Death_fLag, go_or_no
+from start import screen, start_fn, Death_fLag, go_or_no, live_hide, death_hide 
 from location_2 import start_dias
 
 location_3 = False
 location_2 = False
 location_1 = False
+l_d = (False, False)
 
 
 
@@ -317,7 +318,7 @@ class Stop_2(pygame.sprite.Sprite):
 
 def start_location_1():
     if __name__ == '__main__':
-        global location_1, gg, Death_fLag, go_or_no
+        global location_1, gg, Death_fLag, go_or_no, l_d
         pygame.init()
         running = True
         x, y = 0, 0
@@ -399,19 +400,23 @@ def start_location_1():
             if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
                 music.stop()
                 a = start_fn(event)
+                l_d = (live_hide, death_hide)
+                print(l_d)
                 music.play(-1)
                 if a:
                     gg.rect.x = 324
                     gg.rect.y = 571
+                    l_d = (False, False)
                     Death_fLag = False
                     screen.blit(gg.image, gg.rect)
+
 
             if pygame.sprite.spritecollideany(gg, other_sprite_2):
                 music.stop()
                 start_location_2()
             if go_or_no == False:
                 screen.blit(img_hide_scale, (1920 // 2, 1080 // 2))
-            elif go_or_no:
+            if go_or_no or l_d[0] or l_d[1]:
                 sdegfoin = False
 
             pygame.display.flip()

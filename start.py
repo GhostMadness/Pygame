@@ -270,7 +270,7 @@ def one():
             Fight = True
             b = 1
         elif w == 100 and not flag:
-            #screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
+            screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
             cell = Cell('SPRITE\для диалога.png', 400, 600)
             heart.death()
@@ -288,7 +288,7 @@ def one():
             flag = False
             Fight = True
         elif w == 200 and not flag:
-            #screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
+            screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
             cell = Cell('SPRITE\для диалога.png', 400, 600)
             heart.death()
@@ -306,7 +306,7 @@ def one():
             flag = False
             Fight = True
         elif w == 300 and not flag:
-            #screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
+            screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
             cell = Cell('SPRITE\для диалога.png', 400, 600)
             heart.death()
@@ -332,8 +332,9 @@ def death_hide():
     screen.blit(image1, (800, 100))
     pygame.display.update()
     time.sleep(2)
-    go_or_no = True
     running = False
+    go_or_no = True
+    return go_or_no
 
 
 def live_hide():
@@ -353,8 +354,9 @@ def live_hide():
     pygame.display.update()
     time.sleep(2)
     music_fight.stop()
-    go_or_no = True
     running = False
+    go_or_no = True
+    return go_or_no
 
 
 def start_fn(event):
@@ -411,8 +413,6 @@ def start_fn(event):
                                         text_w + 20, text_h + 20), 1)
     
     number = 20
-
-    go_or_no = False
     
     all_wars = pygame.sprite.Group()
     
@@ -448,4 +448,5 @@ def start_fn(event):
             music_fight.stop()
         if hp_Hide > 30:
             live_hide()
+            music_fight.stop()
     return Death_fLag
