@@ -1,6 +1,6 @@
 import pygame
 import time
-from start import screen, start_fn
+from start import screen, start_fn, Death_fLag
 from location_2 import start_dias
 
 location_3 = False
@@ -309,7 +309,7 @@ def start_location_2():
 
 def start_location_1():
     if __name__ == '__main__':
-        global location_1, gg
+        global location_1, gg, Death_fLag
         pygame.init()
         running = True
         x, y = 0, 0
@@ -336,12 +336,16 @@ def start_location_1():
 
         music.set_volume(0.2)
         music.play(-1)
-
         gg = Heroy(top=top_sprites, bottom=bottom_sprites, right=right_sprites, left=left_sprites)
         if location_1:
             gg.rect.x = 1800
             gg.rect.y = 572
             location_1 = False
+            
+        if Death_fLag:
+            gg.rect.x = 600
+            gg.rect.y = 400
+            Death_fLag = False
 
         sh1 = Shiza()
 
@@ -397,7 +401,6 @@ def start_location_1():
             if pygame.sprite.spritecollideany(gg, other_sprite_2):
                 music.stop()
                 start_location_2()
-
             pygame.display.flip()
             clock.tick(60)
         pygame.quit()

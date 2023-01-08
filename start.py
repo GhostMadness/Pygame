@@ -3,6 +3,7 @@ import random
 import time
 
 screen = pygame.display.set_mode((1920, 1080))
+Death_fLag = False
 
 class War(pygame.sprite.Sprite):
     def __init__(self, filename):
@@ -56,6 +57,8 @@ class Heart(pygame.sprite.Sprite):
     
     def update(self):
         if number == 0:
+            global Death_fLag
+            Death_fLag = True
             music = pygame.mixer.Sound('MUSIC\DOUBLE\DEATH.mp3')
             music.set_volume(0.2)
             music.play(-1)
