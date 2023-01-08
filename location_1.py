@@ -1,5 +1,6 @@
 import pygame
-from start import start_fn
+import time
+from start import screen, start_fn
 
 class Heroy(pygame.sprite.Sprite):
         def __init__(self):
@@ -84,7 +85,6 @@ if __name__ == '__main__':
     pygame.display.set_caption("Phantom")
     infoObject = pygame.display.Info()
     width, height = 1920, 1080
-    screen = pygame.display.set_mode((infoObject.current_w, infoObject.current_h))
     screen.fill((0, 0, 0))
 
     music = pygame.mixer.Sound('MUSIC\DOUBLE\location_1.mp3')
@@ -107,7 +107,8 @@ if __name__ == '__main__':
 
     sh1 = Shiza()
 
-    fLag = False
+    ferowguib = False
+    sdegfoin = True
 
     clock = pygame.time.Clock()
 
@@ -129,6 +130,8 @@ if __name__ == '__main__':
                 running = False
             elif event.type == pygame.MOUSEMOTION:
                 print(event.pos)
+            if ferowguib:
+                start_fn(event)
 
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
@@ -144,8 +147,11 @@ if __name__ == '__main__':
         screen.blit(img, (x, y))
         screen.blit(gg.image, gg.rect)
         screen.blit(sh1.image, sh1.rect)
-        if not pygame.sprite.spritecollideany(gg, other_sprite):
+        if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
+            music.stop()
             start_fn(event)
+            sdegfoin = False
+            music.play(-1)
         pygame.display.flip()
         clock.tick(60)
     pygame.quit()
