@@ -307,6 +307,14 @@ def start_location_2():
             clock.tick(60)
     pygame.quit()
 
+class Stop_2(pygame.sprite.Sprite):
+    def __init__(self, filename, coord):
+        super().__init__()
+        self.image = pygame.image.load(filename)
+        self.rect = self.image.get_rect()
+        self.rect.x = coord[0]
+        self.rect.y = coord[1]
+
 def start_location_1():
     if __name__ == '__main__':
         global location_1, gg, Death_fLag
@@ -341,7 +349,7 @@ def start_location_1():
             gg.rect.x = 1800
             gg.rect.y = 572
             location_1 = False
-            
+
 
         sh1 = Shiza()
 
@@ -360,7 +368,7 @@ def start_location_1():
         left_sprites.draw(screen)
 
         other_sprite = pygame.sprite.Group()
-        other_sprite.add(Stop_2("SPRITE\VIXOD_LOC.png", (1920 // 2, 1080 // 2)))
+        other_sprite.add(Stop_2("SPRITE\HIDE_1.png", (1920 // 2, 1080 // 2)))
 
         other_sprite_2 = pygame.sprite.Group()
         other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1916, 572)))
@@ -394,14 +402,15 @@ def start_location_1():
                 sdegfoin = False
                 music.play(-1)
                 if a:
-                    gg.rect.x = 600
-                    gg.rect.y = 400
+                    gg.rect.x = 324
+                    gg.rect.y = 571
                     Death_fLag = False
                     screen.blit(gg.image, gg.rect)
 
             if pygame.sprite.spritecollideany(gg, other_sprite_2):
                 music.stop()
                 start_location_2()
+            other_sprite.draw(screen)
             pygame.display.flip()
             clock.tick(60)
         pygame.quit()
