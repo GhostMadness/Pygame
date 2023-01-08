@@ -42,203 +42,7 @@ class Heroy(pygame.sprite.Sprite):
             if not pygame.sprite.spritecollideany(self, left_sprites):
                 self.rect.x -= 5
 
-if __name__ == '__main__':
-    class Stop(pygame.sprite.Sprite):
-        def __init__(self, filename, coord):
-            super().__init__()
-            self.image = pygame.image.load(filename)
-            self.rect = self.image.get_rect()
-            self.rect.x = coord[0]
-            self.rect.y = coord[1]
-
-    pygame.init()
-    pygame.display.set_caption("Phantom")
-    size = width, height = 1920, 1080
-    screen = pygame.display.set_mode(size)
-
-    image_background = pygame.image.load("location_5_men\RESULT\location_5_man.png")
-    image_1 = pygame.image.load("location_5_men\RESULT\iblioteka.png")
-    image_3 = pygame.image.load("location_5_men\RESULT\cover.png")
-    image_4 = pygame.image.load("location_5_men\RESULT\oxes.png")
-    image_5 = pygame.image.load("location_5_men\RESULT\object.png")
-
-    image_npc_men = pygame.image.load("SPRITE\pNPC\Sprite-0001.png")
-    image_npc_men_scale = pygame.transform.scale(image_npc_men, (100, 100))
-
-    sc1 = pygame.Surface((1920, 1080))
-    sc1.blit(image_background, (0, 0))
-    sc1.blit(image_1, (0, 0))
-    sc1.blit(image_3, (0, 0))
-    sc1.blit(image_4, (0, 0))
-    sc1.blit(image_5, (0, 0))
-    sc1.blit(image_npc_men_scale, (200, 50))
-
-    bottom_sprite = pygame.sprite.Group()
-    right_sprite = pygame.sprite.Group()
-    left_sprites = pygame.sprite.Group()
-    top_sprites = pygame.sprite.Group()
-    bottom_sprite.add(Stop("location_5_men\RESULT\iblioteka_bottom_collide.png", (1542, 220)))
-    right_sprite.add(Stop("location_5_men\RESULT\iblioteka_right_collide.png", (1570, 8)))
-    right_sprite.add(Stop("location_5_men\RESULT\iblioteka_other.png", (1670, 479)))
-    left_sprites.add(Stop("location_5_men\RESULT\oxes_collide.png", (0, 913)))
-    top_sprites.add(Stop("location_5_men\RESULT\object_collide.png", (895, 0)))
-
-    music_4 = pygame.mixer.Sound('MUSIC\FIRST\HOME.mp3')
-    music_4.set_volume(0.2)
-    music_4.play(-1)
-
-    clock = pygame.time.Clock()
-
-    gg = Heroy()
-
-    other_sprites_exit = pygame.sprite.Group()
-    other_sprites_exit.add(Stop("SPRITE\VIXOD_LOC.png", (883, 1100)))
-
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            elif event.type == pygame.MOUSEMOTION:
-                print(event.pos)
-        key = pygame.key.get_pressed()
-        if key[pygame.K_d]:
-            gg.right()
-        if key[pygame.K_a]:
-            gg.left()
-        if key[pygame.K_w]:
-            gg.top()
-        if key[pygame.K_s]:
-            gg.botton()
-        screen.blit(sc1, (0, 0))
-        screen.blit(gg.image, gg.rect)
-                
-        pygame.display.flip()
-        clock.tick(60)
-
-if __name__ == '__main__':
-    pygame.init()
-    pygame.display.set_caption("Phantom")
-    size = width, height = 1920, 1080
-    screen_3 = pygame.display.set_mode(size)
-    image_background = pygame.image.load("location_house\ckground.png")
-    image_1 = pygame.image.load("location_house\location_3.png")
-    image_2 = pygame.image.load("location_house\location_3_house.png")
-    sc1 = pygame.Surface((1920, 1080))
-    sc1.blit(image_background, (0, 0))
-    sc1.blit(image_2, (0, 0))
-    sc1.blit(image_1, (0, 0))
-
-    class Stop(pygame.sprite.Sprite):
-        def __init__(self, filename, coord):
-            super().__init__()
-            self.image = pygame.image.load(filename)
-            self.rect = self.image.get_rect()
-            self.rect.x = coord[0]
-            self.rect.y = coord[1]
-
-
-
-
-    bottom_sprite = pygame.sprite.Group()
-    right_sprite = pygame.sprite.Group()
-    bottom_sprite.add(Stop("location_house\sprite_collide\ottom_grass.png", (0, 265)))
-    right_sprite.add(Stop("location_house\sprite_collide\ght_grass.png", (830, 0)))
-
-    music_3 = pygame.mixer.Sound('MUSIC\FIRST\LOCATION_3_1.mp3')
-    music_3.set_volume(0.1)
-    music_3.play(-1)
-
-    clock = pygame.time.Clock()
-
-    gg_3= Heroy()
-
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            elif event.type == pygame.MOUSEMOTION:
-                print(event.pos)
-        key = pygame.key.get_pressed()
-        if key[pygame.K_d]:
-            gg_3.right()
-        if key[pygame.K_a]:
-            gg_3.left()
-        if key[pygame.K_w]:
-            gg_3.top()
-        if key[pygame.K_s]:
-            gg_3.botton()
-        screen_3.blit(sc1, (0, 0))
-        screen_3.blit(gg_3.image, gg_3.rect)
-
-        pygame.display.flip()
-        clock.tick(60)
-
-
-
-    class Stop(pygame.sprite.Sprite):
-        def __init__(self, filename, coord):
-            super().__init__()
-            self.image = pygame.image.load(filename)
-            self.rect = self.image.get_rect()
-            self.rect.x = coord[0]
-            self.rect.y = coord[1]
-
-    pygame.display.set_caption("Phantom")
-    size = width, height = 1920, 1080
-    screen_local_2 = pygame.display.set_mode(size)
-    image_background = pygame.image.load("location_4\esult_sprite\map.png")
-    image_1 = pygame.image.load("location_4\esult_sprite\house.png")
-    image_2 = pygame.image.load("location_4\esult_sprite\other.png")
-
-    image_npc_1 = pygame.image.load("SPRITE\pNPC\selski_men.png")
-    image_npc_1_scale = pygame.transform.scale(image_npc_1, (100, 100))
-
-    sc1 = pygame.Surface((1920, 1080))
-    sc1.blit(image_background, (0, 0))
-    sc1.blit(image_2, (0, 0))
-    sc1.blit(image_1, (0, 0))
-    sc1.blit(image_npc_1_scale, (672, 420))
-
-    music_2 = pygame.mixer.Sound('MUSIC\DOUBLE\location_2.mp3')
-
-    clock = pygame.time.Clock()
-
-    gg_2 = Heroy()
-
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            elif event.type == pygame.MOUSEMOTION:
-                print(event.pos)
-        key = pygame.key.get_pressed()
-        if key[pygame.K_d]:
-            gg_2.right()
-        if key[pygame.K_a]:
-            gg_2.left()
-        if key[pygame.K_w]:
-            gg_2.top()
-        if key[pygame.K_s]:
-            gg_2.botton()
-        screen_local_2.blit(sc1, (0, 0))
-        screen_local_2.blit(gg_2.image, gg_2.rect)
-
-        music_2.set_volume(0.2)
-        music_2.play(-1)
-
-        pygame.display.flip()
-        clock.tick(60)
-#location_2
-
-
-
-
-if __name__ == '__main__':
-    pygame.init()
-    class Stop(pygame.sprite.Sprite):
+class Stop(pygame.sprite.Sprite):
         def __init__(self, filename, coords, i):
             super().__init__()
             infoObject = pygame.display.Info()
@@ -253,27 +57,28 @@ if __name__ == '__main__':
             self.rect.y = coords[1]
 
 
-    class Shiza(pygame.sprite.Sprite):
-        def __init__(self):
-            super().__init__()
-            infoObject = pygame.display.Info()
-            self.image = pygame.image.load('SPRITE\Shiza_01.png').convert_alpha()
-            self.rect = self.image.get_rect()
-            self.rect.bottom = infoObject.current_h // 3 * 2 + 250
-            self.rect.right = infoObject.current_w // 6 - 60
-            
-        def update(self):
-            pass
+class Shiza(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        infoObject = pygame.display.Info()
+        self.image = pygame.image.load('SPRITE\Shiza_01.png').convert_alpha()
+        self.rect = self.image.get_rect()
+        self.rect.bottom = infoObject.current_h // 3 * 2 + 250
+        self.rect.right = infoObject.current_w // 6 - 60
+        
+    def update(self):
+        pass
 
-    class Stop_local_2(pygame.sprite.Sprite):
-        def __init__(self, filename, coord):
-            super().__init__()
-            self.image = pygame.image.load(filename)
-            self.rect = self.image.get_rect()
-            self.rect.x = coord[0]
-            self.rect.y = coord[1]
+class Stop_local_2(pygame.sprite.Sprite):
+    def __init__(self, filename, coord):
+        super().__init__()
+        self.image = pygame.image.load(filename)
+        self.rect = self.image.get_rect()
+        self.rect.x = coord[0]
+        self.rect.y = coord[1]
 
-
+if __name__ == '__main__':
+    pygame.init()
     running = True
     x, y = 0, 0
     pygame.display.set_caption("Phantom")

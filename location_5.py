@@ -88,7 +88,9 @@ if __name__ == '__main__':
     top_sprites.add(Stop("location_5_men\RESULT\object_collide.png", (895, 0)))
     #object_collide
 
-    music = pygame.mixer.Sound('MUSIC\FIRST\LOCATION_3_1.mp3')
+    music = pygame.mixer.Sound('MUSIC\FIRST\HOME.mp3')
+    music.set_volume(0.2)
+    music.play(-1)
 
     clock = pygame.time.Clock()
 
@@ -112,9 +114,6 @@ if __name__ == '__main__':
             gg.botton()
         screen.blit(sc1, (0, 0))
         screen.blit(gg.image, gg.rect)
-
-        music.set_volume(0.2)
-        music.play(-1)
                 
         pygame.display.flip()
         clock.tick(60)
