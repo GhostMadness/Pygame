@@ -1,6 +1,7 @@
 import pygame
 import random
 import time
+from location_1 import screen
 
 class War(pygame.sprite.Sprite):
     def __init__(self, filename):
@@ -344,16 +345,13 @@ def live_hide():
     running = False
 
 
-if __name__ == '__main__':
-    pygame.init()
-    size = width, height = 1920, 1080
+def start(event):
+    global texth, text_xh, text_yh, image1, flag, Fight, s, b, music_fight, hp_Hide, font, myfont, number, all_wars, q, running
     
     texth = ''
     text_xh = ''
     text_yh = ''
-    
-    screen = pygame.display.set_mode(size)
-    
+
     screen.fill((0, 0, 0))
     
     image1 = pygame.image.load('SPRITE\Hide_1.png')
@@ -417,25 +415,20 @@ if __name__ == '__main__':
     heart = Heart()
     heart.death()
     
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if not Fight:
-                    if ataka[0] < event.pos[0] < ataka[0] + ataka[2] and ataka[1] < event.pos[1] < ataka[1] + ataka[3]:
-                        fight()
-                        w += 1
-                    elif inventar[0] < event.pos[0] < inventar[0] + inventar[2] and inventar[1] < event.pos[1] < inventar[1] + inventar[3]:
-                        bag()
-                        w += 1
-                    elif posada[0] < event.pos[0] < posada[0] + posada[2] and posada[1] < event.pos[1] < posada[1] + posada[3]:
-                        hope()
-                        w += 1
-        one()
-        if hp_Hide <= 0:
-            death_hide()
-        if hp_Hide > 30:
-            live_hide()
-        clock.tick(100)
-    pygame.quit()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if not Fight:
+            if ataka[0] < event.pos[0] < ataka[0] + ataka[2] and ataka[1] < event.pos[1] < ataka[1] + ataka[3]:
+                fight()
+                w += 1
+            elif inventar[0] < event.pos[0] < inventar[0] + inventar[2] and inventar[1] < event.pos[1] < inventar[1] + inventar[3]:
+                bag()
+                w += 1
+            elif posada[0] < event.pos[0] < posada[0] + posada[2] and posada[1] < event.pos[1] < posada[1] + posada[3]:
+                hope()
+                w += 1
+    one()
+    if hp_Hide <= 0:
+        death_hide()
+    if hp_Hide > 30:
+        live_hide()
+    clock.tick(100)
