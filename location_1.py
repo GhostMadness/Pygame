@@ -1,6 +1,6 @@
 import pygame
 import time
-from start import screen, start_fn, Death_fLag, go_or_no, live_hide, death_hide 
+from start import screen, start_fn, Death_fLag, go_or_no, Live_hide_cl, Death_hide_cl
 from location_2 import start_dias
 
 location_3 = False
@@ -400,7 +400,9 @@ def start_location_1():
             if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
                 music.stop()
                 a = start_fn(event)
-                l_d = (live_hide, death_hide)
+                one = Live_hide_cl()
+                two = Death_hide_cl()
+                l_d = (one.live_print(), two.death_print())
                 print(l_d)
                 music.play(-1)
                 if a:

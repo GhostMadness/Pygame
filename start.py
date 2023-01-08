@@ -322,41 +322,46 @@ def one():
         Death_fLag = True
         running = False
 
+class Death_hide_cl():
+    def death_hide(self):
+        global running
+        global image1, go_or_no
+        screen.fill((0, 0, 0), (800, 100, 300, 300))
+        pygame.display.update()
+        image1 = pygame.image.load('SPRITE\Hide_2.png')
+        screen.blit(image1, (800, 100))
+        pygame.display.update()
+        time.sleep(2)
+        running = False
+        go_or_no = True
+    def death_print(self):
+        global go_or_no
+        return go_or_no
 
-def death_hide():
-    global running
-    global image1, go_or_no
-    screen.fill((0, 0, 0), (800, 100, 300, 300))
-    pygame.display.update()
-    image1 = pygame.image.load('SPRITE\Hide_2.png')
-    screen.blit(image1, (800, 100))
-    pygame.display.update()
-    time.sleep(2)
-    running = False
-    go_or_no = True
-    return go_or_no
-
-
-def live_hide():
-    global running
-    global cell, go_or_no
-    cell = Cell('SPRITE\для диалога.png', 400, 600)
-    font = pygame.font.Font(None, 50)
-    text = font.render("Призрак уходит.", True, (100, 150, 100))
-    text_x = cell.rect.x + 10
-    text_y = cell.rect.y + 10
-    screen.blit(cell.image, cell.rect)
-    screen.blit(text, (text_x, text_y))
-    text = font.render("Вы получили 10 ОП и 10 ОМ", True, (100, 150, 100))
-    text_x = cell.rect.x + 10
-    text_y = cell.rect.y + 10 + text.get_rect().bottom
-    screen.blit(text, (text_x, text_y))
-    pygame.display.update()
-    time.sleep(2)
-    music_fight.stop()
-    running = False
-    go_or_no = True
-    return go_or_no
+class Live_hide_cl():
+    def live_hide(self):
+        global running
+        global cell
+        global go_or_no
+        cell = Cell('SPRITE\для диалога.png', 400, 600)
+        font = pygame.font.Font(None, 50)
+        text = font.render("Призрак уходит.", True, (100, 150, 100))
+        text_x = cell.rect.x + 10
+        text_y = cell.rect.y + 10
+        screen.blit(cell.image, cell.rect)
+        screen.blit(text, (text_x, text_y))
+        text = font.render("Вы получили 10 ОП и 10 ОМ", True, (100, 150, 100))
+        text_x = cell.rect.x + 10
+        text_y = cell.rect.y + 10 + text.get_rect().bottom
+        screen.blit(text, (text_x, text_y))
+        pygame.display.update()
+        time.sleep(2)
+        music_fight.stop()
+        running = False
+        go_or_no = True
+    def live_print(self):
+        global go_or_no
+        return go_or_no
 
 
 def start_fn(event):
@@ -444,9 +449,9 @@ def start_fn(event):
                         w += 1
         one()
         if hp_Hide <= 0:
-            death_hide()
+            Death_hide_cl.death_hide()
             music_fight.stop()
         if hp_Hide > 30:
-            live_hide()
+            Live_hide_cl.live_hide()
             music_fight.stop()
     return Death_fLag
