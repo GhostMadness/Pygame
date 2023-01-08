@@ -1,5 +1,5 @@
 import pygame
-
+from start import start_fn
 
 class Heroy(pygame.sprite.Sprite):
         def __init__(self):
@@ -101,11 +101,13 @@ if __name__ == '__main__':
     image_background = pygame.image.load("location_4\esult_sprite\map.png")
     image_1 = pygame.image.load("location_4\esult_sprite\house.png")
     image_2 = pygame.image.load("location_4\esult_sprite\other.png")
-
+    image_sprite = pygame.image.load("SPRITE\VIXOD_LOC.png")
 
     gg = Heroy()
 
     sh1 = Shiza()
+
+    fLag = False
 
     clock = pygame.time.Clock()
 
@@ -118,6 +120,8 @@ if __name__ == '__main__':
     right_sprites.draw(screen)
     left_sprites.draw(screen)
 
+    other_sprite = pygame.sprite.Group()
+    other_sprite.add(Stop_local_2("SPRITE\VIXOD_LOC.png", (1920 // 2, 1080 // 2)))
 
     while running:
         for event in pygame.event.get():
@@ -140,6 +144,8 @@ if __name__ == '__main__':
         screen.blit(img, (x, y))
         screen.blit(gg.image, gg.rect)
         screen.blit(sh1.image, sh1.rect)
+        if not pygame.sprite.spritecollideany(gg, other_sprite):
+            start_fn(event)
         pygame.display.flip()
         clock.tick(60)
     pygame.quit()
