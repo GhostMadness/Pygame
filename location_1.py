@@ -9,9 +9,12 @@ location_1 = False
 l_d = (False, False)
 
 class NPC_BUILDING(pygame.sprite.Sprite):
-    def __init__(self, filename, x, y, nickname):
+    def __init__(self, filename, x, y, nickname, rgb_nickname):
         super().__init__()
+
         self.name = nickname
+        self.rgb_nickname = rgb_nickname
+
         self.image= pygame.image.load(filename).convert_alpha()
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
@@ -33,7 +36,17 @@ class NPC_BUILDING(pygame.sprite.Sprite):
         
     def click_update(self):
         if self.schet >= len(self.text_res):
-            self.text_name = self.font.render(self.name, False, (255, 36, 0))
+            if self.name == 'Рин':
+                self.text_name = self.font.render(self.name, False, self.rgb_nickname)
+                self.text = self.font.render("До скорой встречи путник!", True, (255, 255, 255))
+                screen.blit(self.text_name, (620, 720))
+                screen.blit(self.image_dialog_window, self.rect_dialog_window)
+                screen.blit(self.text, (620, 770))
+                pygame.display.flip()
+                time.sleep(3)
+                return
+
+            self.text_name = self.font.render(self.name, False, self.rgb_nickname)
             self.text = self.font.render("Мне больше нечего тебе сказать", True, (255, 255, 255))
             #урод!
             screen.blit(self.text_name, (620, 720))
@@ -48,14 +61,16 @@ class NPC_BUILDING(pygame.sprite.Sprite):
             pygame.display.flip()
             time.sleep(1)
             return
-        self.text_name = self.font.render(self.name, False, (255, 36, 0))
-        self.text = self.font.render(str(self.text_res[self.schet]), False, (255, 255, 255))
-        self.schet += 1
-        screen.blit(self.text_name, (620, 720))
-        screen.blit(self.image_dialog_window, self.rect_dialog_window)
-        screen.blit(self.text, (620, 770))
-        pygame.display.flip()
-        time.sleep(3)
+        self.text_name = self.font.render(self.name, False, self.rgb_nickname)
+        for i in self.text_res:
+            pygame.event.pump()
+            self.text = self.font.render(str(i), False, (255, 255, 255))
+            self.schet += 1
+            screen.blit(self.text_name, (620, 720))
+            screen.blit(self.image_dialog_window, self.rect_dialog_window)
+            screen.blit(self.text, (620, 770))
+            pygame.display.flip()
+            time.sleep(3)
         
         #ПИСАТЬ КАЖДОЕ НОВОЕ СЛОВОСОЧЕТАНИЕ ЧЕРЕЗ N КОГДА ПЕРЕДАЁШЬ В ФУНКЦИЮ ТЕКСТ ПЕРСОНАЖА!!! ПРИМЕР СНИЗУ!!!
 
@@ -327,9 +342,17 @@ def start_location_2():
         other_sprite_exit = pygame.sprite.Group()
         other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 523)))
 
-        npc_1 = NPC_BUILDING("SPRITE\pNPC\selski_men.png", 673, 408, "Alex")
+        npc_1 = NPC_BUILDING("SPRITE\pNPC\selski_men.png", 673, 408, "Алекс", (255, 36, 0))
         npc_1_group = pygame.sprite.Group()
         npc_1_group.add(npc_1)
+
+        npc_2 = NPC_BUILDING("SPRITE\pNPC\cloyn.png", 97, 417, "Роберт", (255, 192, 203))
+        npc_2_group = pygame.sprite.Group()
+        npc_2_group.add(npc_2)
+
+        npc_3 = NPC_BUILDING("SPRITE\pNPC\pcl_men.png", 1250, 417, "Рин", (14, 41, 75))
+        npc_3_group = pygame.sprite.Group()
+        npc_3_group.add(npc_3)
 
         running = True
         while running:
@@ -349,6 +372,8 @@ def start_location_2():
                 gg_2.botton()
             screen_local_2.blit(sc1, (0, 0))
             npc_1_group.draw(screen)
+            npc_2_group.draw(screen)
+            npc_3_group.draw(screen)
             screen_local_2.blit(gg_2.image, gg_2.rect)
 
             if pygame.sprite.spritecollideany(gg_2, other_sprite_2):
@@ -361,6 +386,12 @@ def start_location_2():
             if pygame.sprite.spritecollideany(gg_2, npc_1_group) and event.type == pygame.MOUSEBUTTONDOWN:
                     npc_1.dialog("Пошёл вон отсюда NПока все мозги не выбил!")
                     npc_1.click_update()
+            if pygame.sprite.spritecollideany(gg_2, npc_2_group) and event.type == pygame.MOUSEBUTTONDOWN:
+                    npc_2.dialog("Я вЕлИкИй Из СвОеГо РоДа NВ нАсЛеДиЕ мНе ОсТаЛсЯ NэТоТ бОжЕсТвЕнНыЙ NкОсТюМ! NКаК я ПоГлЕжУ тЫ NиЗ нИзШиХ сЛоЁв ОбЩеСтВа! NТы Не иМеЕшь ПрАвА NНаХоДиТьСя РяДоМ сО мНоЙ! NУбИрАйСя!")
+                    npc_2.click_update()
+            if pygame.sprite.spritecollideany(gg_2, npc_3_group) and event.type == pygame.MOUSEBUTTONDOWN:
+                    npc_3.dialog("Здравствуй путник NЯ недавно приехал сюда. NИногда я вижу странных существ NЕсли видишь не мешкая убивай NОни портят репутацию городу NДо скорых встреч!")
+                    npc_3.click_update()
 
             pygame.display.flip()
             clock.tick(60)
@@ -433,6 +464,9 @@ def start_location_1():
 
         img_hide = pygame.image.load("SPRITE\HIDE_1_BACKGROUND.png")
         img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
+
+        img_apple = pygame.image.load("SPRITE\APPLE_HILL.png")
+        img_apple_scale = pygame.transform.scale(img_apple, (100, 100))
 
 
         while running:

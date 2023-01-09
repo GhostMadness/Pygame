@@ -135,6 +135,7 @@ def fight():
 
 
 def bag():
+    image_inventar = "SPRITE\для_диалога.png"
     pass
 
 
