@@ -217,8 +217,6 @@ def start_location_4():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-                elif event.type == pygame.MOUSEMOTION:
-                    print(event.pos)
             key = pygame.key.get_pressed()
             if key[pygame.K_d]:
                 gg_4.right()
@@ -274,7 +272,7 @@ def start_location_3():
             location_3 = False
 
         other_sprite_2 = pygame.sprite.Group()
-        other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1300, 25)))
+        other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1134, 86)))
 
         other_sprite_exit = pygame.sprite.Group()
         other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 380)))
@@ -284,8 +282,6 @@ def start_location_3():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-                elif event.type == pygame.MOUSEMOTION:
-                    print(event.pos)
             key = pygame.key.get_pressed()
             if key[pygame.K_d]:
                 gg_3.right()
@@ -297,7 +293,6 @@ def start_location_3():
                 gg_3.botton()
             screen.blit(sc1, (0, 0))
             screen.blit(gg_3.image, gg_3.rect)
-            other_sprite_2.draw(screen)
 
             if pygame.sprite.spritecollideany(gg_3, other_sprite_2):
                 music.stop()
@@ -367,8 +362,6 @@ def start_location_2():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-                elif event.type == pygame.MOUSEMOTION:
-                    print(event.pos)
             key = pygame.key.get_pressed()
             if key[pygame.K_d]:
                 gg_2.right()
@@ -493,8 +486,6 @@ def start_location_1():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-                elif event.type == pygame.MOUSEMOTION:
-                    print(event.pos)
 
             key = pygame.key.get_pressed()
             if key[pygame.K_d]:
@@ -514,7 +505,6 @@ def start_location_1():
                 one = Live_hide_cl()
                 two = Death_hide_cl()
                 l_d = (one.live_print(), two.death_print())
-                print(l_d)
                 music.play(-1)
                 if a:
                     gg.rect.x = 324
