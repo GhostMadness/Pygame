@@ -173,7 +173,7 @@ def war_2():
 
 def dialog_1():
     global cell
-    cell = Cell('SPRITE\для диалога.png', 400, 600)
+    cell = Cell('SPRITE\для_диалога.png', 400, 600)
     font = pygame.font.Font(None, 50)
     text = font.render("Призрак не выражает эмоций", True, (100, 150, 100))
     text_x = cell.rect.x + 10
@@ -272,7 +272,7 @@ def one():
         elif w == 100 and not flag:
             screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
-            cell = Cell('SPRITE\для диалога.png', 400, 600)
+            cell = Cell('SPRITE\для_диалога.png', 400, 600)
             heart.death()
             s = 2
             b = 0
@@ -290,7 +290,7 @@ def one():
         elif w == 200 and not flag:
             screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
-            cell = Cell('SPRITE\для диалога.png', 400, 600)
+            cell = Cell('SPRITE\для_диалога.png', 400, 600)
             heart.death()
             s = 4
             b = 0
@@ -308,7 +308,7 @@ def one():
         elif w == 300 and not flag:
             screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
-            cell = Cell('SPRITE\для диалога.png', 400, 600)
+            cell = Cell('SPRITE\для_диалога.png', 400, 600)
             heart.death()
             s = 6
             b = 0

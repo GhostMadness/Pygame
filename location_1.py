@@ -16,6 +16,42 @@ class NPC_BUILDING(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        
+        self.text_res = ''
+        self.text = ''
+        self.font = pygame.font.Font(None, 50)
+        self.schet = 0
+
+    def dialog(self, text_npc):
+        self.text_res = text_npc.split("N")
+        print(text_npc)
+        self.image_dialog_window = pygame.image.load("SPRITE\для_диалога.png").convert_alpha()
+        self.rect_dialog_window = self.image_dialog_window.get_rect()
+        self.rect_dialog_window.x = 611
+        self.rect_dialog_window.y = 760
+        
+    def click_update(self):
+        if self.schet >= len(self.text_res):
+            self.text = self.font.render("Мне больше нечего тебе сказать", True, (255, 255, 255))
+            #урод!
+            screen.blit(self.image_dialog_window, self.rect_dialog_window)
+            screen.blit(self.text, (620, 770))
+            pygame.display.flip()
+            time.sleep(3)
+            self.text = self.font.render("урод!", True, (255, 255, 255))
+            screen.blit(self.image_dialog_window, self.rect_dialog_window)
+            screen.blit(self.text, (620, 770))
+            pygame.display.flip()
+            time.sleep(1)
+            return
+        self.text = self.font.render(str(self.text_res[self.schet]), False, (255, 255, 255))
+        self.schet += 1
+        screen.blit(self.image_dialog_window, self.rect_dialog_window)
+        screen.blit(self.text, (620, 770))
+        pygame.display.flip()
+        time.sleep(3)
+        
+        #ПИСАТЬ КАЖДОЕ НОВОЕ СЛОВОСОЧЕТАНИЕ ЧЕРЕЗ ПРОБЕЛ КОГДА ПЕРЕДАЁШЬ В ФУНКЦИЮ ТЕКСТ ПЕРСОНАЖА!!!
 
 
 class Heroy(pygame.sprite.Sprite):
@@ -288,6 +324,7 @@ def start_location_2():
         npc_1 = NPC_BUILDING("SPRITE\pNPC\selski_men.png", 673, 408)
         npc_1_group = pygame.sprite.Group()
         npc_1_group.add(npc_1)
+        mogno_nelza_govorit = True
 
         running = True
         while running:
@@ -316,6 +353,9 @@ def start_location_2():
                 music.stop()
                 location_1 = True
                 start_location_1()
+            if pygame.sprite.spritecollideany(gg_2, npc_1_group) and event.type == pygame.MOUSEBUTTONDOWN:
+                    npc_1.dialog("Пошёл вон отсюда NПока все мозги не выбил!")
+                    npc_1.click_update()
 
             pygame.display.flip()
             clock.tick(60)
