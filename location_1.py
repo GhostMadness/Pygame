@@ -49,7 +49,6 @@ class NPC_BUILDING(pygame.sprite.Sprite):
 
             self.text_name = self.font.render(self.name, False, self.rgb_nickname)
             self.text = self.font.render("Мне больше нечего тебе сказать", True, (255, 255, 255))
-            #урод!
             screen.blit(self.text_name, (620, 720))
             screen.blit(self.image_dialog_window, self.rect_dialog_window)
             screen.blit(self.text, (620, 770))
