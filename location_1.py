@@ -297,6 +297,7 @@ def start_location_3():
                 gg_3.botton()
             screen.blit(sc1, (0, 0))
             screen.blit(gg_3.image, gg_3.rect)
+            other_sprite_2.draw(screen)
 
             if pygame.sprite.spritecollideany(gg_3, other_sprite_2):
                 music.stop()
