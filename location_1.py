@@ -508,8 +508,6 @@ def start_location_1():
                     ON = False
                     Death_fLag = False
                     screen.blit(gg.image, gg.rect)
-
-
             if pygame.sprite.spritecollideany(gg, other_sprite_2):
                 music.stop()
                 start_location_2()
