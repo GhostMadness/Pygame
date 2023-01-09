@@ -253,7 +253,7 @@ def one():
     global text_xh
     global w, Death_fLag
     if not heart.update_yes():
-        if q % 20 == 0:
+        if q % 30 == 0:
             wars[file_wars[s].rstrip()]()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
