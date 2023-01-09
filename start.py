@@ -18,7 +18,7 @@ class War(pygame.sprite.Sprite):
     
     def update(self):
         global number
-        self.rect = self.rect.move(random.randrange(-5, 5), 1)
+        self.rect = self.rect.move(random.randrange(-5, 6), 1)
         if self.rect.centery >= cell.rect.bottom - 5 or self.rect.centerx >= cell.rect.right - 5 or self.rect.centerx <= cell.rect.left + 5:
             self.kill()
         if pygame.sprite.collide_mask(self, heart):
@@ -42,19 +42,19 @@ class Heart(pygame.sprite.Sprite):
     
     def right(self):
         if self.rect.centerx + (max(self.mask.outline(), key=lambda x: x[0])[0] // 2) < cell.rect.right:
-            self.rect = self.rect.move(3, 0)
+            self.rect = self.rect.move(2, 0)
 
     def left(self):
         if self.rect.centerx - (max(self.mask.outline(), key=lambda x: x[0])[0] // 2) > cell.rect.left:
-            self.rect = self.rect.move(-3, 0)
+            self.rect = self.rect.move(-2, 0)
 
     def top(self):
         if self.rect.centery - (max(self.mask.outline(), key=lambda x: x[1])[0] // 2) > cell.rect.top:
-            self.rect = self.rect.move(0, -3)
+            self.rect = self.rect.move(0, -2)
     
     def bottom(self):
         if self.rect.centery + (max(self.mask.outline(), key=lambda x: x[1])[0] // 2) + 10 < cell.rect.bottom:
-            self.rect= self.rect.move(0, 3)
+            self.rect= self.rect.move(0, 2)
     
     def update(self):
         global Death_fLag

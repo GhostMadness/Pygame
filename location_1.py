@@ -8,6 +8,14 @@ location_2 = False
 location_1 = False
 l_d = (False, False)
 
+class NPC_BUILDING(pygame.sprite.Sprite):
+    def __init__(self, filename, x, y):
+        super().__init__()
+        self.image= pygame.image.load(filename).convert_alpha()
+        self.image = pygame.transform.scale(self.image, (100, 100))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
 
 
 class Heroy(pygame.sprite.Sprite):
@@ -277,6 +285,10 @@ def start_location_2():
         other_sprite_exit = pygame.sprite.Group()
         other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 523)))
 
+        npc_1 = NPC_BUILDING("SPRITE\pNPC\selski_men.png", 673, 408)
+        npc_1_group = pygame.sprite.Group()
+        npc_1_group.add(npc_1)
+
         running = True
         while running:
             for event in pygame.event.get():
@@ -294,6 +306,7 @@ def start_location_2():
             if key[pygame.K_s]:
                 gg_2.botton()
             screen_local_2.blit(sc1, (0, 0))
+            npc_1_group.draw(screen)
             screen_local_2.blit(gg_2.image, gg_2.rect)
 
             if pygame.sprite.spritecollideany(gg_2, other_sprite_2):
