@@ -2,6 +2,7 @@ import pygame
 import time
 from start import screen, start_fn, Death_fLag, go_or_no, Live_hide_cl, Death_hide_cl
 from location_2 import start_dias
+import sqlite3
 
 location_3 = False
 location_2 = False
@@ -405,6 +406,15 @@ class Stop_2(pygame.sprite.Sprite):
         self.rect.x = coord[0]
         self.rect.y = coord[1]
 
+class Stop_2_Apple(pygame.sprite.Sprite):
+    def __init__(self, filename, coord):
+        super().__init__()
+        self.image = pygame.image.load(filename)
+        self.image = pygame.transform.scale(self.image, (50, 50))
+        self.rect = self.image.get_rect()
+        self.rect.x = coord[0]
+        self.rect.y = coord[1]
+
 def start_location_1():
     if __name__ == '__main__':
         global location_1, gg, Death_fLag, go_or_no, l_d
@@ -465,9 +475,12 @@ def start_location_1():
         img_hide = pygame.image.load("SPRITE\HIDE_1_BACKGROUND.png")
         img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
 
-        img_apple = pygame.image.load("SPRITE\APPLE_HILL.png")
-        img_apple_scale = pygame.transform.scale(img_apple, (100, 100))
+        img_apple_group = pygame.sprite.Group()
+        img_apple_group.add(Stop_2_Apple("SPRITE\APPLE_HILL.png", (280, 720)))
+        ON = True
 
+        con = sqlite3.connect('SQL\Inventar.db')
+        cur = con.cursor()
 
         while running:
             for event in pygame.event.get():
@@ -500,6 +513,7 @@ def start_location_1():
                     gg.rect.x = 324
                     gg.rect.y = 571
                     l_d = (False, False)
+                    ON = False
                     Death_fLag = False
                     screen.blit(gg.image, gg.rect)
 
@@ -511,6 +525,13 @@ def start_location_1():
                 sdegfoin = False
             if (l_d[0] == False and l_d[1] == False):
                 screen.blit(img_hide_scale, (1920 // 2, 1080 // 2))
+
+            if ON: 
+                img_apple_group.draw(screen)
+            if pygame.sprite.spritecollideany(gg, img_apple_group):
+                cur.execute("""INSERT or IGNORE into Inventar_Fight(Resource, Skolko) VALUES("Яблоко", 1);""")
+                con.commit()
+                ON = False
 
             pygame.display.flip()
             clock.tick(60)

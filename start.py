@@ -1,6 +1,7 @@
 import pygame
 import random
 import time
+import sqlite3
 
 screen = pygame.display.set_mode((1920, 1080))
 Death_fLag = False
@@ -135,7 +136,18 @@ def fight():
 
 
 def bag():
-    image_inventar = "SPRITE\для_диалога.png"
+    con = sqlite3.connect('SQL\Inventar.db')
+    cur = con.cursor()
+    res = cur.execute("SELECT * FROM Inventar_Fight")
+    res = cur.fetchall()
+    print(res)
+    cell = Cell('SPRITE\для_диалога.png', 400, 600)
+    font = pygame.font.Font(None, 50)
+    text = font.render(res[0][0], True, (100, 150, 100))
+    text_x = cell.rect.x + 10
+    text_y = cell.rect.y + 10
+    screen.blit(cell.image, cell.rect)
+    screen.blit(text, (text_x, text_y))
     pass
 
 
