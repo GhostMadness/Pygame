@@ -283,7 +283,8 @@ def one():
             Fight = True
             b = 1
         elif w == 100 and not flag:
-            screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
+            if type(texth) != str:
+                screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
             cell = Cell('SPRITE\для_диалога.png', 400, 600)
             heart.death()
@@ -301,7 +302,8 @@ def one():
             flag = False
             Fight = True
         elif w == 200 and not flag:
-            screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
+            if type(texth) != str:
+                screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
             cell = Cell('SPRITE\для_диалога.png', 400, 600)
             heart.death()
@@ -319,7 +321,8 @@ def one():
             flag = False
             Fight = True
         elif w == 300 and not flag:
-            screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
+            if type(texth) != str:
+                screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
             cell = Cell('SPRITE\для_диалога.png', 400, 600)
             heart.death()
