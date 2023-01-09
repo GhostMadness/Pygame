@@ -29,7 +29,6 @@ class NPC_BUILDING(pygame.sprite.Sprite):
 
     def dialog(self, text_npc):
         self.text_res = text_npc.split("N")
-        print(text_npc)
         self.image_dialog_window = pygame.image.load("SPRITE\для_диалога.png").convert_alpha()
         self.rect_dialog_window = self.image_dialog_window.get_rect()
         self.rect_dialog_window.x = 611
@@ -478,9 +477,6 @@ def start_location_1():
         img_apple_group.add(Stop_2_Apple("SPRITE\APPLE_HILL.png", (280, 720)))
         ON = True
 
-        con = sqlite3.connect('SQL\Inventar.db')
-        cur = con.cursor()
-
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -526,6 +522,13 @@ def start_location_1():
                 img_apple_group.draw(screen)
             if pygame.sprite.spritecollideany(gg, img_apple_group):
                 ON = False
+                con = sqlite3.connect('SQL\Bag.db')
+                cur = con.cursor()
+                res = cur.execute("""update Bag
+                                    set Count = Count + 1
+                                    where Object = 'Яблоко'""").fetchall()
+                res = cur.execute("""select Object from Bag where Count > 0""").fetchall()
+                print(res)
 
             pygame.display.flip()
             clock.tick(60)

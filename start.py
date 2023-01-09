@@ -136,18 +136,20 @@ def fight():
 
 
 def bag():
+    global w
+    global number
     con = sqlite3.connect('SQL\Bag.db')
     cur = con.cursor()
     res = cur.execute("""select Object from Bag where Count > 0""").fetchall()
-    print(res)
-    cell = Cell('SPRITE\для_диалога.png', 400, 600)
-    font = pygame.font.Font(None, 50)
     if res:
-        text = font.render(res[0], True, (100, 150, 100))
-        text_x = cell.rect.x + 10
-        text_y = cell.rect.y + 10
-        screen.blit(text, (text_x, text_y))
-    screen.blit(cell.image, cell.rect)
+        con = sqlite3.connect('SQL\Bag.db')
+        cur = con.cursor()
+        res = cur.execute("""update Bag
+                            set Count = Count - 1
+                            where Object = 'Яблоко'""").fetchall()
+        w += 1
+        number += 5
+        
 
 
 def hope():
@@ -421,7 +423,7 @@ def start_fn(event):
     ataka = pygame.draw.rect(screen, (255, 255, 255), (text_x - 10, text_y - 10,
                                         text_w + 20, text_h + 20), 1)
     
-    text = font.render("ИНВЕНТАРЬ", True, (100, 255, 100))
+    text = font.render("СЪЕСТЬ ЯБЛОКО", True, (100, 255, 100))
     text_x = text_x + text_w + 50
     text_w = text.get_width()
     text_h = text.get_height()
