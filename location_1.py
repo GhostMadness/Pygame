@@ -99,6 +99,9 @@ class Heroy(pygame.sprite.Sprite):
 
             if self.top_sprites == None:
                 self.top_sprites = pygame.sprite.Group()
+            
+            if self.bottom_sprites == None:
+                self.bottom_sprites = pygame.sprite.Group()
         
         def update(self):
             pass
@@ -252,10 +255,11 @@ def start_location_3():
         sc1.blit(image_2, (0, 0))
         sc1.blit(image_1, (0, 0))
 
-        bottom_sprite = pygame.sprite.Group()
-        right_sprite = pygame.sprite.Group()
-        bottom_sprite.add(Stop_2("location_house\sprite_collide\ottom_grass.png", (0, 265)))
-        right_sprite.add(Stop_2("location_house\sprite_collide\ght_grass.png", (830, 0)))
+        top_sprite = pygame.sprite.Group()
+        left_sprite = pygame.sprite.Group()
+
+        top_sprite.add(Stop_2("location_house\sprite_collide\ottom_grass.png", (0, 265)))
+        left_sprite.add(Stop_2("location_house\sprite_collide\ght_grass.png", (830, 0)))
 
         music = pygame.mixer.Sound('MUSIC\FIRST\LOCATION_3_1.mp3')
         music.set_volume(0.1)
@@ -263,7 +267,7 @@ def start_location_3():
 
         clock = pygame.time.Clock()
 
-        gg_3 = Heroy(bottom=bottom_sprite, right=right_sprite, x=550, y=100)
+        gg_3 = Heroy(top=top_sprite, left=left_sprite, x=550, y=100)
         if location_3:
             gg_3.rect.x = 1230
             gg_3.rect.y = 500
@@ -273,7 +277,7 @@ def start_location_3():
         other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1300, 25)))
 
         other_sprite_exit = pygame.sprite.Group()
-        other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 510)))
+        other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 380)))
 
         running = True
         while running:
@@ -320,8 +324,10 @@ def start_location_2():
         sc1.blit(image_background, (0, 0))
         sc1.blit(image_2, (0, 0))
         sc1.blit(image_1, (0, 0))
+
         bottom_sprites = pygame.sprite.Group()
         top_sprites = pygame.sprite.Group()
+
         bottom_sprites.add(Stop_2("location_4\esult_sprite\ground_bottom.png", (0, 716)))
         top_sprites.add(Stop_2("location_4\esult_sprite\house_2.png", (0, 0)))
 
@@ -338,10 +344,10 @@ def start_location_2():
             location_2 = False
 
         other_sprite_2 = pygame.sprite.Group()
-        other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1916, 572)))
+        other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1919, 396)))
 
         other_sprite_exit = pygame.sprite.Group()
-        other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 523)))
+        other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 384)))
 
         npc_1 = NPC_BUILDING("SPRITE\pNPC\selski_men.png", 673, 408, "Алекс", (255, 36, 0))
         npc_1_group = pygame.sprite.Group()
@@ -470,7 +476,7 @@ def start_location_1():
         other_sprite.add(Stop_2("Hide_1.png", (1920 // 2 + 5, 1080 // 2)))
 
         other_sprite_2 = pygame.sprite.Group()
-        other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1916, 572)))
+        other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1915, 485)))
 
         img_hide = pygame.image.load("SPRITE\HIDE_1_BACKGROUND.png")
         img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
@@ -529,8 +535,6 @@ def start_location_1():
             if ON: 
                 img_apple_group.draw(screen)
             if pygame.sprite.spritecollideany(gg, img_apple_group):
-                cur.execute("""INSERT or IGNORE into Inventar_Fight(Resource, Skolko) VALUES("Яблоко", 1);""")
-                con.commit()
                 ON = False
 
             pygame.display.flip()
