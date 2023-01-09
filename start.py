@@ -138,16 +138,16 @@ def fight():
 def bag():
     con = sqlite3.connect('SQL\Bag.db')
     cur = con.cursor()
-    res = cur.execute("SELECT * FROM Inventar_Fight")
-    res = res.fetchall()
+    res = cur.execute("""select Object from Bag where Count > 0""").fetchall()
     print(res)
     cell = Cell('SPRITE\для_диалога.png', 400, 600)
     font = pygame.font.Font(None, 50)
-    text = font.render(res[0][0], True, (100, 150, 100))
-    text_x = cell.rect.x + 10
-    text_y = cell.rect.y + 10
+    if res:
+        text = font.render(res[0], True, (100, 150, 100))
+        text_x = cell.rect.x + 10
+        text_y = cell.rect.y + 10
+        screen.blit(text, (text_x, text_y))
     screen.blit(cell.image, cell.rect)
-    screen.blit(text, (text_x, text_y))
 
 
 def hope():
