@@ -136,10 +136,10 @@ def fight():
 
 
 def bag():
-    con = sqlite3.connect('SQL\Inventar.db')
+    con = sqlite3.connect('SQL\Bag.db')
     cur = con.cursor()
     res = cur.execute("SELECT * FROM Inventar_Fight")
-    res = cur.fetchall()
+    res = res.fetchall()
     print(res)
     cell = Cell('SPRITE\для_диалога.png', 400, 600)
     font = pygame.font.Font(None, 50)
@@ -148,7 +148,6 @@ def bag():
     text_y = cell.rect.y + 10
     screen.blit(cell.image, cell.rect)
     screen.blit(text, (text_x, text_y))
-    pass
 
 
 def hope():
