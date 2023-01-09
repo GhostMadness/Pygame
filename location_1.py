@@ -385,7 +385,7 @@ def start_location_2():
                 location_1 = True
                 start_location_1()
             if pygame.sprite.spritecollideany(gg_2, npc_1_group) and event.type == pygame.MOUSEBUTTONDOWN:
-                    npc_1.dialog("Пошёл вон отсюда NПока ещё живой!")
+                    npc_1.dialog("Пошёл вон отсюда NПока все мозги не выбил!")
                     npc_1.click_update()
             if pygame.sprite.spritecollideany(gg_2, npc_2_group) and event.type == pygame.MOUSEBUTTONDOWN:
                     npc_2.dialog("Я вЕлИкИй Из СвОеГо РоДа NВ нАсЛеДиЕ мНе ОсТаЛсЯ NэТоТ бОжЕсТвЕнНыЙ NкОсТюМ! NКаК я ПоГлЕжУ тЫ NиЗ нИзШиХ сЛоЁв ОбЩеСтВа! NТы Не иМеЕшь ПрАвА NНаХоДиТьСя РяДоМ сО мНоЙ! NУбИрАйСя!")
