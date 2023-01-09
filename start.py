@@ -364,7 +364,7 @@ class Live_hide_cl():
         global go_or_no
         global Death_fLag
         Death_fLag = False
-        cell = Cell('SPRITE\для диалога.png', 400, 600)
+        cell = Cell('SPRITE\для_диалога.png', 400, 600)
         font = pygame.font.Font(None, 50)
         text = font.render("Призрак уходит.", True, (100, 150, 100))
         text_x = cell.rect.x + 10
