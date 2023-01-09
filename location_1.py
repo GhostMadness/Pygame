@@ -528,7 +528,6 @@ def start_location_1():
                                     set Count = Count + 1
                                     where Object = 'Яблоко'""").fetchall()
                 res = cur.execute("""select Object from Bag where Count > 0""").fetchall()
-                print(res)
 
             pygame.display.flip()
             clock.tick(60)
