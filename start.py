@@ -472,6 +472,9 @@ def start_fn(event):
                     elif posada[0] < event.pos[0] < posada[0] + posada[2] and posada[1] < event.pos[1] < posada[1] + posada[3]:
                         hope()
                         w += 1
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_ESCAPE]:
+            pygame.quit()
         one()
         if hp_Hide <= 0:
             Death_hide_class.death_hide()
