@@ -60,6 +60,12 @@ class Heart(pygame.sprite.Sprite):
     def update(self):
         global Death_fLag
         if number == 0:
+            con = sqlite3.connect('SQL\Bag.db')
+            cur = con.cursor()
+            res = cur.execute("""update Bag
+                                set Count = 0""").fetchall()
+            con.commit()
+            con.close()
             music = pygame.mixer.Sound('MUSIC\DOUBLE\DEATH.mp3')
             music.set_volume(0.2)
             music.play(-1)
@@ -364,7 +370,7 @@ class Live_hide_cl():
         global go_or_no
         global Death_fLag
         Death_fLag = False
-        cell = Cell('SPRITE\для диалога.png', 400, 600)
+        cell = Cell('SPRITE\для_диалога.png', 400, 600)
         font = pygame.font.Font(None, 50)
         text = font.render("Призрак уходит.", True, (100, 150, 100))
         text_x = cell.rect.x + 10
