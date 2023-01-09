@@ -141,16 +141,14 @@ def bag():
     con = sqlite3.connect('SQL\Bag.db')
     cur = con.cursor()
     res = cur.execute("""select Object from Bag where Count > 0""").fetchall()
-    print(res)
     if res:
-        con = sqlite3.connect('SQL\Bag.db')
-        cur = con.cursor()
         res = cur.execute("""update Bag
                             set Count = Count - 1
                             where Object = 'Яблоко'""").fetchall()
         w += 1
         number += 5
-    print(res)
+    con.commit()
+    con.close()
         
 
 

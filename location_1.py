@@ -527,7 +527,8 @@ def start_location_1():
                 res = cur.execute("""update Bag
                                     set Count = Count + 1
                                     where Object = 'Яблоко'""").fetchall()
-                res = cur.execute("""select Object from Bag where Count > 0""").fetchall()
+                con.commit()
+                con.close()
 
             pygame.display.flip()
             clock.tick(60)
