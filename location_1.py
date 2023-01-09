@@ -9,8 +9,9 @@ location_1 = False
 l_d = (False, False)
 
 class NPC_BUILDING(pygame.sprite.Sprite):
-    def __init__(self, filename, x, y):
+    def __init__(self, filename, x, y, nickname):
         super().__init__()
+        self.name = nickname
         self.image= pygame.image.load(filename).convert_alpha()
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
@@ -32,26 +33,31 @@ class NPC_BUILDING(pygame.sprite.Sprite):
         
     def click_update(self):
         if self.schet >= len(self.text_res):
+            self.text_name = self.font.render(self.name, False, (255, 36, 0))
             self.text = self.font.render("Мне больше нечего тебе сказать", True, (255, 255, 255))
             #урод!
+            screen.blit(self.text_name, (620, 720))
             screen.blit(self.image_dialog_window, self.rect_dialog_window)
             screen.blit(self.text, (620, 770))
             pygame.display.flip()
             time.sleep(3)
+            screen.blit(self.text_name, (620, 720))
             self.text = self.font.render("урод!", True, (255, 255, 255))
             screen.blit(self.image_dialog_window, self.rect_dialog_window)
             screen.blit(self.text, (620, 770))
             pygame.display.flip()
             time.sleep(1)
             return
+        self.text_name = self.font.render(self.name, False, (255, 36, 0))
         self.text = self.font.render(str(self.text_res[self.schet]), False, (255, 255, 255))
         self.schet += 1
+        screen.blit(self.text_name, (620, 720))
         screen.blit(self.image_dialog_window, self.rect_dialog_window)
         screen.blit(self.text, (620, 770))
         pygame.display.flip()
         time.sleep(3)
         
-        #ПИСАТЬ КАЖДОЕ НОВОЕ СЛОВОСОЧЕТАНИЕ ЧЕРЕЗ ПРОБЕЛ КОГДА ПЕРЕДАЁШЬ В ФУНКЦИЮ ТЕКСТ ПЕРСОНАЖА!!!
+        #ПИСАТЬ КАЖДОЕ НОВОЕ СЛОВОСОЧЕТАНИЕ ЧЕРЕЗ N КОГДА ПЕРЕДАЁШЬ В ФУНКЦИЮ ТЕКСТ ПЕРСОНАЖА!!! ПРИМЕР СНИЗУ!!!
 
 
 class Heroy(pygame.sprite.Sprite):
@@ -321,10 +327,9 @@ def start_location_2():
         other_sprite_exit = pygame.sprite.Group()
         other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 523)))
 
-        npc_1 = NPC_BUILDING("SPRITE\pNPC\selski_men.png", 673, 408)
+        npc_1 = NPC_BUILDING("SPRITE\pNPC\selski_men.png", 673, 408, "Alex")
         npc_1_group = pygame.sprite.Group()
         npc_1_group.add(npc_1)
-        mogno_nelza_govorit = True
 
         running = True
         while running:
