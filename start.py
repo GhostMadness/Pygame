@@ -60,6 +60,12 @@ class Heart(pygame.sprite.Sprite):
     def update(self):
         global Death_fLag
         if number == 0:
+            con = sqlite3.connect('SQL\Bag.db')
+            cur = con.cursor()
+            res = cur.execute("""update Bag
+                                set Count = 0""").fetchall()
+            con.commit()
+            con.close()
             music = pygame.mixer.Sound('MUSIC\DOUBLE\DEATH.mp3')
             music.set_volume(0.2)
             music.play(-1)
