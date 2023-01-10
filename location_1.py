@@ -135,7 +135,6 @@ def start_menu():
                         print("baba boy")
                     if rect_3[0] < event.pos[0] < rect_3[0] + rect_3[2] and rect_3[1] < event.pos[1] < rect_3[1] + rect_3[3]:
                         music.stop()
-                        loading()
 
             screen.fill((0, 0, 0))
             screen.blit(IMG_MENU, (0, 0))
