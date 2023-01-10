@@ -497,6 +497,12 @@ def start_fn(event):
                         w += 1
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
+            con = sqlite3.connect('SQL\Bag.db')
+            cur = con.cursor()
+            res = cur.execute("""update Bag
+                                set Count = 0""").fetchall()
+            con.commit()
+            con.close()
             pygame.quit()
         one()
         if hp_Hide <= 0:

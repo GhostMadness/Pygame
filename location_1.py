@@ -729,5 +729,11 @@ def start_location_1():
 
             pygame.display.flip()
             clock.tick(60)
+        con = sqlite3.connect('SQL\Bag.db')
+        cur = con.cursor()
+        res = cur.execute("""update Bag
+                            set Count = 0""").fetchall()
+        con.commit()
+        con.close()
         pygame.quit()
 start_menu()
