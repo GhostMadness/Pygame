@@ -110,8 +110,6 @@ def loading():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.MOUSEMOTION:
-                print(event.pos)
         screen.fill((0, 0, 0))
 
         font = pygame.font.Font(None, 50)
@@ -175,7 +173,6 @@ def start_menu():
                     running = False
                 elif event.type == pygame.MOUSEMOTION:
                     x, y = event.pos
-                    print(str((x, y)))
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if rect_1[0] < event.pos[0] < rect_1[0] + rect_1[2] and rect_1[1] < event.pos[1] < rect_1[1] + rect_1[3]:
                         running = False
