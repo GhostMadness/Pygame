@@ -3,11 +3,63 @@ import time
 from start import screen, start_fn, Death_fLag, go_or_no, Live_hide_cl, Death_hide_cl
 from location_2 import start_dias
 import sqlite3
+# UTF-8
 
 location_3 = False
 location_2 = False
 location_1 = False
 l_d = (False, False)
+
+def start_menu():
+    if __name__ == "__main__":
+        pygame.init()
+        pygame.display.set_caption("Phantom")
+        size = width, height = 1920, 1080
+        screen = pygame.display.set_mode(size)
+        music = pygame.mixer.Sound('MUSIC\FIRST\MENU.mp3')
+        music.set_volume(0.05)
+        music.play(-1)
+        IMG_MENU = pygame.image.load("SPRITE\MAIN_10.png")
+        IMG_EXIT_BUTTON = pygame.image.load("SPRITE\EXIT_BUTTON.png")
+        IMG_PLAY_BUTTON = pygame.image.load("SPRITE\PLAY_BUTTON.png")
+        IMG_SETTING_BUTTON = pygame.image.load("SPRITE\SETTING_BUTTON.png")
+
+        rect_1 = IMG_EXIT_BUTTON.get_rect()
+        rect_1.x = 43
+        rect_1.y = 620 + 50
+
+        rect_2 = IMG_SETTING_BUTTON.get_rect()
+        rect_2.x = 43
+        rect_2.y = 345 + 50
+
+        rect_3 = IMG_PLAY_BUTTON.get_rect()
+        rect_3.x = 43
+        rect_3.y = 70 + 50
+
+
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                elif event.type == pygame.MOUSEMOTION:
+                    x, y = event.pos
+                    print(str((x, y)))
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if rect_1[0] < event.pos[0] < rect_1[0] + rect_1[2] and rect_1[1] < event.pos[1] < rect_1[1] + rect_1[3]:
+                        running = False
+                    if rect_2[0] < event.pos[0] < rect_2[0] + rect_2[2] and rect_2[1] < event.pos[1] < rect_2[1] + rect_2[3]:
+                        print("baba boy")
+                    if rect_3[0] < event.pos[0] < rect_3[0] + rect_3[2] and rect_3[1] < event.pos[1] < rect_3[1] + rect_3[3]:
+                        music.stop()
+                        start_location_1()
+
+            screen.fill((0, 0, 0))
+            screen.blit(IMG_MENU, (0, 0))
+            screen.blit(IMG_PLAY_BUTTON, (43, 70 + 50))
+            screen.blit(IMG_SETTING_BUTTON, (43, 345 + 50))
+            screen.blit(IMG_EXIT_BUTTON, (43, 620 + 50))
+            pygame.display.flip()
 
 class NPC_BUILDING(pygame.sprite.Sprite):
     def __init__(self, filename, x, y, nickname, rgb_nickname):
@@ -531,4 +583,4 @@ def start_location_1():
             pygame.display.flip()
             clock.tick(60)
         pygame.quit()
-start_location_1()
+start_menu()

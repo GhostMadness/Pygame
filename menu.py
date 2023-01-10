@@ -1,6 +1,5 @@
 import pygame
 # UTF-8
-# Нуждается в исправлении(ошибка в координатах кнопки 'играть')
 
 if __name__ == "__main__":
     pygame.init()
@@ -15,6 +14,22 @@ if __name__ == "__main__":
     IMG_PLAY_BUTTON = pygame.image.load("SPRITE\PLAY_BUTTON.png")
     IMG_SETTING_BUTTON = pygame.image.load("SPRITE\SETTING_BUTTON.png")
 
+    rect_1 = IMG_EXIT_BUTTON.get_rect()
+    rect_1.x = 43
+    rect_1.y = 620 + 50
+
+    rect_2 = IMG_SETTING_BUTTON.get_rect()
+    rect_2.x = 43
+    rect_2.y = 345 + 50
+
+    rect_3 = IMG_PLAY_BUTTON.get_rect()
+    rect_3.x = 43
+    rect_3.y = 70 + 50
+
+    print(rect_1)
+
+
+
     running = True
 
     while running:
@@ -22,30 +37,19 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.MOUSEMOTION:
-                pos = event.pos
-                print(pos)
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if pos[0] >= 45 and pos[0] <= 360:
-                    if pos[1] >= 167 and pos[1] <= 503:
-                        running = False
-                        print('goodbye')
-                        #����� ����� ����� ��������� ��������� ����� ����
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if pos[0] >= 46 and pos[0] <= 715:
-                    if pos[1] >= 502 and pos[1] <= 913:
-                        running = False
-                        print('goodbye2')
-                        #�����
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if pos[0] >= 45 and pos[0] <= 503:
-                    if pos[1] >= 441 and pos[1] <= 640:
-                        running = False
-                        print('goodbye1')
-                        #����� ����� ����� ��������� ��������� ����� ��������
+                x, y = event.pos
+                print(str((x, y)))
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if rect_1[0] < event.pos[0] < rect_1[0] + rect_1[2] and rect_1[1] < event.pos[1] < rect_1[1] + rect_1[3]:
+                    running = False
+                if rect_1[0] < event.pos[0] < rect_1[0] + rect_1[2] and rect_1[1] < event.pos[1] < rect_1[1] + rect_1[3]:
+                    print("baba boy")
+                if rect_1[0] < event.pos[0] < rect_1[0] + rect_1[2] and rect_1[1] < event.pos[1] < rect_1[1] + rect_1[3]:
+                    print("baba boy")
 
         screen.fill((0, 0, 0))
         screen.blit(IMG_MENU, (0, 0))
-        screen.blit(IMG_PLAY_BUTTON, (25, 50))
-        screen.blit(IMG_SETTING_BUTTON, (25, 325))
-        screen.blit(IMG_EXIT_BUTTON, (25, 600))
+        screen.blit(IMG_PLAY_BUTTON, (43, 70 + 50))
+        screen.blit(IMG_SETTING_BUTTON, (43, 345 + 50))
+        screen.blit(IMG_EXIT_BUTTON, (43, 620 + 50))
         pygame.display.flip()
