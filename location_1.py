@@ -9,138 +9,137 @@ import sqlite3
 location_3 = False
 location_2 = False
 location_1 = False
+ON = True
+ON_2 = True
 l_d = (False, False)
 
 def loading_death():
-    if __name__ == "__main__":
-        pygame.init()
-        pygame.display.set_caption("Phantom")
-        size = width, height = 1920, 1080
-        screen = pygame.display.set_mode(size)
-        image_loading = pygame.image.load("SPRITE\APPLE_HILL.png")
-        image_player = pygame.image.load("SPRITE\гг.png")
-        music = pygame.mixer.Sound('MUSIC\WHAT\ZVEK_KYCANIA.mp3')
-        angle = 0
-        running = True
-        width_line = 0
-        text_loading = "Загрузка"
-        schet = 0
-        apple_x = 2000
-        a = True
-        b = False
-        schet_2 = -30
-        schet_3 = 0
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                elif event.type == pygame.MOUSEMOTION:
-                    print(event.pos)
-            screen.fill((0, 0, 0))
+    pygame.init()
+    pygame.display.set_caption("Phantom")
+    size = width, height = 1920, 1080
+    screen = pygame.display.set_mode(size)
+    image_loading = pygame.image.load("SPRITE\APPLE_HILL.png")
+    image_player = pygame.image.load("SPRITE\гг.png")
+    music = pygame.mixer.Sound('MUSIC\WHAT\ZVEK_KYCANIA.mp3')
+    angle = 0
+    running = True
+    width_line = 0
+    text_loading = "Загрузка"
+    schet = 0
+    apple_x = 2000
+    a = True
+    b = False
+    schet_2 = -30
+    schet_3 = 0
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.MOUSEMOTION:
+                print(event.pos)
+        screen.fill((0, 0, 0))
 
-            font = pygame.font.Font(None, 50)
-            myfont = pygame.font.SysFont("SimSun", 15)
-            text = font.render(text_loading, True, (100, 255, 100))
-            text_x = 51
-            text_y = 850
-            text_w = text.get_width()
-            text_h = text.get_height()
-            screen.blit(text, (text_x, text_y))
+        font = pygame.font.Font(None, 50)
+        text = font.render(text_loading, True, (100, 255, 100))
+        text_x = 51
+        text_y = 850
+        text_w = text.get_width()
+        text_h = text.get_height()
+        screen.blit(text, (text_x, text_y))
 
 
-            pygame.draw.rect(screen, (255, 255, 255), (51, 887, width_line, 50))
+        pygame.draw.rect(screen, (255, 255, 255), (51, 887, width_line, 50))
 
-            screen.blit(image_player, (1920 // 2 - 100, 1080 // 2 - 100))
-            if apple_x >= 1920 // 2:
-                screen.blit(image_loading, (apple_x, 1080 // 2- 100))
-            elif a and apple_x <= 1920 // 2:
-                music.set_volume(0.2)
-                music.play(0)
-                a = False
+        screen.blit(image_player, (1920 // 2 - 100, 1080 // 2 - 100))
+        if apple_x >= 1920 // 2:
+            screen.blit(image_loading, (apple_x, 1080 // 2- 100))
+        elif a and apple_x <= 1920 // 2:
+            music.set_volume(0.2)
+            music.play(0)
+            a = False
 
-            if width_line >= 1800:
-                time.sleep(1)
-                width_line += 10
-                time.sleep(0.5)
-                start_location_1()
-            width_line += 2
-            if schet == 100:
-                if text_loading == "Загрузка...":
-                    text_loading = "Загрузка"
-                else:
-                    text_loading = text_loading + '.'
-                schet = 0
-            schet += 1
-            apple_x -= 2
+        if width_line >= 1800:
+            time.sleep(1)
+            width_line += 10
+            time.sleep(0.5)
+            start_location_1()
+        width_line += 2
+        if schet == 100:
+            if text_loading == "Загрузка...":
+                text_loading = "Загрузка"
+            else:
+                text_loading = text_loading + '.'
+            schet = 0
+        schet += 1
+        apple_x -= 2
 
-            text_hill = font.render("+20 HP", True, (0, 250, 0))
-            text_hill_x = 1920 // 2
-            text_hill_y = schet_2
-            text_hill_w = text_hill.get_width()
-            text_hill_h = text_hill.get_height()
+        text_hill = font.render("+20 HP", True, (0, 250, 0))
+        text_hill_x = 1920 // 2
+        text_hill_y = schet_2
+        text_hill_w = text_hill.get_width()
+        text_hill_h = text_hill.get_height()
 
-            if a == False and schet_2 != 400:
-                schet_2 += 2
-            if schet_2 >= 400:
-                text_ok = font.render("НЕ СДАВАЙСЯ", True, (0, 200, 0))
-                text_ok_x = 1920 // 2 - 50
-                text_ok_y = 800
-                text_ok_w = text_ok.get_width()
-                text_ok_h = text_ok.get_height()
-                screen.blit(text_ok, (text_ok_x, text_ok_y))
-            if schet_3 <= 500:
-                screen.blit(text_hill, (text_hill_x, schet_2))
-            if schet_2 == 400:
-                schet_3 += 2
-            pygame.display.flip()
+        if a == False and schet_2 != 400:
+            schet_2 += 2
+        if schet_2 >= 400:
+            text_ok = font.render("НЕ СДАВАЙСЯ", True, (0, 200, 0))
+            text_ok_x = 1920 // 2 - 50
+            text_ok_y = 800
+            text_ok_w = text_ok.get_width()
+            text_ok_h = text_ok.get_height()
+            screen.blit(text_ok, (text_ok_x, text_ok_y))
+        if schet_3 <= 500:
+            screen.blit(text_hill, (text_hill_x, schet_2))
+        if schet_2 == 400:
+            schet_3 += 2
+        pygame.display.flip()
 
 def loading():
-    if __name__ == "__main__":
-        global image_loading
-        pygame.init()
-        pygame.display.set_caption("Phantom")
-        size = width, height = 1920, 1080
-        screen = pygame.display.set_mode(size)
-        image_loading = pygame.image.load("SPRITE\BOMB_ENEMY.png")
-        angle = 0
-        running = True
-        width_line = 0
-        text_loading = "Загрузка"
-        schet = 0
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                elif event.type == pygame.MOUSEMOTION:
-                    print(event.pos)
-            screen.fill((0, 0, 0))
+    global image_loading
+    pygame.init()
+    pygame.display.set_caption("Phantom")
+    size = width, height = 1920, 1080
+    screen = pygame.display.set_mode(size)
+    image_loading = pygame.image.load("SPRITE\BOMB_ENEMY.png")
+    angle = 0
+    running = True
+    width_line = 0
+    text_loading = "Загрузка"
+    schet = 0
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.MOUSEMOTION:
+                print(event.pos)
+        screen.fill((0, 0, 0))
 
-            font = pygame.font.Font(None, 50)
-            myfont = pygame.font.SysFont("SimSun", 15)
-            text = font.render(text_loading, True, (100, 255, 100))
-            text_x = 51
-            text_y = 850
-            text_w = text.get_width()
-            text_h = text.get_height()
-            screen.blit(text, (text_x, text_y))
+        font = pygame.font.Font(None, 50)
+        myfont = pygame.font.SysFont("SimSun", 15)
+        text = font.render(text_loading, True, (100, 255, 100))
+        text_x = 51
+        text_y = 850
+        text_w = text.get_width()
+        text_h = text.get_height()
+        screen.blit(text, (text_x, text_y))
 
-            pos_x = random.randint(1920 // 2 - 10, 1920 // 2 + 10)
-            screen.blit(image_loading, (pos_x - 50, 1080 // 2 - 50))
-            pygame.draw.rect(screen, (255, 255, 255), (51, 887, width_line, 50))
-            if width_line >= 1800:
-                time.sleep(1)
-                width_line += 10
-                time.sleep(0.5)
-                start_location_1()
-            width_line += 1
-            if schet == 100:
-                if text_loading == "Загрузка...":
-                    text_loading = "Загрузка"
-                else:
-                    text_loading = text_loading + '.'
-                schet = 0
-            schet += 1
-            pygame.display.flip()
+        pos_x = random.randint(1920 // 2 - 2, 1920 // 2 + 2)
+        screen.blit(image_loading, (pos_x - 50, 1080 // 2 - 50))
+        pygame.draw.rect(screen, (255, 255, 255), (51, 887, width_line, 50))
+        if width_line >= 1800:
+            time.sleep(1)
+            width_line += 10
+            time.sleep(0.5)
+            start_location_1()
+        width_line += 2
+        if schet == 100:
+            if text_loading == "Загрузка...":
+                text_loading = "Загрузка"
+            else:
+                text_loading = text_loading + '.'
+            schet = 0
+        schet += 1
+        pygame.display.flip()
 
 def start_menu():
     if __name__ == "__main__":
@@ -490,7 +489,7 @@ def start_location_3():
 
 def start_location_2():
     if __name__ == '__main__':
-        global location_2, location_1
+        global location_2, location_1, ON_2
         pygame.init()
         pygame.display.set_caption("Phantom")
         size = width, height = 1920, 1080
@@ -541,7 +540,6 @@ def start_location_2():
 
         img_apple_group_2 = pygame.sprite.Group()
         img_apple_group_2.add(Stop_2_Apple("SPRITE\APPLE_HILL.png", (1250, 640)))
-        ON = True
 
         running = True
         while running:
@@ -580,10 +578,11 @@ def start_location_2():
                     npc_3.dialog("Здравствуй путник NЯ недавно приехал сюда. NИногда я вижу странных существ NЕсли видишь не мешкая убивай NОни портят репутацию городу NДо скорых встреч!")
                     npc_3.click_update()
             
-            if ON: 
+            if ON_2: 
                 img_apple_group_2.draw(screen)
+
             if pygame.sprite.spritecollideany(gg_2, img_apple_group_2):
-                ON = False
+                ON_2 = False
                 con = sqlite3.connect('SQL\Bag.db')
                 cur = con.cursor()
                 res = cur.execute("""update Bag
@@ -615,7 +614,7 @@ class Stop_2_Apple(pygame.sprite.Sprite):
 
 def start_location_1():
     if __name__ == '__main__':
-        global location_1, gg, Death_fLag, go_or_no, l_d
+        global location_1, gg, Death_fLag, go_or_no, l_d, ON
         pygame.init()
         running = True
         x, y = 0, 0
@@ -675,7 +674,6 @@ def start_location_1():
 
         img_apple_group = pygame.sprite.Group()
         img_apple_group.add(Stop_2_Apple("SPRITE\APPLE_HILL.png", (280, 720)))
-        ON = True
 
         while running:
             for event in pygame.event.get():
@@ -717,7 +715,7 @@ def start_location_1():
             if (l_d[0] == False and l_d[1] == False):
                 screen.blit(img_hide_scale, (1920 // 2, 1080 // 2))
 
-            if ON: 
+            if ON:
                 img_apple_group.draw(screen)
             if pygame.sprite.spritecollideany(gg, img_apple_group):
                 ON = False
