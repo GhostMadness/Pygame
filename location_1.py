@@ -539,6 +539,10 @@ def start_location_2():
         npc_3_group = pygame.sprite.Group()
         npc_3_group.add(npc_3)
 
+        img_apple_group_2 = pygame.sprite.Group()
+        img_apple_group_2.add(Stop_2_Apple("SPRITE\APPLE_HILL.png", (1250, 640)))
+        ON = True
+
         running = True
         while running:
             for event in pygame.event.get():
@@ -566,15 +570,27 @@ def start_location_2():
                 music.stop()
                 location_1 = True
                 start_location_1()
-            if pygame.sprite.spritecollideany(gg_2, npc_1_group) and event.type == pygame.MOUSEBUTTONDOWN:
+            if pygame.sprite.spritecollideany(gg_2, npc_1_group) and key[pygame.K_RETURN]:
                     npc_1.dialog("Пошёл вон отсюда NПока все мозги не выбил!")
                     npc_1.click_update()
-            if pygame.sprite.spritecollideany(gg_2, npc_2_group) and event.type == pygame.MOUSEBUTTONDOWN:
+            if pygame.sprite.spritecollideany(gg_2, npc_2_group) and key[pygame.K_RETURN]:
                     npc_2.dialog("Я вЕлИкИй Из СвОеГо РоДа NВ нАсЛеДиЕ мНе ОсТаЛсЯ NэТоТ бОжЕсТвЕнНыЙ NкОсТюМ! NКаК я ПоГлЕжУ тЫ NиЗ нИзШиХ сЛоЁв ОбЩеСтВа! NТы Не иМеЕшь ПрАвА NНаХоДиТьСя РяДоМ сО мНоЙ! NУбИрАйСя!")
                     npc_2.click_update()
-            if pygame.sprite.spritecollideany(gg_2, npc_3_group) and event.type == pygame.MOUSEBUTTONDOWN:
+            if pygame.sprite.spritecollideany(gg_2, npc_3_group) and key[pygame.K_RETURN]:
                     npc_3.dialog("Здравствуй путник NЯ недавно приехал сюда. NИногда я вижу странных существ NЕсли видишь не мешкая убивай NОни портят репутацию городу NДо скорых встреч!")
                     npc_3.click_update()
+            
+            if ON: 
+                img_apple_group_2.draw(screen)
+            if pygame.sprite.spritecollideany(gg_2, img_apple_group_2):
+                ON = False
+                con = sqlite3.connect('SQL\Bag.db')
+                cur = con.cursor()
+                res = cur.execute("""update Bag
+                                    set Count = Count + 1
+                                    where Object = 'Яблоко'""").fetchall()
+                con.commit()
+                con.close()
 
             pygame.display.flip()
             clock.tick(60)
