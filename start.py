@@ -350,15 +350,30 @@ class Death_hide_cl():
         global running
         global image1, go_or_no
         global Death_fLag
+        global cell, number
         Death_fLag = False
         screen.fill((0, 0, 0), (800, 100, 300, 300))
         pygame.display.update()
         image1 = pygame.image.load('SPRITE\Hide_2.png')
         screen.blit(image1, (800, 100))
+        cell = Cell('SPRITE\для_диалога.png', 400, 600)
+        font = pygame.font.Font(None, 50)
+        text = font.render("Призрак убит.", True, (100, 150, 100))
+        text_x = cell.rect.x + 10
+        text_y = cell.rect.y + 10
+        screen.blit(cell.image, cell.rect)
+        screen.blit(text, (text_x, text_y))
+        text = font.render("Вы получили 10 ОП", True, (100, 150, 100))
+        text_x = cell.rect.x + 10
+        text_y = cell.rect.y + 10 + text.get_rect().bottom
+        screen.blit(text, (text_x, text_y))
+        number += 10
         pygame.display.update()
         time.sleep(2)
+        music_fight.stop()
         running = False
         go_or_no = True
+
     def death_print(self):
         global go_or_no
         return go_or_no
@@ -368,7 +383,7 @@ class Live_hide_cl():
         global running
         global cell
         global go_or_no
-        global Death_fLag
+        global Death_fLag, number
         Death_fLag = False
         cell = Cell('SPRITE\для_диалога.png', 400, 600)
         font = pygame.font.Font(None, 50)
@@ -377,15 +392,17 @@ class Live_hide_cl():
         text_y = cell.rect.y + 10
         screen.blit(cell.image, cell.rect)
         screen.blit(text, (text_x, text_y))
-        text = font.render("Вы получили 10 ОП и 10 ОМ", True, (100, 150, 100))
+        text = font.render("Вы получили 1 ОП", True, (100, 150, 100))
         text_x = cell.rect.x + 10
         text_y = cell.rect.y + 10 + text.get_rect().bottom
         screen.blit(text, (text_x, text_y))
+        number += 1
         pygame.display.update()
         time.sleep(2)
         music_fight.stop()
         running = False
         go_or_no = True
+
     def live_print(self):
         global go_or_no
         return go_or_no
