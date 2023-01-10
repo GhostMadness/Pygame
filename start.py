@@ -363,7 +363,7 @@ class Death_hide_cl():
         text_y = cell.rect.y + 10
         screen.blit(cell.image, cell.rect)
         screen.blit(text, (text_x, text_y))
-        text = font.render("Вы получили 10 ОП", True, (100, 150, 100))
+        text = font.render("Вы получили 10 ХП", True, (100, 150, 100))
         text_x = cell.rect.x + 10
         text_y = cell.rect.y + 10 + text.get_rect().bottom
         screen.blit(text, (text_x, text_y))
@@ -392,7 +392,7 @@ class Live_hide_cl():
         text_y = cell.rect.y + 10
         screen.blit(cell.image, cell.rect)
         screen.blit(text, (text_x, text_y))
-        text = font.render("Вы получили 1 ОП", True, (100, 150, 100))
+        text = font.render("Вы получили 1 ХП", True, (100, 150, 100))
         text_x = cell.rect.x + 10
         text_y = cell.rect.y + 10 + text.get_rect().bottom
         screen.blit(text, (text_x, text_y))
