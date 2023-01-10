@@ -94,51 +94,6 @@ def loading_death():
             schet_3 += 2
         pygame.display.flip()
 
-def loading():
-    global image_loading
-    pygame.init()
-    pygame.display.set_caption("Phantom")
-    size = width, height = 1920, 1080
-    screen = pygame.display.set_mode(size)
-    image_loading = pygame.image.load("SPRITE\BOMB_ENEMY.png")
-    angle = 0
-    running = True
-    width_line = 0
-    text_loading = "Загрузка"
-    schet = 0
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-        screen.fill((0, 0, 0))
-
-        font = pygame.font.Font(None, 50)
-        myfont = pygame.font.SysFont("SimSun", 15)
-        text = font.render(text_loading, True, (100, 255, 100))
-        text_x = 51
-        text_y = 850
-        text_w = text.get_width()
-        text_h = text.get_height()
-        screen.blit(text, (text_x, text_y))
-
-        pos_x = random.randint(1920 // 2 - 2, 1920 // 2 + 2)
-        screen.blit(image_loading, (pos_x - 50, 1080 // 2 - 50))
-        pygame.draw.rect(screen, (255, 255, 255), (51, 887, width_line, 50))
-        if width_line >= 1800:
-            time.sleep(1)
-            width_line += 10
-            time.sleep(0.5)
-            start_location_1()
-        width_line += 2
-        if schet == 100:
-            if text_loading == "Загрузка...":
-                text_loading = "Загрузка"
-            else:
-                text_loading = text_loading + '.'
-            schet = 0
-        schet += 1
-        pygame.display.flip()
-
 def start_menu():
     if __name__ == "__main__":
         pygame.init()
