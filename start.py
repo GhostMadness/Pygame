@@ -31,27 +31,35 @@ class War(pygame.sprite.Sprite):
             pygame.mixer.music.play(0)
 
 
-# class WarTwo(pygame.sprite.Sprite):
-#     def __init__(self, filename):
-#         super().__init__(all_wars)
-#         self.image = pygame.image.load(filename)
-#         self.image = pygame.transform.scale(self.image, (32, 32))
-#         self.rect = self.image.get_rect()
-#         self.rect.x = random.randrange(cell.rect.left + 1, cell.rect.right - 25)
-#         self.rect.y = random.randrange(cell.rect.top + 1, cell.rect.bottom - 25)
-#         self.mask = pygame.mask.from_surface(self.image)
+class WarTwo(pygame.sprite.Sprite):
+    def __init__(self, filename):
+        super().__init__(all_wars)
+        self.image = pygame.image.load(filename)
+        self.image = pygame.transform.scale(self.image, (32, 32))
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randrange(cell.rect.left + 1, cell.rect.right - 25)
+        self.rect.y = random.randrange(cell.rect.top + 1, cell.rect.bottom - 25)
+        self.mask = pygame.mask.from_surface(self.image)
+        self.p = 0
     
-#     def update(self):
-#         global number, var
-#         if self.rect.centery >= cell.rect.bottom - 5 or self.rect.centerx >= cell.rect.right - 5 or self.rect.centerx <= cell.rect.left + 5:
-#             self.kill()
-#         if pygame.sprite.collide_mask(self, heart):
-#             pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
-#             pygame.mixer.music.set_volume(0.2)
-#             number -= 1
-#             hp(number)
-#             self.kill()
-#             pygame.mixer.music.play(0)
+    def update(self):
+        global number
+        if self.p == 0:
+            self.image = pygame.image.load('SPRITE\BOMB_VZRIV.png')
+            self.p = 1
+            self.image = pygame.transform.scale(self.image, (52, 52))
+            self.mask = pygame.mask.from_surface(self.image)
+        else:
+            self.kill()
+        if self.rect.centery >= cell.rect.bottom - 5 or self.rect.centerx >= cell.rect.right - 5 or self.rect.centerx <= cell.rect.left + 5 or b == 0:
+            self.kill()
+        if pygame.sprite.collide_mask(self, heart):
+            pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
+            pygame.mixer.music.set_volume(0.2)
+            number -= 2
+            hp(number)
+            self.kill()
+            pygame.mixer.music.play(0)
     
 
 class Heart(pygame.sprite.Sprite):
@@ -273,13 +281,13 @@ def dialog_4():
 
 def war_4():
     global w
-    War('SPRITE\BOMB_ATACK.png')
+    WarTwo('SPRITE\BOMB_ATACK.png')
     w += 1
 
 
 def war_5():
     global w
-    War('SPRITE\BOMB_ENEMY.png')
+    WarTwo('SPRITE\BOMB_ENEMY.png')
     w += 1
 
 
@@ -318,7 +326,7 @@ def dialog_7():
 
 def war_6():
     global w
-    War('SPRITE\KILL_ATACK.png')
+    WarTwo('SPRITE\BOMB_ENEMY.png')
     w += 1
 
 
@@ -338,7 +346,7 @@ file_wars = open('wars.txt').readlines()
 w = 0
 
 
-def one(sorce):
+def one(sorce, react):
     global running
     global q
     global s
@@ -352,7 +360,7 @@ def one(sorce):
     global text_xh
     global w, Death_fLag
     if not heart.update_yes():
-        if q % 30 == 0:
+        if react == 'p' and q % 30 == 0 or react == 'c' and q % 40 == 0:
             wars[file_wars[s].rstrip()]()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
@@ -367,7 +375,8 @@ def one(sorce):
         if b == 1:
             screen.blit(cell.image, cell.rect)
         all_wars.draw(screen)
-        all_wars.update()
+        if react == 'p' or q % 100 == 0:
+            all_wars.update()
         screen.blit(heart.image, heart.rect)
         pygame.display.flip()
         if w == 0:
@@ -608,9 +617,9 @@ def start_fn(event, monstr):
             con.close()
             pygame.quit()
         if monstr == 1:
-            one(0)
+            one(0, 'p')
         if monstr == 2:
-            one(8)
+            one(8, 'c')
         if hp_Hide <= 0:
             Death_hide_class.death_hide()
             music_fight.stop()
