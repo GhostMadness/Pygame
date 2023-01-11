@@ -12,7 +12,7 @@ def button_music():
 def click():
     global rgb_but, rgb_fLag
     if rgb_fLag % 2 == 0:
-        rgb_but = (0, 0, 255)
+        rgb_but = (255, 0, 0)
         with open ('SETTING_FILES\SETTING.txt', 'r') as f:
             old_data = f.read()
         new_data = old_data.replace('music =1', 'music =0')
@@ -43,6 +43,13 @@ if __name__ == "__main__":
     rgb_but = (0, 255, 0)
     rgb_fLag = 1
 
+    font = pygame.font.Font(None, 50)
+    text = font.render("МУЗЫКА", True, (100, 255, 100))
+    text_x = 730
+    text_y = 197
+    text_w = text.get_width()
+    text_h = text.get_height()
+
     with open('SETTING_FILES\SETTING.txt') as f:
         print(f.read())
 
@@ -60,6 +67,7 @@ if __name__ == "__main__":
         screen.blit(background_img, (0, 0))
         screen.blit(button_menu_img_tr, rect_but_menu)
         button = pygame.draw.rect(screen, rgb_but, (900, 200, 25, 25))
+        screen.blit(text, (text_x, text_y))
         button_music()
         pygame.display.flip()
 pygame.quit()
