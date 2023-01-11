@@ -20,7 +20,7 @@ class War(pygame.sprite.Sprite):
     def update(self):
         global number
         self.rect = self.rect.move(random.randrange(-5, 6), 1)
-        if self.rect.centery >= cell.rect.bottom - 5 or self.rect.centerx >= cell.rect.right - 5 or self.rect.centerx <= cell.rect.left + 5:
+        if self.rect.centery >= cell.rect.bottom - 5 or self.rect.centerx >= cell.rect.right - 5 or self.rect.centerx <= cell.rect.left + 5 or b == 0:
             self.kill()
         if pygame.sprite.collide_mask(self, heart):
             pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
@@ -318,7 +318,7 @@ def dialog_7():
 
 def war_6():
     global w
-    War('SPRITE\war_3.png')
+    War('SPRITE\KILL_ATACK.png')
     w += 1
 
 
@@ -438,6 +438,7 @@ def one(sorce):
         #Death_fLag = True
         running = False
 
+
 class Death_hide_cl():
     def death_hide(self):
         global running
@@ -470,6 +471,7 @@ class Death_hide_cl():
     def death_print(self):
         global go_or_no
         return go_or_no
+
 
 class Live_hide_cl():
     def live_hide(self):
