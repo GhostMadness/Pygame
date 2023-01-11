@@ -318,7 +318,7 @@ def dialog_7():
 
 def war_6():
     global w
-    War('SPRITE\war_3.png')
+    War('SPRITE\KILL_ATACK.png')
     w += 1
 
 
