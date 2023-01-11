@@ -302,249 +302,246 @@ class Stop_2(pygame.sprite.Sprite):
         self.rect.y = coord[1]
 
 def start_location_4():
-    if __name__ == '__main__':
-        global location_3
-        pygame.init()
-        pygame.display.set_caption("Phantom")
-        size = width, height = 1920, 1080
-        screen = pygame.display.set_mode(size)
+    global location_3
+    pygame.init()
+    pygame.display.set_caption("Phantom")
+    size = width, height = 1920, 1080
+    screen = pygame.display.set_mode(size)
 
-        image_background = pygame.image.load("location_5_men\RESULT\location_5_man.png")
-        image_1 = pygame.image.load("location_5_men\RESULT\iblioteka.png")
-        image_3 = pygame.image.load("location_5_men\RESULT\cover.png")
-        image_4 = pygame.image.load("location_5_men\RESULT\oxes.png")
-        image_5 = pygame.image.load("location_5_men\RESULT\object.png")
+    image_background = pygame.image.load("location_5_men\RESULT\location_5_man.png")
+    image_1 = pygame.image.load("location_5_men\RESULT\iblioteka.png")
+    image_3 = pygame.image.load("location_5_men\RESULT\cover.png")
+    image_4 = pygame.image.load("location_5_men\RESULT\oxes.png")
+    image_5 = pygame.image.load("location_5_men\RESULT\object.png")
 
-        sc1 = pygame.Surface((1920, 1080))
-        sc1.blit(image_background, (0, 0))
-        sc1.blit(image_1, (0, 0))
-        sc1.blit(image_3, (0, 0))
-        sc1.blit(image_4, (0, 0))
-        sc1.blit(image_5, (0, 0))
+    sc1 = pygame.Surface((1920, 1080))
+    sc1.blit(image_background, (0, 0))
+    sc1.blit(image_1, (0, 0))
+    sc1.blit(image_3, (0, 0))
+    sc1.blit(image_4, (0, 0))
+    sc1.blit(image_5, (0, 0))
 
-        bottom_sprite = pygame.sprite.Group()
-        right_sprite = pygame.sprite.Group()
-        left_sprites = pygame.sprite.Group()
-        top_sprites = pygame.sprite.Group()
-        bottom_sprite.add(Stop_2("location_5_men\RESULT\iblioteka_bottom_collide.png", (1542, 220)))
-        right_sprite.add(Stop_2("location_5_men\RESULT\iblioteka_right_collide.png", (1570, 8)))
-        right_sprite.add(Stop_2("location_5_men\RESULT\iblioteka_other.png", (1670, 479)))
-        left_sprites.add(Stop_2("location_5_men\RESULT\oxes_collide.png", (0, 913)))
-        top_sprites.add(Stop_2("location_5_men\RESULT\object_collide.png", (895, 0)))
-        #object_collide
+    bottom_sprite = pygame.sprite.Group()
+    right_sprite = pygame.sprite.Group()
+    left_sprites = pygame.sprite.Group()
+    top_sprites = pygame.sprite.Group()
+    bottom_sprite.add(Stop_2("location_5_men\RESULT\iblioteka_bottom_collide.png", (1542, 220)))
+    right_sprite.add(Stop_2("location_5_men\RESULT\iblioteka_right_collide.png", (1570, 8)))
+    right_sprite.add(Stop_2("location_5_men\RESULT\iblioteka_other.png", (1670, 479)))
+    left_sprites.add(Stop_2("location_5_men\RESULT\oxes_collide.png", (0, 913)))
+    top_sprites.add(Stop_2("location_5_men\RESULT\object_collide.png", (895, 0)))
+    #object_collide
 
-        music = pygame.mixer.Sound('MUSIC\FIRST\HOME.mp3')
-        music.set_volume(0.2)
-        music.play(-1)
+    music = pygame.mixer.Sound('MUSIC\FIRST\HOME.mp3')
+    music.set_volume(0.2)
+    music.play(-1)
 
-        clock = pygame.time.Clock()
+    clock = pygame.time.Clock()
 
-        gg_4 = Heroy(bottom=bottom_sprite, right=right_sprite, left=left_sprites, top=top_sprites, x=1050, y=1000)
+    gg_4 = Heroy(bottom=bottom_sprite, right=right_sprite, left=left_sprites, top=top_sprites, x=1050, y=1000)
 
-        other_sprite_exit = pygame.sprite.Group()
-        other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (932, 1100)))
+    other_sprite_exit = pygame.sprite.Group()
+    other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (932, 1100)))
 
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-            key = pygame.key.get_pressed()
-            if key[pygame.K_d]:
-                gg_4.right()
-            if key[pygame.K_a]:
-                gg_4.left()
-            if key[pygame.K_w]:
-                gg_4.top()
-            if key[pygame.K_s]:
-                gg_4.botton()
-            screen.blit(sc1, (0, 0))
-            screen.blit(gg_4.image, gg_4.rect)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        key = pygame.key.get_pressed()
+        if key[pygame.K_d]:
+            gg_4.right()
+        if key[pygame.K_a]:
+            gg_4.left()
+        if key[pygame.K_w]:
+            gg_4.top()
+        if key[pygame.K_s]:
+            gg_4.botton()
+        screen.blit(sc1, (0, 0))
+        screen.blit(gg_4.image, gg_4.rect)
 
-            if pygame.sprite.spritecollideany(gg_4, other_sprite_exit):
-                music.stop()
-                location_3 = True
-                start_location_3()
-                    
-            pygame.display.flip()
-            clock.tick(60)
-    pygame.quit()
+        if pygame.sprite.spritecollideany(gg_4, other_sprite_exit):
+            music.stop()
+            location_3 = True
+            start_location_3()
+                
+        pygame.display.flip()
+        clock.tick(60)
+pygame.quit()
 
 def start_location_3():
-    if __name__ == '__main__':
-        global location_2, location_3
-        pygame.init()
-        pygame.display.set_caption("Phantom")
-        size = width, height = 1920, 1080
-        screen = pygame.display.set_mode(size)
-        image_background = pygame.image.load("location_house\ckground.png")
-        image_1 = pygame.image.load("location_house\location_3.png")
-        image_2 = pygame.image.load("location_house\location_3_house.png")
-        sc1 = pygame.Surface((1920, 1080))
-        sc1.blit(image_background, (0, 0))
-        sc1.blit(image_2, (0, 0))
-        sc1.blit(image_1, (0, 0))
+    global location_2, location_3
+    pygame.init()
+    pygame.display.set_caption("Phantom")
+    size = width, height = 1920, 1080
+    screen = pygame.display.set_mode(size)
+    image_background = pygame.image.load("location_house\ckground.png")
+    image_1 = pygame.image.load("location_house\location_3.png")
+    image_2 = pygame.image.load("location_house\location_3_house.png")
+    sc1 = pygame.Surface((1920, 1080))
+    sc1.blit(image_background, (0, 0))
+    sc1.blit(image_2, (0, 0))
+    sc1.blit(image_1, (0, 0))
 
-        top_sprite = pygame.sprite.Group()
-        left_sprite = pygame.sprite.Group()
+    top_sprite = pygame.sprite.Group()
+    left_sprite = pygame.sprite.Group()
 
-        top_sprite.add(Stop_2("location_house\sprite_collide\ottom_grass.png", (0, 265)))
-        left_sprite.add(Stop_2("location_house\sprite_collide\ght_grass.png", (830, 0)))
+    top_sprite.add(Stop_2("location_house\sprite_collide\ottom_grass.png", (0, 265)))
+    left_sprite.add(Stop_2("location_house\sprite_collide\ght_grass.png", (830, 0)))
 
-        music = pygame.mixer.Sound('MUSIC\FIRST\LOCATION_3_1.mp3')
-        music.set_volume(0.1)
-        music.play(-1)
+    music = pygame.mixer.Sound('MUSIC\FIRST\LOCATION_3_1.mp3')
+    music.set_volume(0.1)
+    music.play(-1)
 
-        clock = pygame.time.Clock()
+    clock = pygame.time.Clock()
 
-        gg_3 = Heroy(top=top_sprite, left=left_sprite, x=550, y=100)
-        if location_3:
-            gg_3.rect.x = 1230
-            gg_3.rect.y = 500
-            location_3 = False
+    gg_3 = Heroy(top=top_sprite, left=left_sprite, x=550, y=100)
+    if location_3:
+        gg_3.rect.x = 1230
+        gg_3.rect.y = 500
+        location_3 = False
 
-        other_sprite_2 = pygame.sprite.Group()
-        other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1134, 86)))
+    other_sprite_2 = pygame.sprite.Group()
+    other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1134, 86)))
 
-        other_sprite_exit = pygame.sprite.Group()
-        other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 380)))
+    other_sprite_exit = pygame.sprite.Group()
+    other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 380)))
 
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-            key = pygame.key.get_pressed()
-            if key[pygame.K_d]:
-                gg_3.right()
-            if key[pygame.K_a]:
-                gg_3.left()
-            if key[pygame.K_w]:
-                gg_3.top()
-            if key[pygame.K_s]:
-                gg_3.botton()
-            screen.blit(sc1, (0, 0))
-            screen.blit(gg_3.image, gg_3.rect)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        key = pygame.key.get_pressed()
+        if key[pygame.K_d]:
+            gg_3.right()
+        if key[pygame.K_a]:
+            gg_3.left()
+        if key[pygame.K_w]:
+            gg_3.top()
+        if key[pygame.K_s]:
+            gg_3.botton()
+        screen.blit(sc1, (0, 0))
+        screen.blit(gg_3.image, gg_3.rect)
 
-            if pygame.sprite.spritecollideany(gg_3, other_sprite_2):
-                music.stop()
-                start_location_4()
-            if pygame.sprite.spritecollideany(gg_3, other_sprite_exit):
-                music.stop()
-                location_2 = True
-                start_location_2()
+        if pygame.sprite.spritecollideany(gg_3, other_sprite_2):
+            music.stop()
+            start_location_4()
+        if pygame.sprite.spritecollideany(gg_3, other_sprite_exit):
+            music.stop()
+            location_2 = True
+            start_location_2()
 
-            pygame.display.flip()
-            clock.tick(60)
-    pygame.quit()
+        pygame.display.flip()
+        clock.tick(60)
+pygame.quit()
 
 def start_location_2():
-    if __name__ == '__main__':
-        global location_2, location_1, ON_2
-        pygame.init()
-        pygame.display.set_caption("Phantom")
-        size = width, height = 1920, 1080
-        screen_local_2 = pygame.display.set_mode(size)
-        image_background = pygame.image.load("location_4\esult_sprite\map.png")
-        image_1 = pygame.image.load("location_4\esult_sprite\house.png")
-        image_2 = pygame.image.load("location_4\esult_sprite\other.png")
-        sc1 = pygame.Surface((1920, 1080))
-        sc1.blit(image_background, (0, 0))
-        sc1.blit(image_2, (0, 0))
-        sc1.blit(image_1, (0, 0))
+    global location_2, location_1, ON_2
+    pygame.init()
+    pygame.display.set_caption("Phantom")
+    size = width, height = 1920, 1080
+    screen_local_2 = pygame.display.set_mode(size)
+    image_background = pygame.image.load("location_4\esult_sprite\map.png")
+    image_1 = pygame.image.load("location_4\esult_sprite\house.png")
+    image_2 = pygame.image.load("location_4\esult_sprite\other.png")
+    sc1 = pygame.Surface((1920, 1080))
+    sc1.blit(image_background, (0, 0))
+    sc1.blit(image_2, (0, 0))
+    sc1.blit(image_1, (0, 0))
 
-        bottom_sprites = pygame.sprite.Group()
-        top_sprites = pygame.sprite.Group()
+    bottom_sprites = pygame.sprite.Group()
+    top_sprites = pygame.sprite.Group()
 
-        bottom_sprites.add(Stop_2("location_4\esult_sprite\ground_bottom.png", (0, 716)))
-        top_sprites.add(Stop_2("location_4\esult_sprite\house_2.png", (0, 0)))
+    bottom_sprites.add(Stop_2("location_4\esult_sprite\ground_bottom.png", (0, 716)))
+    top_sprites.add(Stop_2("location_4\esult_sprite\house_2.png", (0, 0)))
 
-        music = pygame.mixer.Sound('MUSIC\DOUBLE\location_2.mp3')
-        music.set_volume(0.2)
-        music.play(-1)
+    music = pygame.mixer.Sound('MUSIC\DOUBLE\location_2.mp3')
+    music.set_volume(0.2)
+    music.play(-1)
 
-        clock = pygame.time.Clock()
+    clock = pygame.time.Clock()
 
-        gg_2 = Heroy(top=top_sprites, bottom=bottom_sprites, x=580, y=70)
-        if location_2:
-            gg_2.rect.x = 1750
-            gg_2.rect.y = 500
-            location_2 = False
+    gg_2 = Heroy(top=top_sprites, bottom=bottom_sprites, x=580, y=70)
+    if location_2:
+        gg_2.rect.x = 1750
+        gg_2.rect.y = 500
+        location_2 = False
 
-        other_sprite_2 = pygame.sprite.Group()
-        other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1919, 396)))
+    other_sprite_2 = pygame.sprite.Group()
+    other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1919, 396)))
 
-        other_sprite_exit = pygame.sprite.Group()
-        other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 384)))
+    other_sprite_exit = pygame.sprite.Group()
+    other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 384)))
 
-        npc_1 = NPC_BUILDING("SPRITE\pNPC\selski_men.png", 673, 408, "Алекс", (255, 36, 0))
-        npc_1_group = pygame.sprite.Group()
-        npc_1_group.add(npc_1)
+    npc_1 = NPC_BUILDING("SPRITE\pNPC\selski_men.png", 673, 408, "Алекс", (255, 36, 0))
+    npc_1_group = pygame.sprite.Group()
+    npc_1_group.add(npc_1)
 
-        npc_2 = NPC_BUILDING("SPRITE\pNPC\cloyn.png", 97, 417, "Роберт", (255, 192, 203))
-        npc_2_group = pygame.sprite.Group()
-        npc_2_group.add(npc_2)
+    npc_2 = NPC_BUILDING("SPRITE\pNPC\cloyn.png", 97, 417, "Роберт", (255, 192, 203))
+    npc_2_group = pygame.sprite.Group()
+    npc_2_group.add(npc_2)
 
-        npc_3 = NPC_BUILDING("SPRITE\pNPC\pcl_men.png", 1250, 417, "Рин", (14, 41, 75))
-        npc_3_group = pygame.sprite.Group()
-        npc_3_group.add(npc_3)
+    npc_3 = NPC_BUILDING("SPRITE\pNPC\pcl_men.png", 1250, 417, "Рин", (14, 41, 75))
+    npc_3_group = pygame.sprite.Group()
+    npc_3_group.add(npc_3)
 
-        img_apple_group_2 = pygame.sprite.Group()
-        img_apple_group_2.add(Stop_2_Apple("SPRITE\APPLE_HILL.png", (1250, 640)))
+    img_apple_group_2 = pygame.sprite.Group()
+    img_apple_group_2.add(Stop_2_Apple("SPRITE\APPLE_HILL.png", (1250, 640)))
 
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-            key = pygame.key.get_pressed()
-            if key[pygame.K_d]:
-                gg_2.right()
-            if key[pygame.K_a]:
-                gg_2.left()
-            if key[pygame.K_w]:
-                gg_2.top()
-            if key[pygame.K_s]:
-                gg_2.botton()
-            screen_local_2.blit(sc1, (0, 0))
-            npc_1_group.draw(screen)
-            npc_2_group.draw(screen)
-            npc_3_group.draw(screen)
-            screen_local_2.blit(gg_2.image, gg_2.rect)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        key = pygame.key.get_pressed()
+        if key[pygame.K_d]:
+            gg_2.right()
+        if key[pygame.K_a]:
+            gg_2.left()
+        if key[pygame.K_w]:
+            gg_2.top()
+        if key[pygame.K_s]:
+            gg_2.botton()
+        screen_local_2.blit(sc1, (0, 0))
+        npc_1_group.draw(screen)
+        npc_2_group.draw(screen)
+        npc_3_group.draw(screen)
+        screen_local_2.blit(gg_2.image, gg_2.rect)
 
-            if pygame.sprite.spritecollideany(gg_2, other_sprite_2):
-                music.stop()
-                start_location_3()
-            if pygame.sprite.spritecollideany(gg_2, other_sprite_exit):
-                music.stop()
-                location_1 = True
-                start_location_1()
-            if pygame.sprite.spritecollideany(gg_2, npc_1_group) and key[pygame.K_RETURN]:
-                    npc_1.dialog("Пошёл вон отсюда NПока все мозги не выбил!")
-                    npc_1.click_update()
-            if pygame.sprite.spritecollideany(gg_2, npc_2_group) and key[pygame.K_RETURN]:
-                    npc_2.dialog("Я вЕлИкИй Из СвОеГо РоДа NВ нАсЛеДиЕ мНе ОсТаЛсЯ NэТоТ бОжЕсТвЕнНыЙ NкОсТюМ! NКаК я ПоГлЕжУ тЫ NиЗ нИзШиХ сЛоЁв ОбЩеСтВа! NТы Не иМеЕшь ПрАвА NНаХоДиТьСя РяДоМ сО мНоЙ! NУбИрАйСя!")
-                    npc_2.click_update()
-            if pygame.sprite.spritecollideany(gg_2, npc_3_group) and key[pygame.K_RETURN]:
-                    npc_3.dialog("Здравствуй путник NЯ недавно приехал сюда. NИногда я вижу странных существ NЕсли видишь не мешкая убивай NОни портят репутацию городу NДо скорых встреч!")
-                    npc_3.click_update()
-            
-            if ON_2: 
-                img_apple_group_2.draw(screen)
+        if pygame.sprite.spritecollideany(gg_2, other_sprite_2):
+            music.stop()
+            start_location_3()
+        if pygame.sprite.spritecollideany(gg_2, other_sprite_exit):
+            music.stop()
+            location_1 = True
+            start_location_1()
+        if pygame.sprite.spritecollideany(gg_2, npc_1_group) and key[pygame.K_RETURN]:
+                npc_1.dialog("Пошёл вон отсюда NПока все мозги не выбил!")
+                npc_1.click_update()
+        if pygame.sprite.spritecollideany(gg_2, npc_2_group) and key[pygame.K_RETURN]:
+                npc_2.dialog("Я вЕлИкИй Из СвОеГо РоДа NВ нАсЛеДиЕ мНе ОсТаЛсЯ NэТоТ бОжЕсТвЕнНыЙ NкОсТюМ! NКаК я ПоГлЕжУ тЫ NиЗ нИзШиХ сЛоЁв ОбЩеСтВа! NТы Не иМеЕшь ПрАвА NНаХоДиТьСя РяДоМ сО мНоЙ! NУбИрАйСя!")
+                npc_2.click_update()
+        if pygame.sprite.spritecollideany(gg_2, npc_3_group) and key[pygame.K_RETURN]:
+                npc_3.dialog("Здравствуй путник NЯ недавно приехал сюда. NИногда я вижу странных существ NЕсли видишь не мешкая убивай NОни портят репутацию городу NДо скорых встреч!")
+                npc_3.click_update()
+        
+        if ON_2: 
+            img_apple_group_2.draw(screen)
 
-            if pygame.sprite.spritecollideany(gg_2, img_apple_group_2):
-                ON_2 = False
-                con = sqlite3.connect('SQL\Bag.db')
-                cur = con.cursor()
-                res = cur.execute("""update Bag
-                                    set Count = Count + 1
-                                    where Object = 'Яблоко'""").fetchall()
-                con.commit()
-                con.close()
+        if pygame.sprite.spritecollideany(gg_2, img_apple_group_2):
+            ON_2 = False
+            con = sqlite3.connect('SQL\Bag.db')
+            cur = con.cursor()
+            res = cur.execute("""update Bag
+                                set Count = Count + 1
+                                where Object = 'Яблоко'""").fetchall()
+            con.commit()
+            con.close()
 
-            pygame.display.flip()
-            clock.tick(60)
-    pygame.quit()
+        pygame.display.flip()
+        clock.tick(60)
+pygame.quit()
 
 class Stop_2(pygame.sprite.Sprite):
     def __init__(self, filename, coord):
