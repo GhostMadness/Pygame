@@ -6,6 +6,14 @@ from location_2 import start_dias
 import sqlite3
 # UTF-8
 
+pygame.init()
+running = True
+x, y = 0, 0
+pygame.display.set_caption("Phantom")
+infoObject = pygame.display.Info()
+width, height = 1920, 1080
+size = width, height = 1920, 1080
+
 location_3 = False
 location_2 = False
 location_1 = False
@@ -26,7 +34,6 @@ def loading_death():
     pygame.init()
     pygame.display.set_caption("Phantom")
     size = width, height = 1920, 1080
-    screen = pygame.display.set_mode(size)
     image_loading = pygame.image.load("SPRITE\APPLE_HILL.png")
     image_player = pygame.image.load("SPRITE\гг.png")
     music = pygame.mixer.Sound('MUSIC\WHAT\ZVEK_KYCANIA.mp3')
@@ -105,56 +112,55 @@ def loading_death():
         pygame.display.flip()
 
 def start_menu():
-    if __name__ == "__main__":
-        pygame.init()
-        pygame.display.set_caption("Phantom")
-        size = width, height = 1920, 1080
-        screen = pygame.display.set_mode(size)
+    global running, infoObject, width, height, screen, size
+    pygame.init()
 
-        music_menu = pygame.mixer.Sound('MUSIC\FIRST\MENU.mp3')
-        music_menu.set_volume(0.05)
+    music_menu = pygame.mixer.Sound('MUSIC\FIRST\MENU.mp3')
+    music_menu.set_volume(0.05)
 
-        IMG_MENU = pygame.image.load("SPRITE\MAIN_10.png")
-        IMG_EXIT_BUTTON = pygame.image.load("SPRITE\EXIT_BUTTON.png")
-        IMG_PLAY_BUTTON = pygame.image.load("SPRITE\PLAY_BUTTON.png")
-        IMG_SETTING_BUTTON = pygame.image.load("SPRITE\SETTING_BUTTON.png")
+    screen = pygame.display.set_mode((1920, 1080))
 
-        rect_1 = IMG_EXIT_BUTTON.get_rect()
-        rect_1.x = 43
-        rect_1.y = 620 + 50
+    IMG_MENU = pygame.image.load("SPRITE\MAIN_10.png")
+    IMG_EXIT_BUTTON = pygame.image.load("SPRITE\EXIT_BUTTON.png")
+    IMG_PLAY_BUTTON = pygame.image.load("SPRITE\PLAY_BUTTON.png")
+    IMG_SETTING_BUTTON = pygame.image.load("SPRITE\SETTING_BUTTON.png")
 
-        rect_2 = IMG_SETTING_BUTTON.get_rect()
-        rect_2.x = 43
-        rect_2.y = 345 + 50
+    rect_1 = IMG_EXIT_BUTTON.get_rect()
+    rect_1.x = 43
+    rect_1.y = 620 + 50
 
-        rect_3 = IMG_PLAY_BUTTON.get_rect()
-        rect_3.x = 43
-        rect_3.y = 70 + 50
+    rect_2 = IMG_SETTING_BUTTON.get_rect()
+    rect_2.x = 43
+    rect_2.y = 345 + 50
 
-        proverka_music(music_menu)
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+    rect_3 = IMG_PLAY_BUTTON.get_rect()
+    rect_3.x = 43
+    rect_3.y = 70 + 50
+
+    proverka_music(music_menu)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.MOUSEMOTION:
+                x, y = event.pos
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if rect_1[0] < event.pos[0] < rect_1[0] + rect_1[2] and rect_1[1] < event.pos[1] < rect_1[1] + rect_1[3]:
                     running = False
-                elif event.type == pygame.MOUSEMOTION:
-                    x, y = event.pos
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if rect_1[0] < event.pos[0] < rect_1[0] + rect_1[2] and rect_1[1] < event.pos[1] < rect_1[1] + rect_1[3]:
-                        running = False
-                    if rect_2[0] < event.pos[0] < rect_2[0] + rect_2[2] and rect_2[1] < event.pos[1] < rect_2[1] + rect_2[3]:
-                        music_menu.stop()
-                        settings()
-                    if rect_3[0] < event.pos[0] < rect_3[0] + rect_3[2] and rect_3[1] < event.pos[1] < rect_3[1] + rect_3[3]:
-                        music_menu.stop()
-                        start_location_1()
+                if rect_2[0] < event.pos[0] < rect_2[0] + rect_2[2] and rect_2[1] < event.pos[1] < rect_2[1] + rect_2[3]:
+                    music_menu.stop()
+                    #settings()
+                if rect_3[0] < event.pos[0] < rect_3[0] + rect_3[2] and rect_3[1] < event.pos[1] < rect_3[1] + rect_3[3]:
+                    music_menu.stop()
+                    start_location_1()
 
-            screen.fill((0, 0, 0))
-            screen.blit(IMG_MENU, (0, 0))
-            screen.blit(IMG_PLAY_BUTTON, (43, 70 + 50))
-            screen.blit(IMG_SETTING_BUTTON, (43, 345 + 50))
-            screen.blit(IMG_EXIT_BUTTON, (43, 620 + 50))
-            pygame.display.flip()
+        screen.fill((0, 0, 0))
+        screen.blit(IMG_MENU, (0, 0))
+        screen.blit(IMG_PLAY_BUTTON, (43, 70 + 50))
+        screen.blit(IMG_SETTING_BUTTON, (43, 345 + 50))
+        screen.blit(IMG_EXIT_BUTTON, (43, 620 + 50))
+        pygame.display.flip()
 
 class NPC_BUILDING(pygame.sprite.Sprite):
     def __init__(self, filename, x, y, nickname, rgb_nickname):
@@ -315,11 +321,9 @@ class Stop_2(pygame.sprite.Sprite):
         self.rect.y = coord[1]
 
 def start_location_4():
-    global location_3
+    global location_3, running, infoObject, width, height, screen, size
     pygame.init()
     pygame.display.set_caption("Phantom")
-    size = width, height = 1920, 1080
-    screen = pygame.display.set_mode(size)
 
     music_location_4 = pygame.mixer.Sound('MUSIC\FIRST\HOME.mp3')
     music_location_4.set_volume(0.2)
@@ -379,14 +383,9 @@ def start_location_4():
         proverka_music(music_location_4)
         pygame.display.flip()
         clock.tick(60)
-pygame.quit()
 
 def start_location_3():
-    global location_2, location_3
-    pygame.init()
-    pygame.display.set_caption("Phantom")
-    size = width, height = 1920, 1080
-    screen = pygame.display.set_mode(size)
+    global location_2, location_3, running, infoObject, width, height, screen, size
     image_background = pygame.image.load("location_house\ckground.png")
     image_1 = pygame.image.load("location_house\location_3.png")
     image_2 = pygame.image.load("location_house\location_3_house.png")
@@ -445,14 +444,9 @@ def start_location_3():
         proverka_music(music_location_3)
         pygame.display.flip()
         clock.tick(60)
-pygame.quit()
 
 def start_location_2():
-    global location_2, location_1, ON_2
-    pygame.init()
-    pygame.display.set_caption("Phantom")
-    size = width, height = 1920, 1080
-    screen_local_2 = pygame.display.set_mode(size)
+    global location_2, location_1, ON_2, running, infoObject, width, height, screen, size
     image_background = pygame.image.load("location_4\esult_sprite\map.png")
     image_1 = pygame.image.load("location_4\esult_sprite\house.png")
     image_2 = pygame.image.load("location_4\esult_sprite\other.png")
@@ -513,11 +507,11 @@ def start_location_2():
             gg_2.top()
         if key[pygame.K_s]:
             gg_2.botton()
-        screen_local_2.blit(sc1, (0, 0))
+        screen.blit(sc1, (0, 0))
         npc_1_group.draw(screen)
         npc_2_group.draw(screen)
         npc_3_group.draw(screen)
-        screen_local_2.blit(gg_2.image, gg_2.rect)
+        screen.blit(gg_2.image, gg_2.rect)
 
         if pygame.sprite.spritecollideany(gg_2, other_sprite_2):
             music_location_2.stop()
@@ -551,7 +545,6 @@ def start_location_2():
         proverka_music(music_location_2)
         pygame.display.flip()
         clock.tick(60)
-pygame.quit()
 
 class Stop_2(pygame.sprite.Sprite):
     def __init__(self, filename, coord):
@@ -571,126 +564,120 @@ class Stop_2_Apple(pygame.sprite.Sprite):
         self.rect.y = coord[1]
 
 def start_location_1():
-    if __name__ == '__main__':
-        global location_1, gg, Death_fLag, go_or_no, l_d, ON
-        pygame.init()
-        running = True
-        x, y = 0, 0
-        pygame.display.set_caption("Phantom")
-        infoObject = pygame.display.Info()
-        width, height = 1920, 1080
-        screen.fill((0, 0, 0))
+    global location_1, gg, Death_fLag, go_or_no, l_d, ON, size, running
+    pygame.init()
+    screen.fill((0, 0, 0))
 
-        music_location_1 = pygame.mixer.Sound('MUSIC\DOUBLE\location_1.mp3')
-        music_location_1.set_volume(0.2)
+    music_location_1 = pygame.mixer.Sound('MUSIC\DOUBLE\location_1.mp3')
+    music_location_1.set_volume(0.2)
 
-        top_sprites = pygame.sprite.Group()
-        bottom_sprites = pygame.sprite.Group()
-        right_sprites = pygame.sprite.Group()
-        left_sprites = pygame.sprite.Group()
+    top_sprites = pygame.sprite.Group()
+    bottom_sprites = pygame.sprite.Group()
+    right_sprites = pygame.sprite.Group()
+    left_sprites = pygame.sprite.Group()
 
-        left_sprites.add(Stop('SPRITE\location_1c0.png', (-50, 0), 'l'))
-        top_sprites.add(Stop('SPRITE\location_1c1.png', (0, 50), 't'))
-        bottom_sprites.add(Stop('SPRITE\location_1c2.png', (0, infoObject.current_h // 3 * 2 + 70), 'b'))
+    left_sprites.add(Stop('SPRITE\location_1c0.png', (-50, 0), 'l'))
+    top_sprites.add(Stop('SPRITE\location_1c1.png', (0, 50), 't'))
+    bottom_sprites.add(Stop('SPRITE\location_1c2.png', (0, infoObject.current_h // 3 * 2 + 70), 'b'))
 
-        image_background = pygame.image.load("location_4\esult_sprite\map.png")
-        image_1 = pygame.image.load("location_4\esult_sprite\house.png")
-        image_2 = pygame.image.load("location_4\esult_sprite\other.png")
-        image_sprite = pygame.image.load("SPRITE\VIXOD_LOC.png")
+    image_background = pygame.image.load("location_4\esult_sprite\map.png")
+    image_1 = pygame.image.load("location_4\esult_sprite\house.png")
+    image_2 = pygame.image.load("location_4\esult_sprite\other.png")
+    image_sprite = pygame.image.load("SPRITE\VIXOD_LOC.png")
 
-        gg = Heroy(top=top_sprites, bottom=bottom_sprites, right=right_sprites, left=left_sprites)
-        if location_1:
-            gg.rect.x = 1800
-            gg.rect.y = 572
-            location_1 = False
+    gg = Heroy(top=top_sprites, bottom=bottom_sprites, right=right_sprites, left=left_sprites)
+    if location_1:
+        gg.rect.x = 1800
+        gg.rect.y = 572
+        location_1 = False
 
-        sh1 = Shiza()
+    sh1 = Shiza()
 
-        sdegfoin = True
+    sdegfoin = True
 
-        clock = pygame.time.Clock()
+    clock = pygame.time.Clock()
 
-        img = pygame.transform.scale(pygame.image.load("location_1\location_1.png").convert_alpha(), (2048, 1024))
+    img = pygame.transform.scale(pygame.image.load("location_1\location_1.png").convert_alpha(), (2048, 1024))
 
-        sc1 = pygame.Surface((2048, 1024))
+    sc1 = pygame.Surface((2048, 1024))
 
-        top_sprites.draw(screen)
-        bottom_sprites.draw(screen)
-        right_sprites.draw(screen)
-        left_sprites.draw(screen)
+    top_sprites.draw(screen)
+    bottom_sprites.draw(screen)
+    right_sprites.draw(screen)
+    left_sprites.draw(screen)
 
-        other_sprite = pygame.sprite.Group()
-        other_sprite.add(Stop_2("Hide_1.png", (1920 // 2 + 5, 1080 // 2)))
+    other_sprite = pygame.sprite.Group()
+    other_sprite.add(Stop_2("Hide_1.png", (1920 // 2 + 5, 1080 // 2)))
 
-        other_sprite_2 = pygame.sprite.Group()
-        other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1915, 485)))
+    other_sprite_2 = pygame.sprite.Group()
+    other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1915, 485)))
 
-        img_hide = pygame.image.load("SPRITE\HIDE_1_BACKGROUND.png")
-        img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
+    img_hide = pygame.image.load("SPRITE\HIDE_1_BACKGROUND.png")
+    img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
 
-        img_apple_group = pygame.sprite.Group()
-        img_apple_group.add(Stop_2_Apple("SPRITE\APPLE_HILL.png", (280, 720)))
+    img_apple_group = pygame.sprite.Group()
+    img_apple_group.add(Stop_2_Apple("SPRITE\APPLE_HILL.png", (280, 720)))
 
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
 
-            key = pygame.key.get_pressed()
-            if key[pygame.K_d]:
-                gg.right()
-            if key[pygame.K_a]:
-                gg.left()
-            if key[pygame.K_w]:
-                gg.top()
-            if key[pygame.K_s]:
-                gg.botton()
-            screen.blit(img, (x, y))
-            screen.blit(gg.image, gg.rect)
-            screen.blit(sh1.image, sh1.rect)
-            if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
-                music_location_1.stop()
-                a = start_fn(event)
-                one = Live_hide_cl()
-                two = Death_hide_cl()
-                l_d = (one.live_print(), two.death_print())
-                if a:
-                    #gg.rect.x = 324
-                    #gg.rect.y = 571
-                    l_d = (False, False)
-                    ON = False
-                    Death_fLag = False
-                    #screen.blit(gg.image, gg.rect)
-                    loading_death()
-
-            if pygame.sprite.spritecollideany(gg, other_sprite_2):
-                music_location_1.stop()
-                start_location_2()
-            if l_d[0] == True or l_d[1] == True:
-                sdegfoin = False
-            if (l_d[0] == False and l_d[1] == False):
-                screen.blit(img_hide_scale, (1920 // 2, 1080 // 2))
-
-            if ON:
-                img_apple_group.draw(screen)
-            if pygame.sprite.spritecollideany(gg, img_apple_group):
+        key = pygame.key.get_pressed()
+        if key[pygame.K_d]:
+            gg.right()
+        if key[pygame.K_a]:
+            gg.left()
+        if key[pygame.K_w]:
+            gg.top()
+        if key[pygame.K_s]:
+            gg.botton()
+        screen.blit(img, (x, y))
+        screen.blit(gg.image, gg.rect)
+        screen.blit(sh1.image, sh1.rect)
+        if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
+            music_location_1.stop()
+            a = start_fn(event)
+            one = Live_hide_cl()
+            two = Death_hide_cl()
+            l_d = (one.live_print(), two.death_print())
+            if a:
+                #gg.rect.x = 324
+                #gg.rect.y = 571
+                l_d = (False, False)
                 ON = False
-                con = sqlite3.connect('SQL\Bag.db')
-                cur = con.cursor()
-                res = cur.execute("""update Bag
-                                    set Count = Count + 1
-                                    where Object = 'Яблоко'""").fetchall()
-                con.commit()
-                con.close()
+                Death_fLag = False
+                #screen.blit(gg.image, gg.rect)
+                loading_death()
 
-            pygame.display.flip()
-            clock.tick(60)
-        con = sqlite3.connect('SQL\Bag.db')
-        cur = con.cursor()
-        res = cur.execute("""update Bag
-                            set Count = 0""").fetchall()
-        con.commit()
-        con.close()
-        proverka_music(music_location_1)
-        pygame.quit()
+        if pygame.sprite.spritecollideany(gg, other_sprite_2):
+            music_location_1.stop()
+            start_location_2()
+        if l_d[0] == True or l_d[1] == True:
+            sdegfoin = False
+        if (l_d[0] == False and l_d[1] == False):
+            screen.blit(img_hide_scale, (1920 // 2, 1080 // 2))
+
+        if ON:
+            img_apple_group.draw(screen)
+        if pygame.sprite.spritecollideany(gg, img_apple_group):
+            ON = False
+            con = sqlite3.connect('SQL\Bag.db')
+            cur = con.cursor()
+            res = cur.execute("""update Bag
+                                set Count = Count + 1
+                                where Object = 'Яблоко'""").fetchall()
+            con.commit()
+            con.close()
+
+        pygame.display.flip()
+        clock.tick(60)
+    con = sqlite3.connect('SQL\Bag.db')
+    cur = con.cursor()
+    res = cur.execute("""update Bag
+                        set Count = 0""").fetchall()
+    con.commit()
+    con.close()
+    proverka_music(music_location_1)
+pygame.quit()
 start_menu()
