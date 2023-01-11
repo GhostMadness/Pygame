@@ -1,6 +1,6 @@
 import pygame
 def click():
-    global rgb_but, rgb_fLag
+    global rgb_but, rgb_fLag, fLag
     if rgb_fLag % 2 == 0:
         rgb_but = (255, 0, 0)
         with open ('SETTING_FILES\SETTING.txt', 'r') as f:
@@ -31,10 +31,7 @@ if __name__ == "__main__":
     music_settings = pygame.mixer.Sound('SETTING_FILES\SETTING.oga')
     fLag = False
 
-    if fLag:
-        music_settings.play(-1)
-    else:
-        music_settings.stop()
+    
     
     rect_but_menu = button_menu_img_tr.get_rect()
     rect_but_menu.x = 10
@@ -69,6 +66,10 @@ if __name__ == "__main__":
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if button[0] < event.pos[0] < button[0] + button[2] and button[1] < event.pos[1] < button[1] + button[3]:
                     click()
+                    if fLag:
+                        music_settings.play(-1)
+                    else:
+                        music_settings.stop()
                     rgb_fLag += 1
                 if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
                     running = False
