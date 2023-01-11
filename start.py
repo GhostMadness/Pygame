@@ -248,12 +248,74 @@ def dialog_4():
     screen.blit(text, (text_x, text_y))
 
 
-wars = {'dialog_1': dialog_1, 'war_1': war_1, 'dialog_2': dialog_2, 'war_2': war_2, 'dialog_3': dialog_3, 'war_3': war_3, 'dialog_4': dialog_4}
+def war_4():
+    global w
+    War('SPRITE\BOMB_ATACK.png')
+    w += 1
+
+
+def war_5():
+    global w
+    War('SPRITE\BOMB_ENEMY.png')
+    w += 1
+
+
+def dialog_5():
+    global cell
+    cell = Cell('SPRITE\для_диалога.png', 400, 600)
+    font = pygame.font.Font(None, 50)
+    text = font.render("Существо смотрит на вас", True, (100, 150, 100))
+    text_x = cell.rect.x + 10
+    text_y = cell.rect.y + 10
+    screen.blit(cell.image, cell.rect)
+    screen.blit(text, (text_x, text_y))
+
+
+def dialog_6():
+    global cell
+    font = pygame.font.Font(None, 50)
+    text = font.render("Вы чувствуете себя не ловко", True, (100, 150, 100))
+    text_x = cell.rect.x + 10
+    text_y = cell.rect.y + 10
+    screen.blit(cell.image, cell.rect)
+    screen.blit(text, (text_x, text_y))
+
+def dialog_7():
+    global cell
+    font = pygame.font.Font(None, 50)
+    text = font.render("Вы не понимаете,", True, (100, 150, 100))
+    text_x = cell.rect.x + 10
+    text_y = cell.rect.y + 10
+    screen.blit(cell.image, cell.rect)
+    screen.blit(text, (text_x, text_y))
+    text = font.render("что перед вами", True, (100, 150, 100))
+    text_x = cell.rect.x + 10
+    text_y = cell.rect.y + 10 + text.get_rect().bottom
+    screen.blit(text, (text_x, text_y))
+
+def war_6():
+    global w
+    War('SPRITE\war_3.png')
+    w += 1
+
+
+def dialog_8():
+    global cell
+    font = pygame.font.Font(None, 50)
+    text = font.render("Вы хотите уйти", True, (100, 150, 100))
+    text_x = cell.rect.x + 10
+    text_y = cell.rect.y + 10
+    screen.blit(cell.image, cell.rect)
+    screen.blit(text, (text_x, text_y))
+
+
+wars = {'dialog_1': dialog_1, 'war_1': war_1, 'dialog_2': dialog_2, 'war_2': war_2, 'dialog_3': dialog_3, 'war_3': war_3, 'dialog_4': dialog_4,
+        'dialog_5': dialog_5, 'war_4': war_4, 'dialog_6': dialog_6, 'war_5': war_5, 'dialog_7': dialog_7, 'war_6': war_6, 'dialog_8': dialog_8} 
 file_wars = open('wars.txt').readlines()
 w = 0
 
 
-def one():
+def one(sorce):
     global running
     global q
     global s
@@ -286,14 +348,14 @@ def one():
         screen.blit(heart.image, heart.rect)
         pygame.display.flip()
         if w == 0:
-            s = 0
+            s = sorce
             Fight = False
         elif w < 100 and flag:
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
             cell = Cell('SPRITE\для update-export.png', 400, 750)
             heart.rect.center = cell.rect.center
             heart.live()
-            s = 1
+            s += 1
             flag = False
             Fight = True
             b = 1
@@ -303,7 +365,7 @@ def one():
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
             cell = Cell('SPRITE\для_диалога.png', 400, 600)
             heart.death()
-            s = 2
+            s += 1
             b = 0
             flag = True
             Fight = False
@@ -312,7 +374,7 @@ def one():
             cell = Cell('SPRITE\для update-export.png', 400, 750)
             heart.rect.center = cell.rect.center
             heart.live()
-            s = 3
+            s += 1
             b = 1
             flag = False
             Fight = True
@@ -322,7 +384,7 @@ def one():
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
             cell = Cell('SPRITE\для_диалога.png', 400, 600)
             heart.death()
-            s = 4
+            s += 1
             b = 0
             flag = True
             Fight = False
@@ -331,7 +393,7 @@ def one():
             cell = Cell('SPRITE\для update-export.png', 400, 750)
             heart.rect.center = cell.rect.center
             heart.live()
-            s = 5
+            s += 1
             b = 1
             flag = False
             Fight = True
@@ -341,7 +403,7 @@ def one():
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
             cell = Cell('SPRITE\для_диалога.png', 400, 600)
             heart.death()
-            s = 6
+            s += 1
             b = 0
             flag = True
             Fight = False
@@ -416,7 +478,7 @@ class Live_hide_cl():
         return go_or_no
 
 
-def start_fn(event):
+def start_fn(event, monstr):
     global texth, text_xh, text_yh, image1, flag, Fight, s, b, music_fight, hp_Hide, font, myfont, number, all_wars, q, running, heart, w, Death_fLag
     
     texth = ''
@@ -426,7 +488,10 @@ def start_fn(event):
 
     screen.fill((0, 0, 0))
     
-    image1 = pygame.image.load('SPRITE\Hide_1.png')
+    if monstr == 1:
+        image1 = pygame.image.load('SPRITE\Hide_1.png')
+    if monstr == 2:
+        image1 = pygame.image.load('SPRITE\ENEMY.png')
     music_fight = pygame.mixer.Sound('MUSIC\DOUBLE\IGHT_BOSS.mp3')
     music_fight.set_volume(0.20)
     with open('SETTING_FILES\SETTING.txt') as f:
@@ -517,7 +582,10 @@ def start_fn(event):
             con.commit()
             con.close()
             pygame.quit()
-        one()
+        if monstr == 1:
+            one(0)
+        if monstr == 2:
+            one(8)
         if hp_Hide <= 0:
             Death_hide_class.death_hide()
             music_fight.stop()

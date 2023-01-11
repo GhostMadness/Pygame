@@ -5,3 +5,11 @@ war_2
 dialog_3
 war_3
 dialog_4
+
+dialog_4
+war_4
+dialog_5
+war_5
+dialog_6
+war_6
+dialog_7

@@ -144,7 +144,7 @@ def start_menu():
                         running = False
                     if rect_2[0] < event.pos[0] < rect_2[0] + rect_2[2] and rect_2[1] < event.pos[1] < rect_2[1] + rect_2[3]:
                         music_menu.stop()
-                        settings()
+                        # settings()
                     if rect_3[0] < event.pos[0] < rect_3[0] + rect_3[2] and rect_3[1] < event.pos[1] < rect_3[1] + rect_3[3]:
                         music_menu.stop()
                         start_location_1()
