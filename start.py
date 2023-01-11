@@ -66,9 +66,17 @@ class Heart(pygame.sprite.Sprite):
                                 set Count = 0""").fetchall()
             con.commit()
             con.close()
-            music = pygame.mixer.Sound('MUSIC\DOUBLE\DEATH.mp3')
-            music.set_volume(0.2)
-            music.play(-1)
+            music_dead = pygame.mixer.Sound('MUSIC\DOUBLE\DEATH.mp3')
+            music_dead.set_volume(0.2)
+
+            with open('SETTING_FILES\SETTING.txt') as f:
+                text_ms = f.read()
+                text_ms = text_ms.split('=')
+                if text_ms[0] == "music" and text_ms[2] == 0:
+                    music_dead.stop()
+                else:
+                    music_dead.play(-1)
+            
             music_fight.stop()
             self.image = pygame.image.load('SPRITE\сердце-export.png')
             self.rect = self.image.get_rect()
@@ -103,9 +111,9 @@ class Heart(pygame.sprite.Sprite):
             screen.blit(self.image, self.rect)
             pygame.display.flip()
             time.sleep(0.5)
-            music.stop()
+            music_dead.stop()
             Death_fLag = True
-        music.stop()
+        music_dead.stop()
     
     def update_yes(self):
         global music_fight
@@ -420,11 +428,16 @@ def start_fn(event):
     
     image1 = pygame.image.load('SPRITE\Hide_1.png')
     music_fight = pygame.mixer.Sound('MUSIC\DOUBLE\IGHT_BOSS.mp3')
+    music_fight.set_volume(0.20)
+    with open('SETTING_FILES\SETTING.txt') as f:
+            text_ms = f.read()
+            text_ms = text_ms.split('=')
+            if text_ms[0] == "music" and text_ms[2] == 0:
+                music_fight.stop()
+            else:
+                music_fight.play(-1)
     
     hp_Hide = 20
-
-    music_fight.play()
-    music_fight.set_volume(0.20)
     
     s = 0
     b = 0

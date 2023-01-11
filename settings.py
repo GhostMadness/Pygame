@@ -1,14 +1,4 @@
 import pygame
-gl_mus = False
-def button_music():
-    global gl_mus
-    with open('SETTING_FILES\SETTING.txt') as f:
-        text = f.read()
-        text = text.split('=')
-        if text[0] == "music" and text[2] == 1:
-            gl_mus = True
-        else:
-            gl_mus = False
 def click():
     global rgb_but, rgb_fLag
     if rgb_fLag % 2 == 0:
@@ -18,6 +8,7 @@ def click():
         new_data = old_data.replace('music =1', 'music =0')
         with open ('SETTING_FILES\SETTING.txt', 'w') as f:
             f.write(new_data)
+        fLag = False
     else:
         rgb_but = (0, 255, 0)
         with open ('SETTING_FILES\SETTING.txt', 'r') as f:
@@ -25,9 +16,10 @@ def click():
         new_data = old_data.replace('music =0', 'music =1')
         with open ('SETTING_FILES\SETTING.txt', 'w') as f:
             f.write(new_data)
+        fLag = True
 
 if __name__ == "__main__":
-    global button, rgb_but, rgb_fLag
+    global button, rgb_but, rgb_fLag, music_settings, fLag
     pygame.init()
     pygame.display.set_caption("Phantom")
     size = width, height = 1920, 1080
@@ -35,6 +27,14 @@ if __name__ == "__main__":
     background_img = pygame.image.load("SPRITE\SETTINGS_FON_2.jpg")
     button_menu_img = pygame.image.load("SPRITE\EXIT_MENU_BUTTON.png")
     button_menu_img_tr = pygame.transform.scale(button_menu_img, (50, 50))
+
+    music_settings = pygame.mixer.Sound('SETTING_FILES\SETTING.oga')
+    fLag = False
+
+    if fLag:
+        music_settings.play(-1)
+    else:
+        music_settings.stop()
     
     rect_but_menu = button_menu_img_tr.get_rect()
     rect_but_menu.x = 10
@@ -43,6 +43,8 @@ if __name__ == "__main__":
     rgb_but = (0, 255, 0)
     rgb_fLag = 1
 
+    music_settings.set_volume(0.1)
+
     font = pygame.font.Font(None, 50)
     text = font.render("МУЗЫКА", True, (100, 255, 100))
     text_x = 730
@@ -50,8 +52,14 @@ if __name__ == "__main__":
     text_w = text.get_width()
     text_h = text.get_height()
 
-    with open('SETTING_FILES\SETTING.txt') as f:
-        print(f.read())
+    #with open('SETTING_FILES\SETTING.txt') as f:
+    #    text_ms = f.read()
+    #    text_ms = text_ms.split('=')
+    #    if text_ms[0] == "music" and text_ms[2] == 0:
+    #        music_settings.stop()
+    #    else:
+    #        music_settings.play(-1)
+    music_settings.play(-1)
 
     running = True
     while running:
@@ -68,6 +76,5 @@ if __name__ == "__main__":
         screen.blit(button_menu_img_tr, rect_but_menu)
         button = pygame.draw.rect(screen, rgb_but, (900, 200, 25, 25))
         screen.blit(text, (text_x, text_y))
-        button_music()
         pygame.display.flip()
 pygame.quit()

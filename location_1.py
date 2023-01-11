@@ -13,6 +13,15 @@ ON = True
 ON_2 = True
 l_d = (False, False)
 
+def proverka_music(filename):
+    with open('SETTING_FILES\SETTING.txt') as f:
+        text_ms = f.read()
+        text_ms = text_ms.split('=')
+        if text_ms[0] == "music" and text_ms[2] == 0:
+            filename.stop()
+        else:
+            filename.play(-1)
+
 def loading_death():
     pygame.init()
     pygame.display.set_caption("Phantom")
@@ -78,6 +87,7 @@ def loading_death():
         text_hill_y = schet_2
         text_hill_w = text_hill.get_width()
         text_hill_h = text_hill.get_height()
+        
 
         if a == False and schet_2 != 400:
             schet_2 += 2
@@ -100,9 +110,10 @@ def start_menu():
         pygame.display.set_caption("Phantom")
         size = width, height = 1920, 1080
         screen = pygame.display.set_mode(size)
-        music = pygame.mixer.Sound('MUSIC\FIRST\MENU.mp3')
-        music.set_volume(0.05)
-        music.play(-1)
+
+        music_menu = pygame.mixer.Sound('MUSIC\FIRST\MENU.mp3')
+        music_menu.set_volume(0.05)
+
         IMG_MENU = pygame.image.load("SPRITE\MAIN_10.png")
         IMG_EXIT_BUTTON = pygame.image.load("SPRITE\EXIT_BUTTON.png")
         IMG_PLAY_BUTTON = pygame.image.load("SPRITE\PLAY_BUTTON.png")
@@ -120,7 +131,7 @@ def start_menu():
         rect_3.x = 43
         rect_3.y = 70 + 50
 
-
+        proverka_music(music_menu)
         running = True
         while running:
             for event in pygame.event.get():
@@ -132,9 +143,11 @@ def start_menu():
                     if rect_1[0] < event.pos[0] < rect_1[0] + rect_1[2] and rect_1[1] < event.pos[1] < rect_1[1] + rect_1[3]:
                         running = False
                     if rect_2[0] < event.pos[0] < rect_2[0] + rect_2[2] and rect_2[1] < event.pos[1] < rect_2[1] + rect_2[3]:
-                        print("baba boy")
+                        music_menu.stop()
+                        settings()
                     if rect_3[0] < event.pos[0] < rect_3[0] + rect_3[2] and rect_3[1] < event.pos[1] < rect_3[1] + rect_3[3]:
-                        music.stop()
+                        music_menu.stop()
+                        start_location_1()
 
             screen.fill((0, 0, 0))
             screen.blit(IMG_MENU, (0, 0))
@@ -308,6 +321,9 @@ def start_location_4():
     size = width, height = 1920, 1080
     screen = pygame.display.set_mode(size)
 
+    music_location_4 = pygame.mixer.Sound('MUSIC\FIRST\HOME.mp3')
+    music_location_4.set_volume(0.2)
+
     image_background = pygame.image.load("location_5_men\RESULT\location_5_man.png")
     image_1 = pygame.image.load("location_5_men\RESULT\iblioteka.png")
     image_3 = pygame.image.load("location_5_men\RESULT\cover.png")
@@ -331,10 +347,6 @@ def start_location_4():
     left_sprites.add(Stop_2("location_5_men\RESULT\oxes_collide.png", (0, 913)))
     top_sprites.add(Stop_2("location_5_men\RESULT\object_collide.png", (895, 0)))
     #object_collide
-
-    music = pygame.mixer.Sound('MUSIC\FIRST\HOME.mp3')
-    music.set_volume(0.2)
-    music.play(-1)
 
     clock = pygame.time.Clock()
 
@@ -361,10 +373,10 @@ def start_location_4():
         screen.blit(gg_4.image, gg_4.rect)
 
         if pygame.sprite.spritecollideany(gg_4, other_sprite_exit):
-            music.stop()
+            music_location_4.stop()
             location_3 = True
             start_location_3()
-                
+        proverka_music(music_location_4)
         pygame.display.flip()
         clock.tick(60)
 pygame.quit()
@@ -383,15 +395,14 @@ def start_location_3():
     sc1.blit(image_2, (0, 0))
     sc1.blit(image_1, (0, 0))
 
+    music_location_3 = pygame.mixer.Sound('MUSIC\FIRST\LOCATION_3_1.mp3')
+    music_location_3.set_volume(0.1)
+
     top_sprite = pygame.sprite.Group()
     left_sprite = pygame.sprite.Group()
 
     top_sprite.add(Stop_2("location_house\sprite_collide\ottom_grass.png", (0, 265)))
     left_sprite.add(Stop_2("location_house\sprite_collide\ght_grass.png", (830, 0)))
-
-    music = pygame.mixer.Sound('MUSIC\FIRST\LOCATION_3_1.mp3')
-    music.set_volume(0.1)
-    music.play(-1)
 
     clock = pygame.time.Clock()
 
@@ -425,13 +436,13 @@ def start_location_3():
         screen.blit(gg_3.image, gg_3.rect)
 
         if pygame.sprite.spritecollideany(gg_3, other_sprite_2):
-            music.stop()
+            music_location_3.stop()
             start_location_4()
         if pygame.sprite.spritecollideany(gg_3, other_sprite_exit):
-            music.stop()
+            music_location_3.stop()
             location_2 = True
             start_location_2()
-
+        proverka_music(music_location_3)
         pygame.display.flip()
         clock.tick(60)
 pygame.quit()
@@ -450,15 +461,14 @@ def start_location_2():
     sc1.blit(image_2, (0, 0))
     sc1.blit(image_1, (0, 0))
 
+    music_location_2 = pygame.mixer.Sound('MUSIC\DOUBLE\location_2.mp3')
+    music_location_2.set_volume(0.2)
+
     bottom_sprites = pygame.sprite.Group()
     top_sprites = pygame.sprite.Group()
 
     bottom_sprites.add(Stop_2("location_4\esult_sprite\ground_bottom.png", (0, 716)))
     top_sprites.add(Stop_2("location_4\esult_sprite\house_2.png", (0, 0)))
-
-    music = pygame.mixer.Sound('MUSIC\DOUBLE\location_2.mp3')
-    music.set_volume(0.2)
-    music.play(-1)
 
     clock = pygame.time.Clock()
 
@@ -510,10 +520,10 @@ def start_location_2():
         screen_local_2.blit(gg_2.image, gg_2.rect)
 
         if pygame.sprite.spritecollideany(gg_2, other_sprite_2):
-            music.stop()
+            music_location_2.stop()
             start_location_3()
         if pygame.sprite.spritecollideany(gg_2, other_sprite_exit):
-            music.stop()
+            music_location_2.stop()
             location_1 = True
             start_location_1()
         if pygame.sprite.spritecollideany(gg_2, npc_1_group) and key[pygame.K_RETURN]:
@@ -538,7 +548,7 @@ def start_location_2():
                                 where Object = 'Яблоко'""").fetchall()
             con.commit()
             con.close()
-
+        proverka_music(music_location_2)
         pygame.display.flip()
         clock.tick(60)
 pygame.quit()
@@ -571,7 +581,8 @@ def start_location_1():
         width, height = 1920, 1080
         screen.fill((0, 0, 0))
 
-        music = pygame.mixer.Sound('MUSIC\DOUBLE\location_1.mp3')
+        music_location_1 = pygame.mixer.Sound('MUSIC\DOUBLE\location_1.mp3')
+        music_location_1.set_volume(0.2)
 
         top_sprites = pygame.sprite.Group()
         bottom_sprites = pygame.sprite.Group()
@@ -587,14 +598,11 @@ def start_location_1():
         image_2 = pygame.image.load("location_4\esult_sprite\other.png")
         image_sprite = pygame.image.load("SPRITE\VIXOD_LOC.png")
 
-        music.set_volume(0.2)
-        music.play(-1)
         gg = Heroy(top=top_sprites, bottom=bottom_sprites, right=right_sprites, left=left_sprites)
         if location_1:
             gg.rect.x = 1800
             gg.rect.y = 572
             location_1 = False
-
 
         sh1 = Shiza()
 
@@ -641,7 +649,7 @@ def start_location_1():
             screen.blit(gg.image, gg.rect)
             screen.blit(sh1.image, sh1.rect)
             if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
-                music.stop()
+                music_location_1.stop()
                 a = start_fn(event)
                 one = Live_hide_cl()
                 two = Death_hide_cl()
@@ -656,7 +664,7 @@ def start_location_1():
                     loading_death()
 
             if pygame.sprite.spritecollideany(gg, other_sprite_2):
-                music.stop()
+                music_location_1.stop()
                 start_location_2()
             if l_d[0] == True or l_d[1] == True:
                 sdegfoin = False
@@ -683,5 +691,6 @@ def start_location_1():
                             set Count = 0""").fetchall()
         con.commit()
         con.close()
+        proverka_music(music_location_1)
         pygame.quit()
 start_menu()
