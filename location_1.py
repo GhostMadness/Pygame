@@ -158,7 +158,14 @@ class NPC_BUILDING(pygame.sprite.Sprite):
                 screen.blit(self.image_dialog_window, self.rect_dialog_window)
                 screen.blit(self.text, (620, 770))
                 pygame.display.flip()
-                time.sleep(3)
+                fgl = False
+                while True:
+                    for resoult in pygame.event.get():
+                        if resoult.type == pygame.KEYDOWN and resoult.key == pygame.K_RETURN:
+                            fgl = True
+                            break
+                    if fgl:
+                        break
                 return
             self.text_name = self.font.render(self.name, False, self.rgb_nickname)
             self.text = self.font.render("Мне больше нечего тебе сказать", True, (255, 255, 255))
@@ -166,13 +173,27 @@ class NPC_BUILDING(pygame.sprite.Sprite):
             screen.blit(self.image_dialog_window, self.rect_dialog_window)
             screen.blit(self.text, (620, 770))
             pygame.display.flip()
-            time.sleep(3)
+            fgl = False
+            while True:
+                for resoult in pygame.event.get():
+                    if resoult.type == pygame.KEYDOWN and resoult.key == pygame.K_RETURN:
+                        fgl = True
+                        break
+                if fgl:
+                    break
             screen.blit(self.text_name, (620, 720))
             self.text = self.font.render("урод!", True, (255, 255, 255))
             screen.blit(self.image_dialog_window, self.rect_dialog_window)
             screen.blit(self.text, (620, 770))
             pygame.display.flip()
-            time.sleep(1)
+            fgl = False
+            while True:
+                for resoult in pygame.event.get():
+                    if resoult.type == pygame.KEYDOWN and resoult.key == pygame.K_RETURN:
+                        fgl = True
+                        break
+                if fgl:
+                    break
             return
         self.text_name = self.font.render(self.name, False, self.rgb_nickname)
         for i in self.text_res:
@@ -183,7 +204,14 @@ class NPC_BUILDING(pygame.sprite.Sprite):
             screen.blit(self.image_dialog_window, self.rect_dialog_window)
             screen.blit(self.text, (620, 770))
             pygame.display.flip()
-            time.sleep(3)
+            fgl = False
+            while True:
+                for resoult in pygame.event.get():
+                    if resoult.type == pygame.KEYDOWN and resoult.key == pygame.K_RETURN:
+                        fgl = True
+                        break
+                if fgl:
+                    break
         
         #ПИСАТЬ КАЖДОЕ НОВОЕ СЛОВОСОЧЕТАНИЕ ЧЕРЕЗ N КОГДА ПЕРЕДАЁШЬ В ФУНКЦИЮ ТЕКСТ ПЕРСОНАЖА!!! ПРИМЕР СНИЗУ!!!
 class Heroy(pygame.sprite.Sprite):
@@ -529,13 +557,14 @@ class Stop_2_Apple(pygame.sprite.Sprite):
         self.rect.y = coord[1]
 def start_location_1():
     if __name__ == '__main__':
-        global location_1, gg, Death_fLag, go_or_no, l_d, ON
+        global location_1, gg, Death_fLag, go_or_no, l_d, ON, enter
         pygame.init()
         running = True
         x, y = 0, 0
         pygame.display.set_caption("Phantom")
         infoObject = pygame.display.Info()
         width, height = 1920, 1080
+        enter = False
         screen.fill((0, 0, 0))
         music = pygame.mixer.Sound('MUSIC\DOUBLE\location_1.mp3')
         top_sprites = pygame.sprite.Group()
