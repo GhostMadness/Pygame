@@ -179,7 +179,6 @@ def fight():
     screen.blit(texth, (text_xh, text_yh))
 
 
-
 def bag():
     global w
     global number
@@ -195,7 +194,6 @@ def bag():
     con.commit()
     con.close()
         
-
 
 def hope():
     global image1
@@ -250,6 +248,7 @@ def dialog_2():
     screen.blit(cell.image, cell.rect)
     screen.blit(text, (text_x, text_y))
 
+
 def dialog_3():
     global cell
     font = pygame.font.Font(None, 50)
@@ -262,6 +261,7 @@ def dialog_3():
     text_x = cell.rect.x + 10
     text_y = cell.rect.y + 10 + text.get_rect().bottom
     screen.blit(text, (text_x, text_y))
+
 
 def war_3():
     global w
@@ -311,6 +311,7 @@ def dialog_6():
     screen.blit(cell.image, cell.rect)
     screen.blit(text, (text_x, text_y))
 
+
 def dialog_7():
     global cell
     font = pygame.font.Font(None, 50)
@@ -323,6 +324,7 @@ def dialog_7():
     text_x = cell.rect.x + 10
     text_y = cell.rect.y + 10 + text.get_rect().bottom
     screen.blit(text, (text_x, text_y))
+
 
 def war_6():
     global w
