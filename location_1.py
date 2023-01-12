@@ -166,6 +166,7 @@ class NPC_BUILDING(pygame.sprite.Sprite):
                             break
                     if fgl:
                         break
+                time.sleep(0.1)
                 return
             self.text_name = self.font.render(self.name, False, self.rgb_nickname)
             self.text = self.font.render("Мне больше нечего тебе сказать", True, (255, 255, 255))
@@ -194,6 +195,7 @@ class NPC_BUILDING(pygame.sprite.Sprite):
                         break
                 if fgl:
                     break
+            time.sleep(0.1)
             return
         self.text_name = self.font.render(self.name, False, self.rgb_nickname)
         for i in self.text_res:
@@ -212,6 +214,7 @@ class NPC_BUILDING(pygame.sprite.Sprite):
                         break
                 if fgl:
                     break
+            time.sleep(0.1)
         
         #ПИСАТЬ КАЖДОЕ НОВОЕ СЛОВОСОЧЕТАНИЕ ЧЕРЕЗ N КОГДА ПЕРЕДАЁШЬ В ФУНКЦИЮ ТЕКСТ ПЕРСОНАЖА!!! ПРИМЕР СНИЗУ!!!
 class Heroy(pygame.sprite.Sprite):
@@ -620,7 +623,7 @@ def start_location_1():
             screen.blit(sh1.image, sh1.rect)
             if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
                 music.stop()
-                a = start_fn(event, 1)
+                a = start_fn(event, 2)
                 one = Live_hide_cl()
                 two = Death_hide_cl()
                 l_d = (one.live_print(), two.death_print())
