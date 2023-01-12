@@ -90,7 +90,7 @@ class Heart(pygame.sprite.Sprite):
     
     def update(self):
         global Death_fLag
-        if number == 0:
+        if number <= 0:
             con = sqlite3.connect('SQL\Bag.db')
             cur = con.cursor()
             res = cur.execute("""update Bag
