@@ -480,7 +480,7 @@ def start_location_2():
         other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 384)))
         
         other_sprite = pygame.sprite.Group()
-        other_sprite.add(Stop_2("ENEMY.png", (1920 // 2 + 5, 1080 // 2)))
+        other_sprite.add(Stop_2("SPRITE\ENEMY.png", (1920 // 2 + 5, 1080 // 2)))
         
         img_hide = pygame.image.load("SPRITE\ENEMY.png")
         img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
@@ -521,7 +521,7 @@ def start_location_2():
             screen_local_2.blit(gg_2.image, gg_2.rect)
             print(pygame.sprite.spritecollideany(gg, other_sprite), sdegfoin1)
             
-            if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin1:
+            if pygame.sprite.spritecollideany(gg_2, other_sprite) and sdegfoin1:
                 print(123)
                 music.stop()
                 a = start_fn(event, 2)
