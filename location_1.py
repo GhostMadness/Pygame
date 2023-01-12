@@ -11,6 +11,7 @@ location_1 = False
 ON = True
 ON_2 = True
 l_d = (False, False)
+l_d1 = (False, False)
 def loading_death():
     pygame.init()
     pygame.display.set_caption("Phantom")
@@ -439,7 +440,7 @@ def start_location_3():
 
 def start_location_2():
     if __name__ == '__main__':
-        global location_2, location_1, ON_2
+        global location_2, location_1, ON_2, Death_fLag, l_d1
         pygame.init()
         pygame.display.set_caption("Phantom")
         size = width, height = 1920, 1080
@@ -451,6 +452,8 @@ def start_location_2():
         sc1.blit(image_background, (0, 0))
         sc1.blit(image_2, (0, 0))
         sc1.blit(image_1, (0, 0))
+        
+        sdegfoin1 = True
 
         bottom_sprites = pygame.sprite.Group()
         top_sprites = pygame.sprite.Group()
@@ -475,6 +478,12 @@ def start_location_2():
 
         other_sprite_exit = pygame.sprite.Group()
         other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 384)))
+        
+        other_sprite = pygame.sprite.Group()
+        other_sprite.add(Stop_2("ENEMY.png", (1920 // 2 + 5, 1080 // 2)))
+        
+        img_hide = pygame.image.load("SPRITE\ENEMY.png")
+        img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
 
         npc_1 = NPC_BUILDING("SPRITE\pNPC\selski_men.png", 673, 408, "Алекс", (255, 36, 0))
         npc_1_group = pygame.sprite.Group()
@@ -510,6 +519,23 @@ def start_location_2():
             npc_2_group.draw(screen)
             npc_3_group.draw(screen)
             screen_local_2.blit(gg_2.image, gg_2.rect)
+            print(pygame.sprite.spritecollideany(gg, other_sprite), sdegfoin1)
+            
+            if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin1:
+                print(123)
+                music.stop()
+                a = start_fn(event, 2)
+                one = Live_hide_cl()
+                two = Death_hide_cl()
+                l_d1 = (one.live_print(), two.death_print())
+                if a:
+                    #gg.rect.x = 324
+                    #gg.rect.y = 571
+                    l_d1 = (False, False)
+                    ON_2 = False
+                    Death_fLag = False
+                    #screen.blit(gg.image, gg.rect)
+                    loading_death()
 
             if pygame.sprite.spritecollideany(gg_2, other_sprite_2):
                 music.stop()
@@ -527,6 +553,11 @@ def start_location_2():
             if pygame.sprite.spritecollideany(gg_2, npc_3_group) and key[pygame.K_RETURN]:
                     npc_3.dialog("Здравствуй путник NЯ недавно приехал сюда. NИногда я вижу странных существ NЕсли видишь не мешкая убивай NОни портят репутацию городу NДо скорых встреч!")
                     npc_3.click_update()
+            
+            if l_d1[0] == True or l_d1[1] == True:
+                sdegfoin1 = False
+            if (l_d1[0] == False and l_d1[1] == False):
+                screen.blit(img_hide_scale, (1920 // 2, 1080 // 2))
 
             if ON_2: 
                 img_apple_group_2.draw(screen)
@@ -623,7 +654,7 @@ def start_location_1():
             screen.blit(sh1.image, sh1.rect)
             if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
                 music.stop()
-                a = start_fn(event, 2)
+                a = start_fn(event, 1)
                 one = Live_hide_cl()
                 two = Death_hide_cl()
                 l_d = (one.live_print(), two.death_print())
