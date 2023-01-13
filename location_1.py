@@ -215,6 +215,93 @@ class NPC_BUILDING(pygame.sprite.Sprite):
                     break
             time.sleep(0.1)
         
+
+class NPC_BUILDING_SHIZA(pygame.sprite.Sprite):
+    def __init__(self, filename, x, y, nickname, rgb_nickname):
+        super().__init__()
+        self.name = nickname
+        self.rgb_nickname = rgb_nickname
+        self.image= pygame.image.load(filename).convert_alpha()
+        self.image = pygame.transform.scale(self.image, (100, 100))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        
+        self.text_res = ''
+        self.text = ''
+        self.font = pygame.font.Font(None, 50)
+        self.schet = 0
+    def dialog(self, text_npc):
+        self.text_res = text_npc.split("N")
+        self.image_dialog_window = pygame.image.load("SPRITE\для_диалога.png").convert_alpha()
+        self.rect_dialog_window = self.image_dialog_window.get_rect()
+        self.rect_dialog_window.x = 611
+        self.rect_dialog_window.y = 700
+        
+    def click_update(self):
+        self.text_name = self.font.render(self.name, False, self.rgb_nickname)
+        if self.schet >= len(self.text_res):
+            self.image = pygame.image.load('SPRITE\Shiza_02.png')
+            self.image = pygame.transform.scale(self.image, (100, 100))
+            screen.blit(self.image, self.rect)
+            pygame.display.flip()
+            time.sleep(0.5)
+            self.image = pygame.image.load('SPRITE\Shiza_03.png')
+            self.image = pygame.transform.scale(self.image, (100, 100))
+            screen.blit(self.image, self.rect)
+            pygame.display.flip()
+            time.sleep(0.5)
+            self.image = pygame.image.load('SPRITE\Shiza_04.png')
+            self.image = pygame.transform.scale(self.image, (100, 100))
+            screen.blit(self.image, self.rect)
+            pygame.display.flip()
+            time.sleep(0.4)
+            self.image = pygame.image.load('SPRITE\Shiza_05.png')
+            self.image = pygame.transform.scale(self.image, (100, 100))
+            screen.blit(self.image, self.rect)
+            pygame.display.flip()
+            time.sleep(0.3)
+            self.image = pygame.image.load('SPRITE\Shiza_06.png')
+            self.image = pygame.transform.scale(self.image, (100, 100))
+            screen.blit(self.image, self.rect)
+            pygame.display.flip()
+            time.sleep(0.4)
+            self.image = pygame.image.load('SPRITE\Shiza_07.png')
+            self.image = pygame.transform.scale(self.image, (100, 100))
+            screen.blit(self.image, self.rect)
+            pygame.display.flip()
+            time.sleep(0.4)
+            self.image = pygame.image.load('SPRITE\Shiza_08.png')
+            self.image = pygame.transform.scale(self.image, (100, 100))
+            screen.blit(self.image, self.rect)
+            pygame.display.flip()
+            time.sleep(0.4)
+            self.image = pygame.image.load('SPRITE\Shiza_09.png')
+            self.image = pygame.transform.scale(self.image, (100, 100))
+            screen.blit(self.image, self.rect)
+            pygame.display.flip()
+            time.sleep(0.4)
+
+            self.rect.x -= 1500
+        else:
+            for i in self.text_res:
+                pygame.event.pump()
+                self.text = self.font.render(str(i), False, (255, 255, 255))
+                screen.blit(self.text_name, (620, 650))
+                screen.blit(self.image_dialog_window, self.rect_dialog_window)
+                screen.blit(self.text, (620, 720))
+                pygame.display.flip()
+                fgl = False
+                while True:
+                    for resoult in pygame.event.get():
+                        if resoult.type == pygame.KEYDOWN and resoult.key == pygame.K_RETURN:
+                            fgl = True
+                            break
+                    if fgl:
+                        break
+                self.schet += 1
+                time.sleep(0.1)
+
         #ПИСАТЬ КАЖДОЕ НОВОЕ СЛОВОСОЧЕТАНИЕ ЧЕРЕЗ N КОГДА ПЕРЕДАЁШЬ В ФУНКЦИЮ ТЕКСТ ПЕРСОНАЖА!!! ПРИМЕР СНИЗУ!!!
 class Heroy(pygame.sprite.Sprite):
         def __init__(self, right=None, left=None, bottom=None, top=None, x=600, y=400):
@@ -634,6 +721,13 @@ def start_location_1():
         img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
         img_apple_group = pygame.sprite.Group()
         img_apple_group.add(Stop_2_Apple("SPRITE\APPLE_HILL.png", (280, 720)))
+
+
+        shiza_npc_1 = NPC_BUILDING_SHIZA("SPRITE\Shiza_01.png", 360, 680, "???", (200, 200, 200))
+        shiza_npc_1_group = pygame.sprite.Group()
+        shiza_npc_1_group.add(shiza_npc_1)
+
+
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -649,7 +743,7 @@ def start_location_1():
                 gg.botton()
             screen.blit(img, (x, y))
             screen.blit(gg.image, gg.rect)
-            screen.blit(sh1.image, sh1.rect)
+            #screen.blit(sh1.image, sh1.rect)
             if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
                 music.stop()
                 a = start_fn(event, 1)
@@ -682,6 +776,12 @@ def start_location_1():
                                     where Object = 'Яблоко'""").fetchall()
                 con.commit()
                 con.close()
+
+            shiza_npc_1_group.draw(screen)
+            if pygame.sprite.spritecollideany(gg, shiza_npc_1_group) and key[pygame.K_RETURN]:
+                    shiza_npc_1.dialog("Я не сомневался что ты проснёшся NЗа то время пока ты спал NТы успел растерять все силы. NДля начала возьми это яблоко NЭто позволит тебе NПожить подольше чем остольные. NЗатем NСразись вон с тем призраком. NЭто предаст тебе NУверенности в бою! NМне уже пора идти... NДумаю мы ещё свидимся...")
+                    shiza_npc_1.click_update()
+
             pygame.display.flip()
             clock.tick(60)
         con = sqlite3.connect('SQL\Bag.db')
