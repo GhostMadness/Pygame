@@ -34,8 +34,6 @@ def loading_death():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.MOUSEMOTION:
-                print(event.pos)
         screen.fill((0, 0, 0))
         font = pygame.font.Font(None, 50)
         text = font.render(text_loading, True, (100, 255, 100))
