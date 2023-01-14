@@ -22,14 +22,14 @@ class War(pygame.sprite.Sprite):
         self.rect = self.rect.move(random.randrange(-5, 6), 1)
         if self.rect.centery >= cell.rect.bottom - 5 or self.rect.centerx >= cell.rect.right - 5 or self.rect.centerx <= cell.rect.left + 5 or b == 0:
             self.kill()
-            screen.fill((0, 0, 0), (self.rect.centerx - (max(self.mask.outline(), key=lambda x: x[0])[0] // 2), self.rect.centery - (max(self.mask.outline(), key=lambda x: x[1])[0] // 2), self.rect.centerx + (max(self.mask.outline(), key=lambda x: x[0])[0] // 2), self.rect.centery + (max(self.mask.outline(), key=lambda x: x[1])[0] // 2)))
+            screen.fill((0, 0, 0), (self.rect.centerx - 6, self.rect.centery -7, 15, 16))
         if pygame.sprite.collide_mask(self, heart):
             pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
             pygame.mixer.music.set_volume(0.2)
             number -= 1
             hp(number)
+            screen.fill((0, 0, 0), (self.rect.centerx - 6, self.rect.centery -7, 15, 16))
             self.kill()
-            screen.fill((0, 0, 0), (self.rect.centerx - (max(self.mask.outline(), key=lambda x: x[0])[0] // 2), self.rect.centery - (max(self.mask.outline(), key=lambda x: x[1])[0] // 2), self.rect.centerx + (max(self.mask.outline(), key=lambda x: x[0])[0] // 2), self.rect.centery + (max(self.mask.outline(), key=lambda x: x[1])[0] // 2)))
             pygame.mixer.music.play(0)
 
 
