@@ -807,7 +807,7 @@ def start_location_1():
             #screen.blit(sh1.image, sh1.rect)
             if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
                 music.stop()
-                a = start_fn(event, 1)
+                a = start_fn(event, 3)
                 one = Live_hide_cl()
                 two = Death_hide_cl()
                 l_d = (one.live_print(), two.death_print())

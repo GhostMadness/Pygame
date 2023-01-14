@@ -73,18 +73,15 @@ class WarThree(pygame.sprite.Sprite):
         self.image = pygame.image.load(filename)
         self.image = pygame.transform.scale(self.image, (56, 230))
         self.rect = self.image.get_rect()
-        self.rect.x = random.randrange(cell.rect.left + 27, cell.rect.right - 54)
-        self.rect.y = random.randrange(cell.rect.top + 27, cell.rect.bottom - 54)
+        self.rect.x = random.randrange(cell.rect.left + 28, cell.rect.right - 56)
+        self.rect.y = random.randrange(cell.rect.top + 10, cell.rect.bottom - 115)
         self.mask = pygame.mask.from_surface(self.image)
         self.p = 0
     
     def update(self):
         global number
         if self.p == 0:
-            self.image = pygame.image.load('SPRITE\BOMB_VZRIV.png')
-            self.p = 1
-            self.image = pygame.transform.scale(self.image, (52, 52))
-            self.mask = pygame.mask.from_surface(self.image)
+            self.rect.move(100, 0)
         else:
             self.kill()
         if self.rect.centery >= cell.rect.bottom - 5 or self.rect.centerx >= cell.rect.right - 5 or self.rect.centerx <= cell.rect.left + 5 or b == 0:
@@ -115,7 +112,7 @@ class Heart(pygame.sprite.Sprite):
             self.rect = self.rect.move(2, 0)
 
     def left(self):
-        if self.rect.centerx - (max(self.mask.outline(), key=lambda x: x[0])[0] // 2) > cell.rect.left:
+        if self.rect.centerx - (max(self.mask.outline(), key=lambda x: x[0])[0] // 2) + 10 > cell.rect.left:
             self.rect = self.rect.move(-2, 0)
 
     def top(self):
@@ -389,7 +386,7 @@ def one(sorce, react, for_text_beta):
             Fight = False
             for_text += 1
         elif w > 300:
-            w = 0
+            w = 1
             for_text = for_text_beta
         if react == 'p' and q % 30 == 0 or react == 'c' and q % 10 == 0:
             wars[file_wars[s].rstrip()]()
@@ -592,7 +589,7 @@ def start_fn(event, monstr):
         if monstr == 2:
             one(8, 'c', 5)
         if monstr == 3:
-            one(16, 'ch', 10)
+            one(16, 'c', 10)
         if hp_Hide <= 0:
             Death_hide_class.death_hide()
             music_fight.stop()
