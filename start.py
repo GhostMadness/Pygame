@@ -389,7 +389,7 @@ def one(sorce, react, for_text_beta):
         elif w > 300:
             w = 0
             for_text = for_text_beta
-        if react == 'p' and q % 30 == 0 or react == 'c' and q % 40 == 0:
+        if react == 'p' and q % 30 == 0 or react == 'c' and q % 10 == 0:
             wars[file_wars[s].rstrip()]()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
@@ -404,7 +404,7 @@ def one(sorce, react, for_text_beta):
         if b == 1:
             screen.blit(cell.image, cell.rect)
         all_wars.draw(screen)
-        if react == 'p' or q % 100 == 0:
+        if react == 'p' or q % 10 == 0:
             all_wars.update()
         screen.blit(heart.image, heart.rect)
         pygame.display.flip()
