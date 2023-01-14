@@ -557,7 +557,7 @@ def start_location_2():
         other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 384)))
         
         other_sprite = pygame.sprite.Group()
-        other_sprite.add(Stop_2("SPRITE\ENEMY.png", (1920 // 2 + 5, 1080 // 2), 100, 100))
+        other_sprite.add(Stop_2("SPRITE\ENEMY.png", (1920 // 2 + 5, 1080 // 2 + 80), 100, 100))
         
         img_hide = pygame.image.load("SPRITE\ENEMY.png")
         img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
@@ -632,7 +632,7 @@ def start_location_2():
             if l_d1[0] == True or l_d1[1] == True:
                 sdegfoin1 = False
             if (l_d1[0] == False and l_d1[1] == False):
-                screen.blit(img_hide_scale, (1920 // 2, 1080 // 2))
+                screen.blit(img_hide_scale, (1920 // 2, 1080 // 2 + 80))
 
             if ON_2: 
                 img_apple_group_2.draw(screen)
