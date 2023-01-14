@@ -12,6 +12,131 @@ ON = True
 ON_2 = True
 l_d = (False, False)
 l_d1 = (False, False)
+pygame.init()
+music_location_4 = pygame.mixer.Sound('MUSIC\FIRST\HOME.mp3')
+music_location_4.set_volume(0.2)
+
+music_location_3 = pygame.mixer.Sound('MUSIC\FIRST\LOCATION_3_1.mp3')
+music_location_3.set_volume(0.1)
+
+music_location_2 = pygame.mixer.Sound('MUSIC\DOUBLE\location_2.mp3')
+music_location_2.set_volume(0.2)
+
+music_location_1 = pygame.mixer.Sound('MUSIC\DOUBLE\location_1.mp3')
+music_location_1.set_volume(0.2)
+
+music_settings = pygame.mixer.Sound('SETTING_FILES\SETTING.oga')
+music_settings.set_volume(0.1)
+
+flaGi = True
+
+def update(one=False, two=False, three=False, four=False, five=False):
+    global flaGi, music_settings
+    if not flaGi:
+        if five:
+            music_settings.stop()
+        if one:
+            music_location_1.stop()
+        if two:
+            music_location_2.stop()
+        if three:
+            music_location_3.stop()
+        if four:
+            music_location_4.stop()
+    else:
+        if five:
+            music_settings.play(-1)
+        if one:
+            music_location_1.play(-1)
+        if two:
+            music_location_2.play(-1)
+        if three:
+            music_location_3.play(-1)
+        if four:
+            music_location_4.play(-1)
+
+def settings():
+    pygame.init()
+    update(five=True)
+    global flaGi, schet, music_settings, music_location_1, music_location_2, music_location_3, music_location_4
+    schet = 0
+
+    def click():
+        global flaGi, schet
+        file = open("SETTING_FILES\SETTING.txt").readline()
+        file = file.split(" =")
+        if file[1] == '0':
+            flaGi = False
+        elif file[1] == '1':
+            flaGi = True
+        schet += 1
+    if __name__ == "__main__":
+        size = width, height = 1920, 1080
+        screen = pygame.display.set_mode(size)
+        background_img = pygame.image.load("SPRITE\SETTINGS_FON_2.jpg")
+        button_menu_img = pygame.image.load("SPRITE\EXIT_MENU_BUTTON.png")
+        button_menu_img_tr = pygame.transform.scale(button_menu_img, (50, 50))
+
+        rect_but_menu = button_menu_img_tr.get_rect()
+        rect_but_menu.x = 10
+        rect_but_menu.y = 10
+
+        font = pygame.font.Font(None, 50)
+        text = font.render("УПРАВЛЕНИЕ", True, (230, 230, 230))
+        text_x = 1920 // 2 - 50
+        text_y = 1080 // 2 - 50
+
+        text_w = font.render("ВВЕРХ - W", True, (230, 230, 230))
+        text_w_x = 1920 // 2 - 50
+        text_w_y = 1080 // 2 - 20
+
+        text_s = font.render("ВНИЗ - S", True, (230, 230, 230))
+        text_s_x = 1920 // 2 - 50
+        text_s_y = 1080 // 2 + 10
+
+        text_d = font.render("ВПРАВО - D", True, (230, 230, 230))
+        text_d_x = 1920 // 2 - 50
+        text_d_y = 1080 // 2 + 40
+
+        text_a = font.render("ВЛЕВО - A", True, (230, 230, 230))
+        text_a_x = 1920 // 2 - 50
+        text_a_y = 1080 // 2 + 70
+
+        text_enter = font.render("ГОВОРИТЬ - ENTER", True, (230, 230, 230))
+        text_enter_x = 1920 // 2 - 50
+        text_enter_y = 1080 // 2 + 100
+
+        text_music = font.render("МУЗЫКА", True, (230, 230, 230))
+        text_music_x = 1920 // 2 - 60
+        text_music_y = 1080 // 2 - 305
+
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if cute[0] < event.pos[0] < cute[0] + cute[2] and cute[1] < event.pos[1] < cute[1] + cute[3]:
+                        click()
+                        update()
+
+                    if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
+                            running = False
+            screen.blit(background_img, (0, 0))
+            screen.blit(button_menu_img_tr, (10, 10))
+            screen.blit(text, (text_x, text_y))
+            screen.blit(text_w, (text_w_x, text_w_y))
+            screen.blit(text_s, (text_s_x, text_s_y))
+            screen.blit(text_a, (text_a_x, text_a_y))
+            screen.blit(text_d, (text_d_x, text_d_y))
+            screen.blit(text_enter, (text_enter_x, text_enter_y))
+            screen.blit(text_music, (text_music_x, text_music_y))
+
+            cute = pygame.draw.rect(screen, (0, 255, 0), (1920 // 2 + 100, 1080 // 2 - 300, 25, 25))
+            pygame.display.flip()
+        pygame.quit()
+
+
 def loading_death():
     pygame.init()
     pygame.display.set_caption("Phantom")
@@ -116,7 +241,7 @@ def start_menu():
                     if rect_1[0] < event.pos[0] < rect_1[0] + rect_1[2] and rect_1[1] < event.pos[1] < rect_1[1] + rect_1[3]:
                         running = False
                     if rect_2[0] < event.pos[0] < rect_2[0] + rect_2[2] and rect_2[1] < event.pos[1] < rect_2[1] + rect_2[3]:
-                        print("baba boy")
+                        settings()
                     if rect_3[0] < event.pos[0] < rect_3[0] + rect_3[2] and rect_3[1] < event.pos[1] < rect_3[1] + rect_3[3]:
                         music.stop()
                         start_location_1()
@@ -401,8 +526,9 @@ class Stop_2(pygame.sprite.Sprite):
             self.image = pygame.transform.scale(self.image, size)
 
 def start_location_4():
+    update(four=True)
     if __name__ == '__main__':
-        global location_3
+        global location_3, music_location_4
         pygame.init()
         pygame.display.set_caption("Phantom")
         size = width, height = 1920, 1080
@@ -435,9 +561,7 @@ def start_location_4():
         top_sprites.add(Stop_2("location_5_men\RESULT\object_collide.png", (895, 0)))
         #object_collide
 
-        music = pygame.mixer.Sound('MUSIC\FIRST\HOME.mp3')
-        music.set_volume(0.2)
-        music.play(-1)
+        #music_location_4.play(-1)
 
         clock = pygame.time.Clock()
 
@@ -481,7 +605,7 @@ def start_location_4():
             men_group.draw(screen)
 
             if pygame.sprite.spritecollideany(gg_4, other_sprite_exit):
-                music.stop()
+                music_location_4.stop()
                 location_3 = True
                 start_location_3()
 
@@ -494,8 +618,9 @@ def start_location_4():
     pygame.quit()
 
 def start_location_3():
+    update(three=True)
     if __name__ == '__main__':
-        global location_2, location_3
+        global location_2, location_3, music_location_3
         pygame.init()
         pygame.display.set_caption("Phantom")
         size = width, height = 1920, 1080
@@ -514,9 +639,7 @@ def start_location_3():
         top_sprite.add(Stop_2("location_house\sprite_collide\ottom_grass.png", (0, 265)))
         left_sprite.add(Stop_2("location_house\sprite_collide\ght_grass.png", (830, 0)))
 
-        music = pygame.mixer.Sound('MUSIC\FIRST\LOCATION_3_1.mp3')
-        music.set_volume(0.1)
-        music.play(-1)
+        #music_location_3.play(-1)
 
         clock = pygame.time.Clock()
 
@@ -561,10 +684,10 @@ def start_location_3():
             screen.blit(button_menu_img_tr, (10, 10))
 
             if pygame.sprite.spritecollideany(gg_3, other_sprite_2):
-                music.stop()
+                music_location_3.stop()
                 start_location_4()
             if pygame.sprite.spritecollideany(gg_3, other_sprite_exit):
-                music.stop()
+                music_location_3.stop()
                 location_2 = True
                 start_location_2()
 
@@ -573,8 +696,9 @@ def start_location_3():
     pygame.quit()
 
 def start_location_2():
+    update(two=True)
     if __name__ == '__main__':
-        global location_2, location_1, ON_2, Death_fLag, l_d1
+        global location_2, location_1, ON_2, Death_fLag, l_d1, music_location_2
         pygame.init()
         pygame.display.set_caption("Phantom")
         size = width, height = 1920, 1080
@@ -595,9 +719,7 @@ def start_location_2():
         bottom_sprites.add(Stop_2("location_4\esult_sprite\ground_bottom.png", (0, 716)))
         top_sprites.add(Stop_2("location_4\esult_sprite\house_2.png", (0, 0)))
 
-        music = pygame.mixer.Sound('MUSIC\DOUBLE\location_2.mp3')
-        music.set_volume(0.2)
-        music.play(-1)
+        #music_location_2.play(-1)
 
         clock = pygame.time.Clock()
 
@@ -666,7 +788,7 @@ def start_location_2():
             screen_local_2.blit(button_menu_img_tr, (10, 10))
             
             if pygame.sprite.spritecollideany(gg_2, other_sprite) and sdegfoin1:
-                music.stop()
+                music_location_2.stop()
                 a = start_fn(event, 2)
                 one = Live_hide_cl()
                 two = Death_hide_cl()
@@ -681,10 +803,10 @@ def start_location_2():
                     loading_death()
 
             if pygame.sprite.spritecollideany(gg_2, other_sprite_2):
-                music.stop()
+                music_location_2.stop()
                 start_location_3()
             if pygame.sprite.spritecollideany(gg_2, other_sprite_exit):
-                music.stop()
+                music_location_2.stop()
                 location_1 = True
                 start_location_1()
             if pygame.sprite.spritecollideany(gg_2, npc_1_group) and key[pygame.K_RETURN]:
@@ -727,8 +849,9 @@ class Stop_2_Apple(pygame.sprite.Sprite):
         self.rect.x = coord[0]
         self.rect.y = coord[1]
 def start_location_1():
+    update(one=True)
     if __name__ == '__main__':
-        global location_1, gg, Death_fLag, go_or_no, l_d, ON, enter
+        global location_1, gg, Death_fLag, go_or_no, l_d, ON, enter, music_location_1
         pygame.init()
         running = True
         x, y = 0, 0
@@ -737,7 +860,6 @@ def start_location_1():
         width, height = 1920, 1080
         enter = False
         screen.fill((0, 0, 0))
-        music = pygame.mixer.Sound('MUSIC\DOUBLE\location_1.mp3')
         top_sprites = pygame.sprite.Group()
         bottom_sprites = pygame.sprite.Group()
         right_sprites = pygame.sprite.Group()
@@ -745,12 +867,7 @@ def start_location_1():
         left_sprites.add(Stop('SPRITE\location_1c0.png', (-50, 0), 'l'))
         top_sprites.add(Stop('SPRITE\location_1c1.png', (0, 50), 't'))
         bottom_sprites.add(Stop('SPRITE\location_1c2.png', (0, infoObject.current_h // 3 * 2 + 70), 'b'))
-        image_background = pygame.image.load("location_4\esult_sprite\map.png")
-        image_1 = pygame.image.load("location_4\esult_sprite\house.png")
-        image_2 = pygame.image.load("location_4\esult_sprite\other.png")
-        image_sprite = pygame.image.load("SPRITE\VIXOD_LOC.png")
-        music.set_volume(0.2)
-        music.play(-1)
+        #music_location_1.play(-1)
         gg = Heroy(top=top_sprites, bottom=bottom_sprites, right=right_sprites, left=left_sprites)
         if location_1:
             gg.rect.x = 1800
@@ -806,8 +923,8 @@ def start_location_1():
             screen.blit(button_menu_img_tr, (10, 10))
             #screen.blit(sh1.image, sh1.rect)
             if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
-                music.stop()
-                a = start_fn(event, 3)
+                music_location_1.stop()
+                a = start_fn(event, 1)
                 one = Live_hide_cl()
                 two = Death_hide_cl()
                 l_d = (one.live_print(), two.death_print())
@@ -820,7 +937,7 @@ def start_location_1():
                     #screen.blit(gg.image, gg.rect)
                     loading_death()
             if pygame.sprite.spritecollideany(gg, other_sprite_2):
-                music.stop()
+                music_location_1.stop()
                 start_location_2()
             if l_d[0] == True or l_d[1] == True:
                 sdegfoin = False
