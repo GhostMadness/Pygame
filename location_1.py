@@ -369,17 +369,7 @@ class Stop(pygame.sprite.Sprite):
             self.rect = self.image.get_rect()
             self.rect.x = coords[0]
             self.rect.y = coords[1]
-class Shiza(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
-        infoObject = pygame.display.Info()
-        self.image = pygame.image.load('SPRITE\Shiza_01.png').convert_alpha()
-        self.rect = self.image.get_rect()
-        self.rect.bottom = infoObject.current_h // 3 * 2 + 250
-        self.rect.right = infoObject.current_w // 6 - 60
-        
-    def update(self):
-        pass
+    
 class Stop_2(pygame.sprite.Sprite):
     def __init__(self, filename, coord):
         super().__init__()
@@ -702,11 +692,9 @@ def start_location_1():
             gg.rect.x = 1800
             gg.rect.y = 572
             location_1 = False
-        sh1 = Shiza()
         sdegfoin = True
         clock = pygame.time.Clock()
         img = pygame.transform.scale(pygame.image.load("location_1\location_1.png").convert_alpha(), (2048, 1024))
-        sc1 = pygame.Surface((2048, 1024))
         top_sprites.draw(screen)
         bottom_sprites.draw(screen)
         right_sprites.draw(screen)
