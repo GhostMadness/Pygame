@@ -127,7 +127,7 @@ def start_menu():
             screen.blit(IMG_EXIT_BUTTON, (43, 620 + 50))
             pygame.display.flip()
 class NPC_BUILDING(pygame.sprite.Sprite):
-    def __init__(self, filename, x, y, nickname, rgb_nickname):
+    def __init__(self, filename, x, y, nickname, rgb_nickname, men=False):
         super().__init__()
         self.name = nickname
         self.rgb_nickname = rgb_nickname
@@ -136,6 +136,8 @@ class NPC_BUILDING(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
+        self.men = men
         
         self.text_res = ''
         self.text = ''
@@ -150,6 +152,23 @@ class NPC_BUILDING(pygame.sprite.Sprite):
         
     def click_update(self):
         if self.schet >= len(self.text_res):
+            if self.name == "Мужик":
+                self.text_name = self.font.render(self.name, False, self.rgb_nickname)
+                self.text = self.font.render("Пшел нах", True, (255, 255, 255))
+                screen.blit(self.text_name, (620, 720))
+                screen.blit(self.image_dialog_window, self.rect_dialog_window)
+                screen.blit(self.text, (620, 770))
+                pygame.display.flip()
+                fgl = False
+                while True:
+                    for resoult in pygame.event.get():
+                        if resoult.type == pygame.KEYDOWN and resoult.key == pygame.K_RETURN:
+                            fgl = True
+                            break
+                    if fgl:
+                        break
+                time.sleep(0.1)
+                return
             if self.name == 'Рин':
                 self.text_name = self.font.render(self.name, False, self.rgb_nickname)
                 self.text = self.font.render("До скорой встречи путник!", True, (255, 255, 255))
@@ -394,6 +413,9 @@ def start_location_4():
         image_4 = pygame.image.load("location_5_men\RESULT\oxes.png")
         image_5 = pygame.image.load("location_5_men\RESULT\object.png")
 
+        menNpc = pygame.image.load("SPRITE\pNPC\Men.png")
+        menNPC_tr = pygame.transform.scale(menNpc, (100, 100))
+
         sc1 = pygame.Surface((1920, 1080))
         sc1.blit(image_background, (0, 0))
         sc1.blit(image_1, (0, 0))
@@ -419,11 +441,16 @@ def start_location_4():
         clock = pygame.time.Clock()
 
         gg_4 = Heroy(bottom=bottom_sprite, right=right_sprite, left=left_sprites, top=top_sprites, x=1050, y=1000)
+
         other_sprite_exit = pygame.sprite.Group()
         other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (932, 1100)))
 
         button_menu_img = pygame.image.load("SPRITE\EXIT_MENU_BUTTON.png")
         button_menu_img_tr = pygame.transform.scale(button_menu_img, (50, 50))
+
+        menshik = NPC_BUILDING("SPRITE\pNPC\Men.png", 100, 100, "Мужик", (250, 0, 0))
+        men_group = pygame.sprite.Group()
+        men_group.add(Stop_2("SPRITE\pNPC\Men.png", (100, 100), (100, 100)))
 
         rect_but_menu = button_menu_img_tr.get_rect()
         rect_but_menu.x = 10
@@ -449,12 +476,18 @@ def start_location_4():
             screen.blit(sc1, (0, 0))
             screen.blit(gg_4.image, gg_4.rect)
             screen.blit(button_menu_img_tr, (10, 10))
+            screen.blit(menNPC_tr, (100, 100))
+            men_group.draw(screen)
 
             if pygame.sprite.spritecollideany(gg_4, other_sprite_exit):
                 music.stop()
                 location_3 = True
                 start_location_3()
 
+            if pygame.sprite.spritecollideany(gg_4, men_group) and key[pygame.K_RETURN]:
+                    menshik.dialog("Вообщем я так понял NТы быздомный? NЯ предлагаю тебе работу. NИди и убей NВсех призраков в округе. NВзамен я позволю тебе жить NУ меня дома! NНа этом все NМне нужно работать NУдачи путник!")
+                    menshik.click_update()
+            
             pygame.display.flip()
             clock.tick(60)
     pygame.quit()
@@ -580,7 +613,7 @@ def start_location_2():
         other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 384)))
         
         other_sprite = pygame.sprite.Group()
-        other_sprite.add(Stop_2("SPRITE\ENEMY.png", (1920 // 2 + 5, 1080 // 2 + 80), 100, 100))
+        other_sprite.add(Stop_2("SPRITE\ENEMY.png", (1920 // 2 + 5 - 80, 1080 // 2 + 80), 100, 100))
         
         img_hide = pygame.image.load("SPRITE\ENEMY.png")
         img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
@@ -683,6 +716,7 @@ def start_location_2():
             pygame.display.flip()
             clock.tick(60)
     pygame.quit()
+
 class Stop_2_Apple(pygame.sprite.Sprite):
     def __init__(self, filename, coord):
         super().__init__()
