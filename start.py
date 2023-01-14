@@ -269,12 +269,13 @@ def dialog_1():
     global cell
     global for_text
     cell = Cell('SPRITE\для_диалога.png', 400, 600)
-    font = pygame.font.Font(None, 50)
-    text = font.render(file_dialog[for_text], True, (100, 150, 100))
-    text_x = cell.rect.x + 10
-    text_y = cell.rect.y + 10
     screen.blit(cell.image, cell.rect)
-    screen.blit(text, (text_x, text_y))
+    for i, obj in enumerate(file_dialog[for_text].split('N')):
+        font = pygame.font.Font(None, 50)
+        text = font.render(obj, True, (100, 150, 100))
+        text_x = cell.rect.x + 10
+        text_y = cell.rect.y + 10 + text.get_height() * i
+        screen.blit(text, (text_x, text_y))
 
 
 def war_3():
@@ -584,7 +585,7 @@ def start_fn(event, monstr):
             con.close()
             pygame.quit()
         if monstr == 1:
-            one(0, 'p', 0)
+            one(0, 'p', 2)
         if monstr == 2:
             one(8, 'c', 5)
         if monstr == 3:
