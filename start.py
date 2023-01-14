@@ -7,6 +7,7 @@ screen = pygame.display.set_mode((1920, 1080))
 Death_fLag = False
 go_or_no = False
 
+
 class War(pygame.sprite.Sprite):
     def __init__(self, filename):
         super().__init__(all_wars)
@@ -70,7 +71,7 @@ class WarThree(pygame.sprite.Sprite):
     def __init__(self, filename):
         super().__init__(all_wars)
         self.image = pygame.image.load(filename)
-        self.image = pygame.transform.scale(self.image, (32, 32))
+        self.image = pygame.transform.scale(self.image, (56, 230))
         self.rect = self.image.get_rect()
         self.rect.x = random.randrange(cell.rect.left + 27, cell.rect.right - 54)
         self.rect.y = random.randrange(cell.rect.top + 27, cell.rect.bottom - 54)
@@ -494,6 +495,8 @@ def start_fn(event, monstr):
         image1 = pygame.image.load('SPRITE\Hide_1.png')
     if monstr == 2:
         image1 = pygame.image.load('SPRITE\ENEMY.png')
+    if monstr == 3:
+        image1 = pygame.image.load('SPRITE\CHUDICK.png')
     music_fight = pygame.mixer.Sound('MUSIC\DOUBLE\IGHT_BOSS.mp3')
     music_fight.set_volume(0.20)
     with open('SETTING_FILES\SETTING.txt') as f:
@@ -585,11 +588,11 @@ def start_fn(event, monstr):
             con.close()
             pygame.quit()
         if monstr == 1:
-            one(0, 'p', 2)
+            one(0, 'p', 0)
         if monstr == 2:
             one(8, 'c', 5)
         if monstr == 3:
-            one(16, '', 10)
+            one(16, 'ch', 10)
         if hp_Hide <= 0:
             Death_hide_class.death_hide()
             music_fight.stop()
