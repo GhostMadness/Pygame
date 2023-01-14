@@ -39,8 +39,8 @@ class WarTwo(pygame.sprite.Sprite):
         self.image = pygame.image.load(filename)
         self.image = pygame.transform.scale(self.image, (32, 32))
         self.rect = self.image.get_rect()
-        self.rect.x = random.randrange(cell.rect.left + 1, cell.rect.right - 25)
-        self.rect.y = random.randrange(cell.rect.top + 1, cell.rect.bottom - 25)
+        self.rect.x = random.randrange(cell.rect.left + 27, cell.rect.right - 54)
+        self.rect.y = random.randrange(cell.rect.top + 27, cell.rect.bottom - 54)
         self.mask = pygame.mask.from_surface(self.image)
         self.p = 0
     
@@ -54,12 +54,14 @@ class WarTwo(pygame.sprite.Sprite):
         else:
             self.kill()
         if self.rect.centery >= cell.rect.bottom - 5 or self.rect.centerx >= cell.rect.right - 5 or self.rect.centerx <= cell.rect.left + 5 or b == 0:
+            screen.fill((0, 0, 0), (self.rect.centerx - 27, self.rect.centery - 27, 54, 54))
             self.kill()
         if pygame.sprite.collide_mask(self, heart):
             pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
             pygame.mixer.music.set_volume(0.2)
             number -= 2
             hp(number)
+            screen.fill((0, 0, 0), (self.rect.centerx - 27, self.rect.centery - 27, 54, 54))
             self.kill()
             pygame.mixer.music.play(0)
     
