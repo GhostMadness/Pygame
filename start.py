@@ -71,28 +71,30 @@ class WarThree(pygame.sprite.Sprite):
     def __init__(self, filename):
         super().__init__(all_wars)
         self.image = pygame.image.load(filename)
-        self.image = pygame.transform.scale(self.image, (56, 230))
+        self.image = pygame.transform.scale(self.image, (300, cell.rect.bottom - cell.rect.y))
         self.rect = self.image.get_rect()
-        self.rect.x = random.randrange(cell.rect.left + 28, cell.rect.right - 56)
-        self.rect.y = random.randrange(cell.rect.top + 10, cell.rect.bottom - 115)
+        self.rect.x = random.randrange(cell.rect.left - 123, cell.rect.right - 79)
+        self.rect.y = cell.rect.top + 10
         self.mask = pygame.mask.from_surface(self.image)
         self.p = 0
     
     def update(self):
         global number
         if self.p == 0:
-            self.rect.move(100, 0)
+            self.rect.move(0, 250)
         else:
+            self.p = 1
+            screen.fill((0, 0, 0), (self.rect.centerx - 150, self.rect.centery - (cell.rect.bottom - cell.rect.y) // 2, 300, cell.rect.bottom - cell.rect.y))
             self.kill()
         if self.rect.centery >= cell.rect.bottom - 5 or self.rect.centerx >= cell.rect.right - 5 or self.rect.centerx <= cell.rect.left + 5 or b == 0:
-            screen.fill((0, 0, 0), (self.rect.centerx - 27, self.rect.centery - 27, 54, 54))
+            screen.fill((0, 0, 0), (self.rect.centerx - 150, self.rect.centery - (cell.rect.bottom - cell.rect.y) // 2, 300, cell.rect.bottom - cell.rect.y))
             self.kill()
         if pygame.sprite.collide_mask(self, heart):
             pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
             pygame.mixer.music.set_volume(0.2)
-            number -= 2
+            number -= 5
             hp(number)
-            screen.fill((0, 0, 0), (self.rect.centerx - 27, self.rect.centery - 27, 54, 54))
+            screen.fill((0, 0, 0), (self.rect.centerx - 150, self.rect.centery - (cell.rect.bottom - cell.rect.y) // 2, 300, cell.rect.bottom - cell.rect.y))
             self.kill()
             pygame.mixer.music.play(0)
 
@@ -183,7 +185,7 @@ class Heart(pygame.sprite.Sprite):
     
     def update_yes(self):
         global music_fight
-        if number == 0:
+        if number <= 0:
             return True
         return False
     
@@ -388,7 +390,7 @@ def one(sorce, react, for_text_beta):
         elif w > 300:
             w = 1
             for_text = for_text_beta
-        if react == 'p' and q % 30 == 0 or react == 'c' and q % 10 == 0:
+        if react == 'p' and q % 30 == 0 or react == 'c' and q % 20 == 0 or react == 'ch' and q % 500 == 0:
             wars[file_wars[s].rstrip()]()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
@@ -403,7 +405,7 @@ def one(sorce, react, for_text_beta):
         if b == 1:
             screen.blit(cell.image, cell.rect)
         all_wars.draw(screen)
-        if react == 'p' or q % 10 == 0:
+        if react == 'p' or react == 'c' and q % 40 == 0 or react == 'ch' and q % 250 == 0:
             all_wars.update()
         screen.blit(heart.image, heart.rect)
         pygame.display.flip()
@@ -485,6 +487,7 @@ def start_fn(event, monstr):
     text_xh = ''
     text_yh = ''
     w = 0
+    y = 0
 
     screen.fill((0, 0, 0))
     
@@ -494,6 +497,7 @@ def start_fn(event, monstr):
         image1 = pygame.image.load('SPRITE\ENEMY.png')
     if monstr == 3:
         image1 = pygame.image.load('SPRITE\CHUDICK.png')
+        y = 100
     music_fight = pygame.mixer.Sound('MUSIC\DOUBLE\IGHT_BOSS.mp3')
     music_fight.set_volume(0.20)
     with open('SETTING_FILES\SETTING.txt') as f:
@@ -512,7 +516,7 @@ def start_fn(event, monstr):
     flag = True
     Fight = False
     
-    screen.blit(image1, (800, 100))
+    screen.blit(image1, (800, 100 - y))
     pygame.display.flip()
     
     font = pygame.font.Font(None, 50)
@@ -589,7 +593,7 @@ def start_fn(event, monstr):
         if monstr == 2:
             one(8, 'c', 5)
         if monstr == 3:
-            one(16, 'c', 10)
+            one(16, 'ch', 10)
         if hp_Hide <= 0:
             Death_hide_class.death_hide()
             music_fight.stop()
