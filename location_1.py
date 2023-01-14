@@ -604,10 +604,8 @@ def start_location_2():
             npc_2_group.draw(screen)
             npc_3_group.draw(screen)
             screen_local_2.blit(gg_2.image, gg_2.rect)
-            print(pygame.sprite.spritecollideany(gg, other_sprite), sdegfoin1)
             
             if pygame.sprite.spritecollideany(gg_2, other_sprite) and sdegfoin1:
-                print(123)
                 music.stop()
                 a = start_fn(event, 2)
                 one = Live_hide_cl()
