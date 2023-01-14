@@ -371,12 +371,14 @@ class Stop(pygame.sprite.Sprite):
             self.rect.y = coords[1]
     
 class Stop_2(pygame.sprite.Sprite):
-    def __init__(self, filename, coord):
+    def __init__(self, filename, coord, *size):
         super().__init__()
         self.image = pygame.image.load(filename)
         self.rect = self.image.get_rect()
         self.rect.x = coord[0]
         self.rect.y = coord[1]
+        if size:
+            self.image = pygame.transform.scale(self.image, size)
 
 def start_location_4():
     if __name__ == '__main__':
@@ -555,7 +557,7 @@ def start_location_2():
         other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 384)))
         
         other_sprite = pygame.sprite.Group()
-        other_sprite.add(Stop_2("SPRITE\ENEMY.png", (1920 // 2 + 5, 1080 // 2)))
+        other_sprite.add(Stop_2("SPRITE\ENEMY.png", (1920 // 2 + 5, 1080 // 2), 100, 100))
         
         img_hide = pygame.image.load("SPRITE\ENEMY.png")
         img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
@@ -647,13 +649,6 @@ def start_location_2():
             pygame.display.flip()
             clock.tick(60)
     pygame.quit()
-class Stop_2(pygame.sprite.Sprite):
-    def __init__(self, filename, coord):
-        super().__init__()
-        self.image = pygame.image.load(filename)
-        self.rect = self.image.get_rect()
-        self.rect.x = coord[0]
-        self.rect.y = coord[1]
 class Stop_2_Apple(pygame.sprite.Sprite):
     def __init__(self, filename, coord):
         super().__init__()
