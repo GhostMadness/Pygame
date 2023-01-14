@@ -167,7 +167,7 @@ class NPC_BUILDING(pygame.sprite.Sprite):
                             break
                     if fgl:
                         break
-                time.sleep(0.1)
+                time.sleep(0.2)
                 return
             if self.name == 'Рин':
                 self.text_name = self.font.render(self.name, False, self.rgb_nickname)
@@ -184,7 +184,7 @@ class NPC_BUILDING(pygame.sprite.Sprite):
                             break
                     if fgl:
                         break
-                time.sleep(0.1)
+                time.sleep(0.2)
                 return
             self.text_name = self.font.render(self.name, False, self.rgb_nickname)
             self.text = self.font.render("Мне больше нечего тебе сказать", True, (255, 255, 255))
@@ -213,7 +213,8 @@ class NPC_BUILDING(pygame.sprite.Sprite):
                         break
                 if fgl:
                     break
-            time.sleep(0.1)
+            self.schet += 1
+            time.sleep(0.2)
             return
         self.text_name = self.font.render(self.name, False, self.rgb_nickname)
         for i in self.text_res:
@@ -232,7 +233,7 @@ class NPC_BUILDING(pygame.sprite.Sprite):
                         break
                 if fgl:
                     break
-            time.sleep(0.1)
+            time.sleep(0.2)
         
 
 class NPC_BUILDING_SHIZA(pygame.sprite.Sprite):
