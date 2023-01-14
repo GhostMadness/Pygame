@@ -1,4 +1,23 @@
 import pygame
+flaGi = True
+schet = 0
+def click():
+    global flaGi, schet
+    file = open("SETTING_FILES\SETTING.txt").readline()
+    file = file.split(" =")
+    if schet % 2 == 0:
+        flaGi = False
+    elif schet % 2 >= 1:
+        flaGi = True
+    print(file)
+    schet += 1
+
+def update():
+    global flaGi, music_settings
+    if not flaGi:
+        music_settings.stop()
+    else:
+        music_settings.play(-1)
 
 if __name__ == "__main__":
     pygame.init()
@@ -55,12 +74,22 @@ if __name__ == "__main__":
     text_enter_w = text_enter.get_width()
     text_enter_h = text_enter.get_height()
 
+    text_music = font.render("МУЗЫКА", True, (230, 230, 230))
+    text_music_x = 1920 // 2 - 60
+    text_music_y = 1080 // 2 - 305
+    text_music_w = text_music.get_width()
+    text_music_h = text_music.get_height()
+
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if cute[0] < event.pos[0] < cute[0] + cute[2] and cute[1] < event.pos[1] < cute[1] + cute[3]:
+                    click()
+                    update()
+
                 if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
                         running = False
         screen.blit(background_img, (0, 0))
@@ -71,5 +100,8 @@ if __name__ == "__main__":
         screen.blit(text_a, (text_a_x, text_a_y))
         screen.blit(text_d, (text_d_x, text_d_y))
         screen.blit(text_enter, (text_enter_x, text_enter_y))
+        screen.blit(text_music, (text_music_x, text_music_y))
+
+        cute = pygame.draw.rect(screen, (0, 255, 0), (1920 // 2 + 100, 1080 // 2 - 300, 25, 25))
         pygame.display.flip()
 pygame.quit()
