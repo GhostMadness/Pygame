@@ -9,7 +9,7 @@ dialog_4
 dialog_5
 war_4
 dialog_6
-war_5
+war_4
 dialog_7
-war_6
+war_4
 dialog_8
