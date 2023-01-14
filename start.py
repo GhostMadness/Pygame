@@ -303,7 +303,7 @@ def war_6():
 
 wars = {'dialog_1': dialog_1, 'war_1': war_1, 'war_2': war_2, 'war_3': war_3, 'war_4': war_4, 'war_5': war_5, 'war_6': war_6}
 file_wars = open('wars.txt').readlines()
-file_dialog = open('dialog.txt').readlines()
+file_dialog = open('dialog.txt', encoding='utf8').readlines()
 w = 0
 
 
