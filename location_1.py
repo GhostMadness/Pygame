@@ -941,6 +941,7 @@ def start_location_1():
         if pygame.sprite.spritecollideany(gg, other_sprite_2):
             music_location_1.stop()
             start_location_2()
+            running = False
         if l_d[0] == True or l_d[1] == True:
             sdegfoin = False
         if (l_d[0] == False and l_d[1] == False):
