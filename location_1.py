@@ -752,6 +752,10 @@ def start_location_2():
     other_sprite = pygame.sprite.Group()
     other_sprite.add(Stop_2("SPRITE\ENEMY.png", (1920 // 2 + 5 - 80, 1080 // 2 + 80), 100, 100))
 
+    menshik = NPC_BUILDING("SPRITE\pNPC\Men.png", 100, 100, "Мужик", (250, 0, 0))
+    men_group = pygame.sprite.Group()
+    men_group.add(Stop_2("SPRITE\pNPC\Men.png", (1800, 417), (100, 100)))
+
     img_hide = pygame.image.load("SPRITE\ENEMY.png")
     img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
 
@@ -800,6 +804,7 @@ def start_location_2():
         npc_1_group.draw(screen)
         npc_2_group.draw(screen)
         npc_3_group.draw(screen)
+        men_group.draw(screen)
         screen_local_2.blit(gg_2.image, gg_2.rect)
         screen_local_2.blit(button_menu_img_tr, (10, 10))
 
@@ -814,6 +819,10 @@ def start_location_2():
                 ON_2 = False
                 Death_fLag = False
                 loading_death()
+
+        if pygame.sprite.spritecollideany(gg_2, men_group) and key[pygame.K_RETURN]:
+            menshik.dialog("")
+            menshik.click_update()
 
         if pygame.sprite.spritecollideany(gg_2, other_sprite_2):
             music_location_2.stop()
