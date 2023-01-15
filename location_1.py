@@ -273,7 +273,7 @@ class NPC_BUILDING(pygame.sprite.Sprite):
         if self.schet >= len(self.text_res):
             if self.name == "Мужик":
                 self.text_name = self.font.render(self.name, False, self.rgb_nickname)
-                self.text = self.font.render("Удачи путник!", True, (255, 255, 255))
+                self.text = self.font.render("Уже уходишь?", True, (255, 255, 255))
                 screen.blit(self.text_name, (620, 720))
                 screen.blit(self.image_dialog_window, self.rect_dialog_window)
                 screen.blit(self.text, (620, 770))
@@ -320,7 +320,7 @@ class NPC_BUILDING(pygame.sprite.Sprite):
                 if fgl:
                     break
             screen.blit(self.text_name, (620, 720))
-            self.text = self.font.render("урод!", True, (255, 255, 255))
+            self.text = self.font.render("уходи!", True, (255, 255, 255))
             screen.blit(self.image_dialog_window, self.rect_dialog_window)
             screen.blit(self.text, (620, 770))
             pygame.display.flip()
