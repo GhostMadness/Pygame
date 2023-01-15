@@ -818,15 +818,15 @@ def start_location_2():
             location_1 = True
             start_location_1()
         if pygame.sprite.spritecollideany(gg_2, npc_1_group) and key[pygame.K_RETURN]:
-            npc_1.dialog("Пошёл вон отсюда NПока все мозги не выбил!")
+            npc_1.dialog("Ха..ха..ха.. NТебе здесь не рады..")
             npc_1.click_update()
         if pygame.sprite.spritecollideany(gg_2, npc_2_group) and key[pygame.K_RETURN]:
             npc_2.dialog(
-                "Я вЕлИкИй Из СвОеГо РоДа NВ нАсЛеДиЕ мНе ОсТаЛсЯ NэТоТ бОжЕсТвЕнНыЙ NкОсТюМ! NКаК я ПоГлЕжУ тЫ NиЗ нИзШиХ сЛоЁв ОбЩеСтВа! NТы Не иМеЕшь ПрАвА NНаХоДиТьСя РяДоМ сО мНоЙ! NУбИрАйСя!")
+                "Ух.. Это ты..NЗачем ты вернулся?NТы должен был Nсгнить в той пещере NА, ты не понимаешь? NВидимо у тебя амнезия NВсе здесь боятся твоего Nпрошлого...")
             npc_2.click_update()
         if pygame.sprite.spritecollideany(gg_2, npc_3_group) and key[pygame.K_RETURN]:
             npc_3.dialog(
-                "Здравствуй путник NЯ недавно приехал сюда. NИногда я вижу странных существ NЕсли видишь не мешкая убивай NОни портят репутацию городу NДо скорых встреч!")
+                "Здравствуй путник NЯ недавно приехал сюда. NЗдесь совершенно нет никаких Nмонстров, хотя кто-то Nговорит, что здесь есть люди, Nкоторые могут видеть призраков")
             npc_3.click_update()
 
         if l_d1[0] == True or l_d1[1] == True:
@@ -971,5 +971,8 @@ def start_location_1():
                         set Count = 0""").fetchall()
     con.commit()
     con.close()
+
+
 start_menu()
+
 pygame.quit()
