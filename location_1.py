@@ -29,22 +29,21 @@ music_location_1.set_volume(0.2)
 music_settings = pygame.mixer.Sound('SETTING_FILES\SETTING.oga')
 music_settings.set_volume(0.1)
 
-flaGi = True
+music_menu = pygame.mixer.Sound('MUSIC\FIRST\MENU.mp3')
+music_menu.set_volume(0.05)
 
-def update(one=False, two=False, three=False, four=False, five=False):
-    global flaGi, music_settings
-    if not flaGi:
-        if five:
-            music_settings.stop()
-        if one:
-            music_location_1.stop()
-        if two:
-            music_location_2.stop()
-        if three:
-            music_location_3.stop()
-        if four:
-            music_location_4.stop()
-    else:
+schet = 0
+flagor = False
+
+def update(one=False, two=False, three=False, four=False, five=False, six=False):
+    global flagor, music_settings, music_location_1, music_location_2, music_location_3, music_location_4, music_menu
+    if flagor == False:
+        music_settings.stop()
+        music_location_1.stop()
+        music_location_2.stop()
+        music_location_3.stop()
+        music_location_4.stop()
+    elif flagor:
         if five:
             music_settings.play(-1)
         if one:
@@ -55,22 +54,20 @@ def update(one=False, two=False, three=False, four=False, five=False):
             music_location_3.play(-1)
         if four:
             music_location_4.play(-1)
+        if six:
+            music_menu.play(-1)
 
 def settings():
     pygame.init()
-    update(five=True)
-    global flaGi, schet, music_settings, music_location_1, music_location_2, music_location_3, music_location_4
-    schet = 0
+    global music_settings, music_location_1, music_location_2, music_location_3, music_location_4, schet
 
     def click():
-        global flaGi, schet
-        file = open("SETTING_FILES\SETTING.txt").readline()
-        file = file.split(" =")
-        if file[1] == '0':
-            flaGi = False
-        elif file[1] == '1':
-            flaGi = True
-        schet += 1
+        global schet, flagor
+        if schet % 2 == 0:
+            flagor = True
+        elif schet % 2 != 0:
+            flagor = False
+        
     if __name__ == "__main__":
         size = width, height = 1920, 1080
         screen = pygame.display.set_mode(size)
@@ -119,10 +116,11 @@ def settings():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if cute[0] < event.pos[0] < cute[0] + cute[2] and cute[1] < event.pos[1] < cute[1] + cute[3]:
                         click()
-                        update()
-
+                        update(five=True)
+                        schet += 1
                     if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
-                            running = False
+                        music_settings.stop()
+                        start_menu()
             screen.blit(background_img, (0, 0))
             screen.blit(button_menu_img_tr, (10, 10))
             screen.blit(text, (text_x, text_y))
@@ -210,14 +208,13 @@ def loading_death():
             schet_3 += 2
         pygame.display.flip()
 def start_menu():
+    update(six=True)
     if __name__ == "__main__":
+        global music_menu
         pygame.init()
         pygame.display.set_caption("Phantom")
         size = width, height = 1920, 1080
         screen = pygame.display.set_mode(size)
-        music = pygame.mixer.Sound('MUSIC\FIRST\MENU.mp3')
-        music.set_volume(0.05)
-        music.play(-1)
         IMG_MENU = pygame.image.load("SPRITE\MAIN_10.png")
         IMG_EXIT_BUTTON = pygame.image.load("SPRITE\EXIT_BUTTON.png")
         IMG_PLAY_BUTTON = pygame.image.load("SPRITE\PLAY_BUTTON.png")
@@ -242,9 +239,10 @@ def start_menu():
                     if rect_1[0] < event.pos[0] < rect_1[0] + rect_1[2] and rect_1[1] < event.pos[1] < rect_1[1] + rect_1[3]:
                         running = False
                     if rect_2[0] < event.pos[0] < rect_2[0] + rect_2[2] and rect_2[1] < event.pos[1] < rect_2[1] + rect_2[3]:
+                        music_menu.stop()
                         settings()
                     if rect_3[0] < event.pos[0] < rect_3[0] + rect_3[2] and rect_3[1] < event.pos[1] < rect_3[1] + rect_3[3]:
-                        music.stop()
+                        music_menu.stop()
                         start_location_1()
             screen.fill((0, 0, 0))
             screen.blit(IMG_MENU, (0, 0))
@@ -693,7 +691,7 @@ def start_location_3():
             screen.blit(button_menu_img_tr, (10, 10))
             
             if pygame.sprite.spritecollideany(gg_3, other_sprite) and sdegfoin1:
-                music_location_2.stop()
+                music_location_3.stop()
                 a = start_fn(event, 3)
                 one = Live_hide_cl()
                 two = Death_hide_cl()
@@ -878,8 +876,8 @@ class Stop_2_Apple(pygame.sprite.Sprite):
         self.rect.x = coord[0]
         self.rect.y = coord[1]
 def start_location_1():
-    update(one=True)
     if __name__ == '__main__':
+        update(one=True)
         global location_1, gg, Death_fLag, go_or_no, l_d, ON, enter, music_location_1
         pygame.init()
         running = True
@@ -988,7 +986,7 @@ def start_location_1():
             if pygame.sprite.spritecollideany(gg, shiza_npc_1_group) and key[pygame.K_RETURN]:
                     shiza_npc_1.dialog("Я не сомневался что ты проснёшся NЗа то время пока ты спал NТы успел растерять все силы. NДля начала возьми это яблоко NЭто позволит тебе NПожить подольше чем остальные. NЗатем NСразись вон с тем призраком. NЭто предаст тебе NУверенности в бою! NМне уже пора идти... NДумаю мы ещё свидимся...")
                     shiza_npc_1.click_update()
-
+            
             pygame.display.flip()
             clock.tick(60)
         con = sqlite3.connect('SQL\Bag.db')
