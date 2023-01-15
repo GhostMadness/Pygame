@@ -72,74 +72,69 @@ def settings():
             flagor = True
         elif schet % 2 != 0:
             flagor = False
+    background_img = pygame.image.load("SPRITE\SETTINGS_FON_2.jpg")
+    button_menu_img = pygame.image.load("SPRITE\EXIT_MENU_BUTTON.png")
+    button_menu_img_tr = pygame.transform.scale(button_menu_img, (50, 50))
 
-    if __name__ == "__main__":
-        size = 1920, 1080
-        screen = pygame.display.set_mode(size)
-        background_img = pygame.image.load("SPRITE\SETTINGS_FON_2.jpg")
-        button_menu_img = pygame.image.load("SPRITE\EXIT_MENU_BUTTON.png")
-        button_menu_img_tr = pygame.transform.scale(button_menu_img, (50, 50))
+    rect_but_menu = button_menu_img_tr.get_rect()
+    rect_but_menu.x = 10
+    rect_but_menu.y = 10
 
-        rect_but_menu = button_menu_img_tr.get_rect()
-        rect_but_menu.x = 10
-        rect_but_menu.y = 10
+    font = pygame.font.Font(None, 50)
+    text = font.render("УПРАВЛЕНИЕ", True, (230, 230, 230))
+    text_x = 1920 // 2 - 50
+    text_y = 1080 // 2 - 50
 
-        font = pygame.font.Font(None, 50)
-        text = font.render("УПРАВЛЕНИЕ", True, (230, 230, 230))
-        text_x = 1920 // 2 - 50
-        text_y = 1080 // 2 - 50
+    text_w = font.render("ВВЕРХ - W", True, (230, 230, 230))
+    text_w_x = 1920 // 2 - 50
+    text_w_y = 1080 // 2 - 20
 
-        text_w = font.render("ВВЕРХ - W", True, (230, 230, 230))
-        text_w_x = 1920 // 2 - 50
-        text_w_y = 1080 // 2 - 20
+    text_s = font.render("ВНИЗ - S", True, (230, 230, 230))
+    text_s_x = 1920 // 2 - 50
+    text_s_y = 1080 // 2 + 10
 
-        text_s = font.render("ВНИЗ - S", True, (230, 230, 230))
-        text_s_x = 1920 // 2 - 50
-        text_s_y = 1080 // 2 + 10
+    text_d = font.render("ВПРАВО - D", True, (230, 230, 230))
+    text_d_x = 1920 // 2 - 50
+    text_d_y = 1080 // 2 + 40
 
-        text_d = font.render("ВПРАВО - D", True, (230, 230, 230))
-        text_d_x = 1920 // 2 - 50
-        text_d_y = 1080 // 2 + 40
+    text_a = font.render("ВЛЕВО - A", True, (230, 230, 230))
+    text_a_x = 1920 // 2 - 50
+    text_a_y = 1080 // 2 + 70
 
-        text_a = font.render("ВЛЕВО - A", True, (230, 230, 230))
-        text_a_x = 1920 // 2 - 50
-        text_a_y = 1080 // 2 + 70
+    text_enter = font.render("ГОВОРИТЬ - ENTER", True, (230, 230, 230))
+    text_enter_x = 1920 // 2 - 50
+    text_enter_y = 1080 // 2 + 100
 
-        text_enter = font.render("ГОВОРИТЬ - ENTER", True, (230, 230, 230))
-        text_enter_x = 1920 // 2 - 50
-        text_enter_y = 1080 // 2 + 100
+    text_music = font.render("МУЗЫКА", True, (230, 230, 230))
+    text_music_x = 1920 // 2 - 60
+    text_music_y = 1080 // 2 - 305
 
-        text_music = font.render("МУЗЫКА", True, (230, 230, 230))
-        text_music_x = 1920 // 2 - 60
-        text_music_y = 1080 // 2 - 305
+    running = True
+    while running:
+        cute = pygame.draw.rect(screen, (0, 255, 0), (1920 // 2 + 100, 1080 // 2 - 300, 25, 25))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if cute[0] < event.pos[0] < cute[0] + cute[2] and cute[1] < event.pos[1] < cute[1] + cute[3]:
+                    click()
+                    update(five=True)
+                    schet += 1
+                if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
+                        event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
+                    music_settings.stop()
+                    start_menu()
+        screen.blit(background_img, (0, 0))
+        screen.blit(button_menu_img_tr, (10, 10))
+        screen.blit(text, (text_x, text_y))
+        screen.blit(text_w, (text_w_x, text_w_y))
+        screen.blit(text_s, (text_s_x, text_s_y))
+        screen.blit(text_a, (text_a_x, text_a_y))
+        screen.blit(text_d, (text_d_x, text_d_y))
+        screen.blit(text_enter, (text_enter_x, text_enter_y))
+        screen.blit(text_music, (text_music_x, text_music_y))
 
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if cute[0] < event.pos[0] < cute[0] + cute[2] and cute[1] < event.pos[1] < cute[1] + cute[3]:
-                        click()
-                        update(five=True)
-                        schet += 1
-                    if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
-                            event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
-                        music_settings.stop()
-                        start_menu()
-            screen.blit(background_img, (0, 0))
-            screen.blit(button_menu_img_tr, (10, 10))
-            screen.blit(text, (text_x, text_y))
-            screen.blit(text_w, (text_w_x, text_w_y))
-            screen.blit(text_s, (text_s_x, text_s_y))
-            screen.blit(text_a, (text_a_x, text_a_y))
-            screen.blit(text_d, (text_d_x, text_d_y))
-            screen.blit(text_enter, (text_enter_x, text_enter_y))
-            screen.blit(text_music, (text_music_x, text_music_y))
-
-            cute = pygame.draw.rect(screen, (0, 255, 0), (1920 // 2 + 100, 1080 // 2 - 300, 25, 25))
-            pygame.display.flip()
-        pygame.quit()
+        pygame.display.flip()
 
 
 def loading_death():
@@ -225,8 +220,6 @@ def start_menu():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.MOUSEMOTION:
-                x, y = event.pos
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if rect_1[0] < event.pos[0] < rect_1[0] + rect_1[2] and rect_1[1] < event.pos[1] < rect_1[1] + \
                         rect_1[3]:
@@ -976,5 +969,5 @@ def start_location_1():
                         set Count = 0""").fetchall()
     con.commit()
     con.close()
-pygame.quit()
 start_menu()
+pygame.quit()
