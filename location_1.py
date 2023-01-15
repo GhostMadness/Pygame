@@ -122,8 +122,8 @@ def settings():
                 if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
                         event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
                     music_settings.stop()
-                    running = False
                     start_menu()
+                    running = False
         screen.blit(background_img, (0, 0))
         screen.blit(button_menu_img_tr, (10, 10))
         screen.blit(text, (text_x, text_y))
@@ -135,8 +135,8 @@ def settings():
         screen.blit(text_music, (text_music_x, text_music_y))
         
         cute = pygame.draw.rect(screen, (0, 255, 0), (1920 // 2 + 100, 1080 // 2 - 300, 25, 25))
-
         pygame.display.flip()
+    pygame.quit()
 
 
 def loading_death():
