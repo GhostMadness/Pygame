@@ -124,19 +124,19 @@ def settings():
                     music_settings.stop()
                     start_menu()
                     running = False
-        screen.blit(background_img, (0, 0))
-        screen.blit(button_menu_img_tr, (10, 10))
-        screen.blit(text, (text_x, text_y))
-        screen.blit(text_w, (text_w_x, text_w_y))
-        screen.blit(text_s, (text_s_x, text_s_y))
-        screen.blit(text_a, (text_a_x, text_a_y))
-        screen.blit(text_d, (text_d_x, text_d_y))
-        screen.blit(text_enter, (text_enter_x, text_enter_y))
-        screen.blit(text_music, (text_music_x, text_music_y))
-        
-        cute = pygame.draw.rect(screen, (0, 255, 0), (1920 // 2 + 100, 1080 // 2 - 300, 25, 25))
-        pygame.display.flip()
-    pygame.quit()
+        if running:
+            screen.blit(background_img, (0, 0))
+            screen.blit(button_menu_img_tr, (10, 10))
+            screen.blit(text, (text_x, text_y))
+            screen.blit(text_w, (text_w_x, text_w_y))
+            screen.blit(text_s, (text_s_x, text_s_y))
+            screen.blit(text_a, (text_a_x, text_a_y))
+            screen.blit(text_d, (text_d_x, text_d_y))
+            screen.blit(text_enter, (text_enter_x, text_enter_y))
+            screen.blit(text_music, (text_music_x, text_music_y))
+            
+            cute = pygame.draw.rect(screen, (0, 255, 0), (1920 // 2 + 100, 1080 // 2 - 300, 25, 25))
+            pygame.display.flip()
 
 
 def loading_death():
@@ -230,10 +230,12 @@ def start_menu():
                         rect_2[3]:
                     music_menu.stop()
                     settings()
+                    running = False
                 if rect_3[0] < event.pos[0] < rect_3[0] + rect_3[2] and rect_3[1] < event.pos[1] < rect_3[1] + \
                         rect_3[3]:
                     music_menu.stop()
                     start_location_1()
+                    running = False
         screen.fill((0, 0, 0))
         screen.blit(IMG_MENU, (0, 0))
         screen.blit(IMG_PLAY_BUTTON, (43, 70 + 50))
@@ -583,6 +585,7 @@ def start_location_4():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
                         event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
+                    start_menu()
                     running = False
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
@@ -669,6 +672,7 @@ def start_location_3():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
                         event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
+                    start_menu()
                     running = False
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
@@ -781,6 +785,7 @@ def start_location_2():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
                         event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
+                    start_menu()
                     running = False
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
@@ -914,6 +919,7 @@ def start_location_1():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
                         event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
+                    start_menu()
                     running = False
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
