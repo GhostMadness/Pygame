@@ -12,6 +12,7 @@ ON = True
 ON_2 = True
 l_d = (False, False)
 l_d1 = (False, False)
+l_d2 = (False, False)
 pygame.init()
 music_location_4 = pygame.mixer.Sound('MUSIC\FIRST\HOME.mp3')
 music_location_4.set_volume(0.2)
@@ -620,7 +621,7 @@ def start_location_4():
 def start_location_3():
     update(three=True)
     if __name__ == '__main__':
-        global location_2, location_3, music_location_3
+        global location_2, location_3, music_location_3, l_d2
         pygame.init()
         pygame.display.set_caption("Phantom")
         size = width, height = 1920, 1080
@@ -638,6 +639,14 @@ def start_location_3():
 
         top_sprite.add(Stop_2("location_house\sprite_collide\ottom_grass.png", (0, 265)))
         left_sprite.add(Stop_2("location_house\sprite_collide\ght_grass.png", (830, 0)))
+        
+        other_sprite = pygame.sprite.Group()
+        other_sprite.add(Stop_2("SPRITE\CHUDICK.png", (1920 // 2 + 5 - 80, 1080 // 2 + 80), 100, 100))
+        
+        img_hide = pygame.image.load("SPRITE\CHUDICK.png")
+        img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
+        
+        sdegfoin1 = True
 
         #music_location_3.play(-1)
 
@@ -682,6 +691,26 @@ def start_location_3():
             screen.blit(sc1, (0, 0))
             screen.blit(gg_3.image, gg_3.rect)
             screen.blit(button_menu_img_tr, (10, 10))
+            
+            if pygame.sprite.spritecollideany(gg_3, other_sprite) and sdegfoin1:
+                music_location_2.stop()
+                a = start_fn(event, 3)
+                one = Live_hide_cl()
+                two = Death_hide_cl()
+                l_d2 = (one.live_print(), two.death_print())
+                if a:
+                    #gg.rect.x = 324
+                    #gg.rect.y = 571
+                    l_d2 = (False, False)
+                    ON_2 = False
+                    Death_fLag = False
+                    #screen.blit(gg.image, gg.rect)
+                    loading_death()
+            
+            if l_d2[0] == True or l_d2[1] == True:
+                sdegfoin1 = False
+            if (l_d2[0] == False and l_d2[1] == False):
+                screen.blit(img_hide_scale, (1920 // 2, 1080 // 2 + 80))
 
             if pygame.sprite.spritecollideany(gg_3, other_sprite_2):
                 music_location_3.stop()

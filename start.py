@@ -70,31 +70,36 @@ class WarTwo(pygame.sprite.Sprite):
 class WarThree(pygame.sprite.Sprite):
     def __init__(self, filename):
         super().__init__(all_wars)
-        self.image = pygame.image.load(filename)
-        self.image = pygame.transform.scale(self.image, (300, cell.rect.bottom - cell.rect.y))
+        self.image = pygame.Surface((120, cell.rect.bottom - cell.rect.y - 20))
+        pygame.draw.rect(self.image, (205, 92, 92), (0, 0, 120, cell.rect.bottom - cell.rect.y - 20)) #(205, 92, 92) (240, 128, 128)
         self.rect = self.image.get_rect()
-        self.rect.x = random.randrange(cell.rect.left - 123, cell.rect.right - 79)
+        self.rect.x = random.randrange(cell.rect.left, cell.rect.right - 120)
         self.rect.y = cell.rect.top + 10
         self.mask = pygame.mask.from_surface(self.image)
         self.p = 0
+        self.filename = filename
     
     def update(self):
         global number
         if self.p == 0:
-            self.rect.move(0, 250)
-        else:
+            self.image = pygame.image.load(self.filename)
+            self.image = pygame.transform.scale(self.image, (120, cell.rect.bottom - cell.rect.y - 20))
+            self.mask = pygame.mask.from_surface(self.image)
             self.p = 1
-            screen.fill((0, 0, 0), (self.rect.centerx - 150, self.rect.centery - (cell.rect.bottom - cell.rect.y) // 2, 300, cell.rect.bottom - cell.rect.y))
+        elif self.p == 1:
+            self.p = 2
+        else:
+            screen.fill((0, 0, 0), (self.rect.x, self.rect.y, self.rect.right - self.rect.x, self.rect.bottom - self.rect.y))
             self.kill()
         if self.rect.centery >= cell.rect.bottom - 5 or self.rect.centerx >= cell.rect.right - 5 or self.rect.centerx <= cell.rect.left + 5 or b == 0:
-            screen.fill((0, 0, 0), (self.rect.centerx - 150, self.rect.centery - (cell.rect.bottom - cell.rect.y) // 2, 300, cell.rect.bottom - cell.rect.y))
+            screen.fill((0, 0, 0), (self.rect.x, self.rect.y, self.rect.right - self.rect.x, self.rect.bottom - self.rect.y))
             self.kill()
-        if pygame.sprite.collide_mask(self, heart):
+        if pygame.sprite.collide_mask(self, heart) and self.p >= 1:
             pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
             pygame.mixer.music.set_volume(0.2)
-            number -= 5
+            number -= 3
             hp(number)
-            screen.fill((0, 0, 0), (self.rect.centerx - 150, self.rect.centery - (cell.rect.bottom - cell.rect.y) // 2, 300, cell.rect.bottom - cell.rect.y))
+            screen.fill((0, 0, 0), (self.rect.x, self.rect.y, self.rect.right - self.rect.x, self.rect.bottom - self.rect.y))
             self.kill()
             pygame.mixer.music.play(0)
 
@@ -262,7 +267,7 @@ def war_1():
 def war_2():
     global w
     WarThree('SPRITE\war_2.png')
-    w += 1
+    w += 11
 
 
 def dialog_1():
@@ -390,7 +395,7 @@ def one(sorce, react, for_text_beta):
         elif w > 300:
             w = 1
             for_text = for_text_beta
-        if react == 'p' and q % 30 == 0 or react == 'c' and q % 20 == 0 or react == 'ch' and q % 500 == 0:
+        if react == 'p' and q % 30 == 0 or react == 'c' and q % 20 == 0 or react == 'ch' and q % 200 == 0 or b == 0:
             wars[file_wars[s].rstrip()]()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
@@ -404,8 +409,10 @@ def one(sorce, react, for_text_beta):
         q += 1
         if b == 1:
             screen.blit(cell.image, cell.rect)
+        elif react == 'ch':
+            all_wars.update()
         all_wars.draw(screen)
-        if react == 'p' or react == 'c' and q % 40 == 0 or react == 'ch' and q % 250 == 0:
+        if react == 'p' or react == 'c' and q % 40 == 0 or react == 'ch' and q % 100 == 0:
             all_wars.update()
         screen.blit(heart.image, heart.rect)
         pygame.display.flip()
@@ -423,7 +430,7 @@ class Death_hide_cl():
         global Death_fLag
         global cell, number
         Death_fLag = False
-        screen.fill((0, 0, 0), (800, 100, 300, 300))
+        screen.fill((0, 0, 0), (800, 0, 300, 300))
         pygame.display.update()
         image1 = pygame.image.load('SPRITE\Hide_2.png')
         screen.blit(image1, (800, 100))
