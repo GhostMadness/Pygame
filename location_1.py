@@ -64,7 +64,7 @@ def update(one=False, two=False, three=False, four=False, five=False, six=False)
 
 
 def settings():
-    global music_settings, music_location_1, music_location_2, music_location_3, music_location_4, schet
+    global music_settings, music_location_1, music_location_2, music_location_3, music_location_4, schet, screen
 
     def click():
         global schet, flagor
@@ -111,7 +111,6 @@ def settings():
 
     running = True
     while running:
-        cute = pygame.draw.rect(screen, (0, 255, 0), (1920 // 2 + 100, 1080 // 2 - 300, 25, 25))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -123,6 +122,7 @@ def settings():
                 if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
                         event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
                     music_settings.stop()
+                    running = False
                     start_menu()
         screen.blit(background_img, (0, 0))
         screen.blit(button_menu_img_tr, (10, 10))
@@ -133,6 +133,8 @@ def settings():
         screen.blit(text_d, (text_d_x, text_d_y))
         screen.blit(text_enter, (text_enter_x, text_enter_y))
         screen.blit(text_music, (text_music_x, text_music_y))
+        
+        cute = pygame.draw.rect(screen, (0, 255, 0), (1920 // 2 + 100, 1080 // 2 - 300, 25, 25))
 
         pygame.display.flip()
 
