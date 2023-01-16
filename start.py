@@ -655,7 +655,7 @@ def start_fn(event, monstr):
             else:
                 music_fight.play(-1)
     
-    hp_Hide = 20
+    hp_Hide = 22
     
     s = 0
     b = 0
@@ -742,7 +742,7 @@ def start_fn(event, monstr):
         if hp_Hide <= 0:
             Death_hide_class.death_hide()
             music_fight.stop()
-        if hp_Hide > 30:
+        if hp_Hide > 32:
             Live_hide_class.live_hide()
             music_fight.stop()
     return Death_fLag
