@@ -635,6 +635,8 @@ def start_fn(event, monstr):
     x = 0
 
     screen.fill((0, 0, 0))
+
+    number = 20
     
     all_wars = pygame.sprite.Group()
     

@@ -1,7 +1,7 @@
 import pygame
 import time
 import random
-from start import screen, start_fn, Death_fLag, go_or_no, Live_hide_cl, Death_hide_cl
+from start import screen, start_fn, Death_fLag, go_or_no, Live_hide_cl, Death_hide_cl, number
 from location_2 import start_dias
 import sqlite3
 
@@ -44,7 +44,6 @@ music_location_6.set_volume(0.3)
 
 schet = 0
 flagor = False
-
 
 def update(one=False, two=False, three=False, four=False, five=False, six=False, seven=False, eleven=False):
     global flagor, music_settings, music_location_1, music_location_2, music_location_3, music_location_4, music_menu, music_location_6
@@ -551,16 +550,16 @@ def start_location_6():
 
     clock = pygame.time.Clock()
 
-    #bottom_sprite = pygame.sprite.Group()
-    #bottom_sprite.add(Stop_2("location_6\esilt\custle.png", (0, 982)))
+    bottom_sprite = pygame.sprite.Group()
+    bottom_sprite.add(Stop_2("location_7\esult\pol_bottom.png", (0, 988)))
 
-    #right_sprite = pygame.sprite.Group()
-    #right_sprite.add(Stop_2("location_6\esilt\mogila_1.png", (1780, 0)))
+    right_sprite = pygame.sprite.Group()
+    right_sprite.add(Stop_2("location_7\esult\pol_right.png", (1820, 0)))
 
-    #left_sprite = pygame.sprite.Group()
-    #left_sprite.add(Stop_2("location_6\esilt\mogila_1.png", (0, 0)))
+    left_sprite = pygame.sprite.Group()
+    left_sprite.add(Stop_2("location_7\esult\pol_left.png", (-100, 0)))
 
-    gg_6 = Heroy(x=50, y=975)
+    gg_6 = Heroy(right=right_sprite, left=left_sprite, bottom=bottom_sprite, x=50, y=975)
 
     running = True
     while running:
