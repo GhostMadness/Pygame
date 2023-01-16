@@ -12,7 +12,8 @@ list_sprites_osminog = ['SPRITE\Osminog\Osminog_1.png', 'SPRITE\Osminog\Osminog_
                         'SPRITE\Osminog\Osminog_6.png', 'SPRITE\Osminog\Osminog_7.png', 'SPRITE\Osminog\Osminog_8.png', 'SPRITE\Osminog\Osminog_9.png', 'SPRITE\Osminog\Osminog_10.png',
                         'SPRITE\Osminog\Osminog_11.png', 'SPRITE\Osminog\Osminog_12.png', 'SPRITE\Osminog\Osminog_13.png', 'SPRITE\Osminog\Osminog_14.png', 'SPRITE\Osminog\Osminog_15.png',
                         'SPRITE\Osminog\Osminog_16.png', 'SPRITE\Osminog\Osminog_17.png', 'SPRITE\Osminog\Osminog_18.png']
-list_sprites_megashiza = ['SPRITE\Hide_1.png', 'SPRITE\ENEMY.png', 'SPRITE\CHUDICK.png']
+list_sprites_crow = ['SPRITE\CROW_1.png', 'SPRITE\CROW_2.png', 'SPRITE\CROW_3.png', 'SPRITE\CROW_4.png']
+
 
 class War(pygame.sprite.Sprite):
     def __init__(self, filename):
@@ -136,17 +137,54 @@ class Osminog(pygame.sprite.Sprite):
 
 class MegashizaAtak(pygame.sprite.Sprite):
     def __init__(self):
-        self.image = pygame.image.load(random.choice(list_sprites_megashiza))
-        self.image = pygame.transform.scale(self.image, (200, 200))
-        self.rect = self.image.get_rect()
+        super().__init__(all_wars)
+        self.i = random.randrange(1, 4)
+        self.p = 0
+        if self.i == 1:
+            self.image = pygame.image.load('SPRITE\CROW_1.png')
+            self.rect = self.image.get_rect()
+            self.rect.x = cell.rect.left + 10
+            self.rect.y = random.randrange(cell.rect.top + 60, cell.rect.bottom - 60)
+            self.p = 1
+        if self.i == 2:
+            self.image = pygame.image.load('SPRITE\CROW_2.png')
+            self.rect = self.image.get_rect()
+            self.rect.x = cell.rect.right - 10
+            self.rect.y = random.randrange(cell.rect.top + 60, cell.rect.bottom - 60)
+            self.p = 2
+        if self.i == 3:
+            self.image = pygame.image.load('SPRITE\CROW_3.png')
+            self.rect = self.image.get_rect()
+            self.rect.x = cell.rect.left + 10
+            self.rect.y = random.randrange(cell.rect.top + 60, cell.rect.bottom - 60)
+            self.p = 3
+        if self.i == 4:
+            self.image = pygame.image.load('SPRITE\CROW_4.png')
+            self.rect = self.image.get_rect()
+            self.rect.x = cell.rect.right * 10
+            self.rect.y = random.randrange(cell.rect.top + 60, cell.rect.bottom - 60)
+            self.p = 4
+        self.image = pygame.transform.scale(self.image, (50, 50))
     
     def update(self):
-        if self.image == pygame.image.load('SPRITE\Hide_1.png'):
-            war_1()
-        if self.image == pygame.image.load('SPRITE\ENEMY.png'):
-            war_4()
-        if self.image == pygame.image.load('SPRITE\CHUDICK.png'):
-            war_2()
+        global number
+        if self.p == 1:
+            self.rect = self.rect.move(10, 10)
+        elif self.p == 2:
+            self.rect = self.rect.move(-10, 10)
+        elif self.p == 3:
+            self.rect = self.rect.move(10, -10)
+        else:
+            self.rect = self.rect.move(-10, -10)
+        if self.rect.bottom >= cell.rect.bottom or self.rect.top <= cell.rect.top:
+            self.kill()
+        if pygame.sprite.collide_mask(self, heart):
+            pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
+            pygame.mixer.music.set_volume(0.2)
+            number -= 1
+            hp(number)
+            self.kill()
+            pygame.mixer.music.play(0)
 
 class Heart(pygame.sprite.Sprite):
     def __init__(self):
@@ -329,7 +367,7 @@ def dialog_1():
 
 def war_3():
     global w
-    War('SPRITE\war_3.png')
+    MegashizaAtak()
     w += 1
 
 
@@ -460,11 +498,10 @@ def one(sorce, react, for_text_beta):
         q += 1
         if b == 1:
             screen.blit(cell.image, cell.rect)
-        elif react == 'ch':
+        if react == 'p' or react == 'c' and q % 60 == 0 or react == 'ch' and q % 100 == 0:
+            print(10)
             all_wars.update()
         all_wars.draw(screen)
-        if react == 'p' or react == 'c' and q % 60 == 0 or react == 'ch' and q % 100 == 0:
-            all_wars.update()
         screen.blit(heart.image, heart.rect)
         pygame.display.flip()
         hp(number)
@@ -663,6 +700,11 @@ def start_fn(event, monstr, number1):
         image1 = pygame.image.load('SPRITE\Osminog\Osminog_1.png')
         Osminog(650, 100)
         x = 150
+    if monstr == 5:
+        screen.fill((0, 0, 0))
+        image1 = pygame.image.load('SPRITE\Megashiza.png')
+        x = 150
+        y = 100
     music_fight = pygame.mixer.Sound('MUSIC\DOUBLE\IGHT_BOSS.mp3')
     music_fight.set_volume(0.20)
     with open('SETTING_FILES\SETTING.txt') as f:
@@ -757,6 +799,8 @@ def start_fn(event, monstr, number1):
             one(16, 'ch', 10)
         if monstr == 4:
             two(24, 15)
+        if monstr == 5:
+            one(32, 'p', 20)
         if hp_Hide <= 0:
             Death_hide_class.death_hide()
             music_fight.stop()
