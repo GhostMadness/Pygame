@@ -134,6 +134,10 @@ class Osminog(pygame.sprite.Sprite):
             pygame.mixer.music.play(0)
 
 
+class MegashizaAtak(pygame.sprite.Sprite):
+    def __init__(self):
+        pass
+
 class Heart(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
