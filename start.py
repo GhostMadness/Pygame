@@ -12,7 +12,7 @@ list_sprites_osminog = ['SPRITE\Osminog\Osminog_1.png', 'SPRITE\Osminog\Osminog_
                         'SPRITE\Osminog\Osminog_6.png', 'SPRITE\Osminog\Osminog_7.png', 'SPRITE\Osminog\Osminog_8.png', 'SPRITE\Osminog\Osminog_9.png', 'SPRITE\Osminog\Osminog_10.png',
                         'SPRITE\Osminog\Osminog_11.png', 'SPRITE\Osminog\Osminog_12.png', 'SPRITE\Osminog\Osminog_13.png', 'SPRITE\Osminog\Osminog_14.png', 'SPRITE\Osminog\Osminog_15.png',
                         'SPRITE\Osminog\Osminog_16.png', 'SPRITE\Osminog\Osminog_17.png', 'SPRITE\Osminog\Osminog_18.png']
-
+list_sprites_megashiza = ['SPRITE\Hide_1.png', 'SPRITE\ENEMY.png', 'SPRITE\CHUDICK.png']
 
 class War(pygame.sprite.Sprite):
     def __init__(self, filename):
@@ -136,7 +136,17 @@ class Osminog(pygame.sprite.Sprite):
 
 class MegashizaAtak(pygame.sprite.Sprite):
     def __init__(self):
-        pass
+        self.image = pygame.image.load(random.choice(list_sprites_megashiza))
+        self.image = pygame.transform.scale(self.image, (200, 200))
+        self.rect = self.image.get_rect()
+    
+    def update(self):
+        if self.image == pygame.image.load('SPRITE\Hide_1.png'):
+            war_1()
+        if self.image == pygame.image.load('SPRITE\ENEMY.png'):
+            war_4()
+        if self.image == pygame.image.load('SPRITE\CHUDICK.png'):
+            war_2()
 
 class Heart(pygame.sprite.Sprite):
     def __init__(self):
@@ -624,7 +634,7 @@ class Live_hide_cl():
         return go_or_no
 
 
-def start_fn(event, monstr):
+def start_fn(event, monstr, number1):
     global texth, text_xh, text_yh, image1, flag, Fight, s, b, music_fight, hp_Hide, font, myfont, number, all_wars, q, running, heart, w, Death_fLag, cell
     
     texth = ''
@@ -635,6 +645,8 @@ def start_fn(event, monstr):
     x = 0
 
     screen.fill((0, 0, 0))
+    
+    number = number1
     
     all_wars = pygame.sprite.Group()
     
