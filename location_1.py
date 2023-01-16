@@ -931,7 +931,7 @@ def start_location_2():
                 loading_death()
 
         if pygame.sprite.spritecollideany(gg_2, men_group) and key[pygame.K_RETURN]:
-            menshik.dialog("")
+            menshik.dialog("Тсс.. ТихоN Я скажу тебе обо всёмN у меня дома")
             menshik.click_update()
 
         if pygame.sprite.spritecollideany(gg_2, other_sprite_2):
