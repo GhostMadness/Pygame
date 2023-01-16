@@ -911,22 +911,11 @@ def start_location_2():
     img_apple_group_2 = pygame.sprite.Group()
     img_apple_group_2.add(Stop_2_Apple("SPRITE\APPLE_HILL.png", (1250, 640)))
 
-    button_menu_img = pygame.image.load("SPRITE\EXIT_MENU_BUTTON.png")
-    button_menu_img_tr = pygame.transform.scale(button_menu_img, (50, 50))
-
-    rect_but_menu = button_menu_img_tr.get_rect()
-    rect_but_menu.x = 10
-    rect_but_menu.y = 10
-
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
-                        event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
-                    return start_menu()
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
             gg_2.right()
@@ -936,13 +925,14 @@ def start_location_2():
             gg_2.top()
         if key[pygame.K_s]:
             gg_2.botton()
+        if key[pygame.K_ESCAPE]:
+            running = False
         screen_local_2.blit(sc1, (0, 0))
         npc_1_group.draw(screen)
         npc_2_group.draw(screen)
         npc_3_group.draw(screen)
         men_group.draw(screen)
         screen_local_2.blit(gg_2.image, gg_2.rect)
-        screen_local_2.blit(button_menu_img_tr, (10, 10))
 
         if pygame.sprite.spritecollideany(gg_2, other_sprite) and sdegfoin1:
             music_location_2.stop()
