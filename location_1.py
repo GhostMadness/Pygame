@@ -35,11 +35,14 @@ music_settings.set_volume(0.1)
 music_menu = pygame.mixer.Sound('MUSIC\FIRST\MENU.mp3')
 music_menu.set_volume(0.05)
 
+music_locatioN_5 = pygame.mixer.Sound('MUSIC\DOUBLE\LOCATION_5.mp3')
+music_locatioN_5.set_volume(0.2)
+
 schet = 0
 flagor = False
 
 
-def update(one=False, two=False, three=False, four=False, five=False, six=False):
+def update(one=False, two=False, three=False, four=False, five=False, six=False, seven=False):
     global flagor, music_settings, music_location_1, music_location_2, music_location_3, music_location_4, music_menu
     pygame.init()
     if flagor == False:
@@ -48,6 +51,7 @@ def update(one=False, two=False, three=False, four=False, five=False, six=False)
         music_location_2.stop()
         music_location_3.stop()
         music_location_4.stop()
+        music_locatioN_5.stop()
     elif flagor:
         if five:
             music_settings.play(-1)
@@ -61,6 +65,8 @@ def update(one=False, two=False, three=False, four=False, five=False, six=False)
             music_location_4.play(-1)
         if six:
             music_menu.play(-1)
+        if seven:
+            music_locatioN_5.play(-1)
 
 
 def settings():
@@ -525,6 +531,59 @@ class Stop_2(pygame.sprite.Sprite):
         if size:
             self.image = pygame.transform.scale(self.image, size)
 
+def start_loction_5():
+    update(seven=True)
+
+    image_background = pygame.image.load("location_6\esilt\map.png")
+    image_1 = pygame.image.load("location_6\esilt\custle.png")
+    image_3 = pygame.image.load("location_6\esilt\mogila_1.png")
+    image_4 = pygame.image.load("location_6\esilt\mogila_2.png")
+
+    sc1 = pygame.Surface((1920, 1080))
+    sc1.blit(image_background, (0, 0))
+    sc1.blit(image_1, (0, 982))
+    sc1.blit(image_3, (1780, 0))
+    sc1.blit(image_4, (0, 0))
+
+    clock = pygame.time.Clock()
+
+    bottom_sprite = pygame.sprite.Group()
+    bottom_sprite.add(Stop_2("location_6\esilt\custle.png", (0, 982)))
+
+    right_sprite = pygame.sprite.Group()
+    right_sprite.add(Stop_2("location_6\esilt\mogila_1.png", (1780, 0)))
+
+    left_sprite = pygame.sprite.Group()
+    left_sprite.add(Stop_2("location_6\esilt\mogila_1.png", (0, 0)))
+
+    gg_5 = Heroy(right=right_sprite, left=left_sprite, bottom=bottom_sprite, x=50, y=975)
+
+    other_sprite_finish = pygame.sprite.Group()
+    other_sprite_finish.add(Stop_2("SPRITE\VIXOD_LOC.png", (1920 // 2 + 100, 0)))
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.MOUSEMOTION:
+                print(event.pos)
+        key = pygame.key.get_pressed()
+        if key[pygame.K_d]:
+            gg_5.right()
+        if key[pygame.K_a]:
+            gg_5.left()
+        if key[pygame.K_w]:
+            gg_5.top()
+        if key[pygame.K_s]:
+            gg_5.botton()
+        if key[pygame.K_ESCAPE]:
+            running = False
+
+        screen.blit(sc1, (0, 0))
+        screen.blit(gg_5.image, gg_5.rect)
+        pygame.display.flip()
+        clock.tick(60)
 
 def start_location_4():
     update(four=True)
@@ -602,6 +661,7 @@ def start_location_4():
             music_location_4.stop()
             location_3 = True
             start_location_3()
+            running = False
 
         if pygame.sprite.spritecollideany(gg_4, men_group) and key[pygame.K_RETURN]:
             menshik.dialog(
@@ -650,25 +710,19 @@ def start_location_3():
     other_sprite_2 = pygame.sprite.Group()
     other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1134, 86)))
 
+    other_sprite_5 = pygame.sprite.Group()
+    other_sprite_5.add(Stop_2("SPRITE\VIXOD_LOC.png", (811, 1077)))
+
     other_sprite_exit = pygame.sprite.Group()
     other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 380)))
-
-    button_menu_img = pygame.image.load("SPRITE\EXIT_MENU_BUTTON.png")
-    button_menu_img_tr = pygame.transform.scale(button_menu_img, (50, 50))
-
-    rect_but_menu = button_menu_img_tr.get_rect()
-    rect_but_menu.x = 10
-    rect_but_menu.y = 10
 
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
-                        event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
-                    return start_menu()
+            if event.type == pygame.MOUSEMOTION:
+                print(event.pos)
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
             gg_3.right()
@@ -680,7 +734,6 @@ def start_location_3():
             gg_3.botton()
         screen.blit(sc1, (0, 0))
         screen.blit(gg_3.image, gg_3.rect)
-        screen.blit(button_menu_img_tr, (10, 10))
 
         if pygame.sprite.spritecollideany(gg_3, other_sprite) and sdegfoin1:
             music_location_3.stop()
@@ -691,6 +744,11 @@ def start_location_3():
             if a:
                 l_d2 = (False, False)
                 loading_death()
+        #other_sprite_5
+        if pygame.sprite.spritecollideany(gg_3, other_sprite_5):
+            music_location_3.stop()
+            start_loction_5()
+            running = False
 
         if l_d2[0] == True or l_d2[1] == True:
             sdegfoin1 = False
@@ -700,14 +758,15 @@ def start_location_3():
         if pygame.sprite.spritecollideany(gg_3, other_sprite_2):
             music_location_3.stop()
             start_location_4()
+            running = False
         if pygame.sprite.spritecollideany(gg_3, other_sprite_exit):
             music_location_3.stop()
             location_2 = True
             start_location_2()
+            running = False
 
         pygame.display.flip()
         clock.tick(60)
-
 
 def start_location_2():
     update(two=True)
@@ -821,10 +880,12 @@ def start_location_2():
         if pygame.sprite.spritecollideany(gg_2, other_sprite_2):
             music_location_2.stop()
             start_location_3()
+            running = False
         if pygame.sprite.spritecollideany(gg_2, other_sprite_exit):
             music_location_2.stop()
             location_1 = True
             start_location_1()
+            running = False
         if pygame.sprite.spritecollideany(gg_2, npc_1_group) and key[pygame.K_RETURN]:
             npc_1.dialog("Ха..ха..ха.. NТебе здесь не рады..")
             npc_1.click_update()
@@ -946,6 +1007,7 @@ def start_location_1():
                 ON = False
                 Death_fLag = False
                 loading_death()
+                running = False
         if pygame.sprite.spritecollideany(gg, other_sprite_2):
             music_location_1.stop()
             start_location_2()
