@@ -36,7 +36,10 @@ music_menu = pygame.mixer.Sound('MUSIC\FIRST\MENU.mp3')
 music_menu.set_volume(0.05)
 
 music_locatioN_5 = pygame.mixer.Sound('MUSIC\DOUBLE\LOCATION_5.mp3')
-music_locatioN_5.set_volume(0.2)
+music_locatioN_5.set_volume(0.4)
+
+music_location_6 = pygame.mixer.Sound('MUSIC\FIRST\LOCATION_6.oga')
+music_location_6.set_volume(0.3)
 
 schet = 0
 flagor = False
@@ -184,6 +187,7 @@ def loading_death():
             width_line += 10
             time.sleep(0.5)
             start_location_1()
+            running = False
         width_line += 2
         if schet == 100:
             if text_loading == "Загрузка...":
@@ -541,8 +545,8 @@ def start_location_6():
     image_1 = pygame.image.load("location_7\esult\pol.png")
 
     sc1 = pygame.Surface((1920, 1080))
-    sc1.blit(image_background, (0, 0))
     sc1.blit(image_1, (0, 0))
+    sc1.blit(image_background, (0, 0))
 
     clock = pygame.time.Clock()
 
@@ -612,7 +616,7 @@ def start_loction_5():
     other_sprite_finish.add(Stop_2("SPRITE\VIXOD_LOC.png", (1920 // 2 + 100, 0)))
 
     other_sprite_finish_2 = pygame.sprite.Group()
-    other_sprite_finish_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1920 // 2 - 150, 1500)))
+    other_sprite_finish_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (856, 962)))
 
     running = True
     while running:
