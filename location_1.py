@@ -647,7 +647,7 @@ def start_loction_5():
         
         if pygame.sprite.spritecollideany(gg_5, other_sprite) and sdegfoin1:
             music_location_3.stop()
-            a = start_fn(event, 4)
+            a = start_fn(event, 4, number)
             one = Live_hide_cl()
             two = Death_hide_cl()
             l_d3 = (one.live_print(), two.death_print())
@@ -820,7 +820,7 @@ def start_location_3():
 
         if pygame.sprite.spritecollideany(gg_3, other_sprite) and sdegfoin1:
             music_location_3.stop()
-            a = start_fn(event, 3)
+            a = start_fn(event, 3, number)
             one = Live_hide_cl()
             two = Death_hide_cl()
             l_d2 = (one.live_print(), two.death_print())
@@ -936,7 +936,7 @@ def start_location_2():
 
         if pygame.sprite.spritecollideany(gg_2, other_sprite) and sdegfoin1:
             music_location_2.stop()
-            a = start_fn(event, 2)
+            a = start_fn(event, 2, number)
             one = Live_hide_cl()
             two = Death_hide_cl()
             l_d1 = (one.live_print(), two.death_print())
@@ -1071,7 +1071,7 @@ def start_location_1():
         screen.blit(button_menu_img_tr, (10, 10))
         if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
             music_location_1.stop()
-            a = start_fn(event, 1)
+            a = start_fn(event, 1, number)
             one = Live_hide_cl()
             two = Death_hide_cl()
             l_d = (one.live_print(), two.death_print())
