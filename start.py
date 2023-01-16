@@ -645,6 +645,8 @@ def start_fn(event, monstr, number1):
     x = 0
 
     screen.fill((0, 0, 0))
+
+    number = 20
     
     number = number1
     
