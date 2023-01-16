@@ -6,6 +6,12 @@ import sqlite3
 screen = pygame.display.set_mode((1920, 1080))
 Death_fLag = False
 go_or_no = False
+number = 20
+
+list_sprites_osminog = ['SPRITE\Osminog\Osminog_1.png', 'SPRITE\Osminog\Osminog_2.png', 'SPRITE\Osminog\Osminog_3.png', 'SPRITE\Osminog\Osminog_4.png', 'SPRITE\Osminog\Osminog_5.png',
+                        'SPRITE\Osminog\Osminog_6.png', 'SPRITE\Osminog\Osminog_7.png', 'SPRITE\Osminog\Osminog_8.png', 'SPRITE\Osminog\Osminog_9.png', 'SPRITE\Osminog\Osminog_10.png',
+                        'SPRITE\Osminog\Osminog_11.png', 'SPRITE\Osminog\Osminog_12.png', 'SPRITE\Osminog\Osminog_13.png', 'SPRITE\Osminog\Osminog_14.png', 'SPRITE\Osminog\Osminog_15.png',
+                        'SPRITE\Osminog\Osminog_16.png', 'SPRITE\Osminog\Osminog_17.png', 'SPRITE\Osminog\Osminog_18.png']
 
 
 class War(pygame.sprite.Sprite):
@@ -100,6 +106,31 @@ class WarThree(pygame.sprite.Sprite):
             number -= 3
             hp(number)
             screen.fill((0, 0, 0), (self.rect.x, self.rect.y, self.rect.right - self.rect.x, self.rect.bottom - self.rect.y))
+            self.kill()
+            pygame.mixer.music.play(0)
+
+
+class Osminog(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__(all_wars)
+        self.image = pygame.image.load(list_sprites_osminog[0])
+        self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
+        self.index = 0
+        self.rect.x = x
+        self.rect.y = y
+    
+    def update(self):
+        global number
+        self.index += 1
+        screen.fill((0, 0, 0), (self.rect.x, self.rect.y, self.rect.right - self.rect.x, self.rect.bottom - self.rect.y))
+        self.image = pygame.image.load(list_sprites_osminog[self.index])
+        self.mask = pygame.mask.from_surface(self.image)
+        if pygame.sprite.collide_mask(self, heart):
+            pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
+            pygame.mixer.music.set_volume(0.2)
+            number -= 5
+            hp(number)
             self.kill()
             pygame.mixer.music.play(0)
 
@@ -307,7 +338,13 @@ def war_6():
     w += 1
 
 
-wars = {'dialog_1': dialog_1, 'war_1': war_1, 'war_2': war_2, 'war_3': war_3, 'war_4': war_4, 'war_5': war_5, 'war_6': war_6}
+def war_0():
+    global w
+    w += 1
+    all_wars.update()
+    all_wars.draw(screen)
+
+wars = {'dialog_1': dialog_1, 'war_1': war_1, 'war_2': war_2, 'war_3': war_3, 'war_4': war_4, 'war_5': war_5, 'war_6': war_6, 'war_0': war_0}
 file_wars = open('wars.txt').readlines()
 file_dialog = open('dialog.txt', encoding='utf8').readlines()
 w = 0
@@ -395,7 +432,7 @@ def one(sorce, react, for_text_beta):
         elif w > 300:
             w = 1
             for_text = for_text_beta
-        if react == 'p' and q % 30 == 0 or react == 'c' and q % 20 == 0 or react == 'ch' and q % 200 == 0 or b == 0:
+        if react == 'p' and q % 30 == 0 or react == 'c' and q % 30 == 0 or react == 'ch' and q % 200 == 0 or b == 0:
             wars[file_wars[s].rstrip()]()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
@@ -412,9 +449,104 @@ def one(sorce, react, for_text_beta):
         elif react == 'ch':
             all_wars.update()
         all_wars.draw(screen)
-        if react == 'p' or react == 'c' and q % 40 == 0 or react == 'ch' and q % 100 == 0:
+        if react == 'p' or react == 'c' and q % 60 == 0 or react == 'ch' and q % 100 == 0:
             all_wars.update()
         screen.blit(heart.image, heart.rect)
+        pygame.display.flip()
+        hp(number)
+    else:
+        heart.update()
+        #Death_fLag = True
+        running = False
+
+
+def two(sorce, for_text_beta):
+    global running, w, flag, q, for_text, cell, heart, s, b, Fight
+    if not heart.update_yes():
+        if w == 0:
+            cell = Cell('SPRITE\для_диалога.png', 400, 600)
+            for_text = for_text_beta
+            s = sorce
+            Fight = False
+        elif w < 7 and flag:
+            screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
+            cell = Cell('SPRITE\для update-export.png', 400, 750)
+            heart.rect.center = cell.rect.center
+            heart.live()
+            s += 1
+            flag = False
+            Fight = True
+            b = 1
+        elif w == 7 and not flag:
+            if type(texth) != str:
+                screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
+            screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
+            cell = Cell('SPRITE\для_диалога.png', 400, 600)
+            heart.death()
+            s += 1
+            b = 0
+            flag = True
+            Fight = False
+            for_text += 1
+        elif 7 < w < 14 and flag:
+            screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
+            cell = Cell('SPRITE\для update-export.png', 400, 750)
+            heart.rect.center = cell.rect.center
+            heart.live()
+            s += 1
+            b = 1
+            flag = False
+            Fight = True
+        elif w == 14 and not flag:
+            if type(texth) != str:
+                screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
+            screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
+            cell = Cell('SPRITE\для_диалога.png', 400, 600)
+            heart.death()
+            s += 1
+            b = 0
+            flag = True
+            Fight = False
+            for_text += 1
+        elif 14 < w < 21 and flag:
+            screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
+            cell = Cell('SPRITE\для update-export.png', 400, 750)
+            heart.rect.center = cell.rect.center
+            heart.live()
+            s += 1
+            b = 1
+            flag = False
+            Fight = True
+        elif w == 21 and not flag:
+            if type(texth) != str:
+                screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
+            screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
+            cell = Cell('SPRITE\для_диалога.png', 400, 600)
+            heart.death()
+            s += 1
+            b = 0
+            flag = True
+            Fight = False
+            for_text += 1
+        elif w > 21:
+            w = 1
+            for_text = for_text_beta
+        if b == 1:
+            screen.blit(cell.image, cell.rect)
+        if q % 200 == 0:
+            wars[file_wars[s].rstrip()]()
+        all_wars.draw(screen)
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_d]:
+            heart.right()
+        elif keys[pygame.K_a]:
+            heart.left()
+        elif keys[pygame.K_w]:
+            heart.top()
+        elif keys[pygame.K_s]:
+            heart.bottom()
+        screen.blit(heart.image, heart.rect)
+        q += 1
         pygame.display.flip()
         hp(number)
     else:
@@ -495,8 +627,11 @@ def start_fn(event, monstr):
     text_yh = ''
     w = 0
     y = 0
+    x = 0
 
     screen.fill((0, 0, 0))
+    
+    all_wars = pygame.sprite.Group()
     
     if monstr == 1:
         image1 = pygame.image.load('SPRITE\Hide_1.png')
@@ -505,6 +640,10 @@ def start_fn(event, monstr):
     if monstr == 3:
         image1 = pygame.image.load('SPRITE\CHUDICK.png')
         y = 100
+    if monstr == 4:
+        image1 = pygame.image.load('SPRITE\Osminog\Osminog_1.png')
+        Osminog(650, 100)
+        x = 150
     music_fight = pygame.mixer.Sound('MUSIC\DOUBLE\IGHT_BOSS.mp3')
     music_fight.set_volume(0.20)
     with open('SETTING_FILES\SETTING.txt') as f:
@@ -522,8 +661,7 @@ def start_fn(event, monstr):
     
     flag = True
     Fight = False
-    
-    screen.blit(image1, (800, 100 - y))
+    screen.blit(image1, (800 - x, 100 - y))
     pygame.display.flip()
     
     font = pygame.font.Font(None, 50)
@@ -553,9 +691,6 @@ def start_fn(event, monstr):
     posada = pygame.draw.rect(screen, (255, 255, 255), (text_x - 10, text_y - 10,
                                         text_w + 20, text_h + 20), 1)
     
-    number = 20
-    
-    all_wars = pygame.sprite.Group()
     
     clock = pygame.time.Clock()
     
@@ -601,6 +736,8 @@ def start_fn(event, monstr):
             one(8, 'c', 5)
         if monstr == 3:
             one(16, 'ch', 10)
+        if monstr == 4:
+            two(24, 15)
         if hp_Hide <= 0:
             Death_hide_class.death_hide()
             music_fight.stop()

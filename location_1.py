@@ -998,7 +998,7 @@ def start_location_1():
         screen.blit(button_menu_img_tr, (10, 10))
         if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
             music_location_1.stop()
-            a = start_fn(event, 1)
+            a = start_fn(event, 4)
             one = Live_hide_cl()
             two = Death_hide_cl()
             l_d = (one.live_print(), two.death_print())
