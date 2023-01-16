@@ -42,8 +42,8 @@ schet = 0
 flagor = False
 
 
-def update(one=False, two=False, three=False, four=False, five=False, six=False, seven=False):
-    global flagor, music_settings, music_location_1, music_location_2, music_location_3, music_location_4, music_menu
+def update(one=False, two=False, three=False, four=False, five=False, six=False, seven=False, eleven=False):
+    global flagor, music_settings, music_location_1, music_location_2, music_location_3, music_location_4, music_menu, music_location_6
     pygame.init()
     if flagor == False:
         music_settings.stop()
@@ -52,6 +52,7 @@ def update(one=False, two=False, three=False, four=False, five=False, six=False,
         music_location_3.stop()
         music_location_4.stop()
         music_locatioN_5.stop()
+        music_location_6.stop()
     elif flagor:
         if five:
             music_settings.play(-1)
@@ -67,6 +68,8 @@ def update(one=False, two=False, three=False, four=False, five=False, six=False,
             music_menu.play(-1)
         if seven:
             music_locatioN_5.play(-1)
+        if eleven:
+            music_location_6.play(-1)
 
 
 def settings():
@@ -531,6 +534,53 @@ class Stop_2(pygame.sprite.Sprite):
         if size:
             self.image = pygame.transform.scale(self.image, size)
 
+def start_location_6():
+    update(eleven=True)
+
+    image_background = pygame.image.load("location_7\esult\map.png")
+    image_1 = pygame.image.load("location_7\esult\pol.png")
+
+    sc1 = pygame.Surface((1920, 1080))
+    sc1.blit(image_background, (0, 0))
+    sc1.blit(image_1, (0, 0))
+
+    clock = pygame.time.Clock()
+
+    #bottom_sprite = pygame.sprite.Group()
+    #bottom_sprite.add(Stop_2("location_6\esilt\custle.png", (0, 982)))
+
+    #right_sprite = pygame.sprite.Group()
+    #right_sprite.add(Stop_2("location_6\esilt\mogila_1.png", (1780, 0)))
+
+    #left_sprite = pygame.sprite.Group()
+    #left_sprite.add(Stop_2("location_6\esilt\mogila_1.png", (0, 0)))
+
+    gg_6 = Heroy(x=50, y=975)
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.MOUSEMOTION:
+                print(event.pos)
+        key = pygame.key.get_pressed()
+        if key[pygame.K_d]:
+            gg_6.right()
+        if key[pygame.K_a]:
+            gg_6.left()
+        if key[pygame.K_w]:
+            gg_6.top()
+        if key[pygame.K_s]:
+            gg_6.botton()
+        if key[pygame.K_ESCAPE]:
+            running = False
+
+        screen.blit(sc1, (0, 0))
+        screen.blit(gg_6.image, gg_6.rect)
+        pygame.display.flip()
+        clock.tick(60)
+
 def start_loction_5():
     update(seven=True)
 
@@ -561,6 +611,9 @@ def start_loction_5():
     other_sprite_finish = pygame.sprite.Group()
     other_sprite_finish.add(Stop_2("SPRITE\VIXOD_LOC.png", (1920 // 2 + 100, 0)))
 
+    other_sprite_finish_2 = pygame.sprite.Group()
+    other_sprite_finish_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1920 // 2 - 150, 1500)))
+
     running = True
     while running:
         for event in pygame.event.get():
@@ -580,6 +633,10 @@ def start_loction_5():
         if key[pygame.K_ESCAPE]:
             running = False
 
+        if pygame.sprite.spritecollideany(gg_5, other_sprite_finish_2):
+            music_locatioN_5.stop()
+            start_location_6()
+            running = False
         screen.blit(sc1, (0, 0))
         screen.blit(gg_5.image, gg_5.rect)
         pygame.display.flip()
