@@ -122,8 +122,7 @@ def settings():
                 if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
                         event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
                     music_settings.stop()
-                    start_menu()
-                    running = False
+                    return start_menu()
         if running:
             screen.blit(background_img, (0, 0))
             screen.blit(button_menu_img_tr, (10, 10))
@@ -229,13 +228,11 @@ def start_menu():
                 if rect_2[0] < event.pos[0] < rect_2[0] + rect_2[2] and rect_2[1] < event.pos[1] < rect_2[1] + \
                         rect_2[3]:
                     music_menu.stop()
-                    settings()
-                    running = False
+                    return settings()
                 if rect_3[0] < event.pos[0] < rect_3[0] + rect_3[2] and rect_3[1] < event.pos[1] < rect_3[1] + \
                         rect_3[3]:
                     music_menu.stop()
-                    start_location_1()
-                    running = False
+                    return start_location_1()
         screen.fill((0, 0, 0))
         screen.blit(IMG_MENU, (0, 0))
         screen.blit(IMG_PLAY_BUTTON, (43, 70 + 50))
@@ -585,8 +582,7 @@ def start_location_4():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
                         event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
-                    start_menu()
-                    running = False
+                    return start_menu()
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
             gg_4.right()
@@ -672,8 +668,7 @@ def start_location_3():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
                         event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
-                    start_menu()
-                    running = False
+                    return start_menu()
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
             gg_3.right()
@@ -789,8 +784,7 @@ def start_location_2():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
                         event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
-                    start_menu()
-                    running = False
+                    return start_menu()
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
             gg_2.right()
@@ -928,8 +922,7 @@ def start_location_1():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
                         event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
-                    start_menu()
-                    running = False
+                    return start_menu()
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
             gg.right()
