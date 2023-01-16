@@ -630,6 +630,10 @@ def start_loction_5():
     other_sprite_finish_2 = pygame.sprite.Group()
     other_sprite_finish_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (856, 962)))
 
+    img_apple_group_2 = pygame.sprite.Group()
+    img_apple_group_2.add(Stop_2_Apple("SPRITE\APPLE_HILL.png", (1080 // 2, 100)))
+    ON_3 = True
+
     running = True
     while running:
         for event in pygame.event.get():
@@ -669,6 +673,20 @@ def start_loction_5():
             sdegfoin1 = False
         if (l_d3[0] == False and l_d3[1] == False):
             screen.blit(img_hide_scale, (1920 // 2, 1080 // 2 + 80))
+        if pygame.sprite.spritecollideany(gg_5, img_apple_group_2):
+            ON_3 = False
+            con = sqlite3.connect('SQL\Bag.db')
+            cur = con.cursor()
+            res = cur.execute("""update Bag
+                                set Count = Count + 1
+                                where Object = 'Яблоко'""").fetchall()
+            con.commit()
+            con.close()
+
+        if ON_3:
+            img_apple_group_2.draw(screen)
+        if not ON_3:
+            img_apple_group_2 = pygame.sprite.Group()
         pygame.display.flip()
         clock.tick(60)
 
@@ -814,6 +832,10 @@ def start_location_3():
     #line_3 = pygame.draw.line(screen, (0, 0, 0), (1915, 0), (1915, 1077))
     #line_4 = pygame.draw.line(screen, (0, 0, 0), (896, 0), (1915, 0))
 
+    img_apple_group_2 = pygame.sprite.Group()
+    img_apple_group_2.add(Stop_2_Apple("SPRITE\APPLE_HILL.png", (521, 1045 - 150)))
+    ON_3 = True
+
     running = True
     while running:
         for event in pygame.event.get():
@@ -841,6 +863,7 @@ def start_location_3():
             l_d2 = (one.live_print(), two.death_print())
             if a:
                 l_d2 = (False, False)
+                ON_3 = False
                 loading_death()
 
         if pygame.sprite.spritecollideany(gg_3, other_sprite_5):
@@ -862,6 +885,21 @@ def start_location_3():
             location_2 = True
             start_location_2()
             running = False
+        
+        if pygame.sprite.spritecollideany(gg_3, img_apple_group_2):
+            ON_3 = False
+            con = sqlite3.connect('SQL\Bag.db')
+            cur = con.cursor()
+            res = cur.execute("""update Bag
+                                set Count = Count + 1
+                                where Object = 'Яблоко'""").fetchall()
+            con.commit()
+            con.close()
+
+        if ON_3:
+            img_apple_group_2.draw(screen)
+        if not ON_3:
+            img_apple_group_2 = pygame.sprite.Group()
 
         pygame.display.flip()
         clock.tick(60)
@@ -993,6 +1031,8 @@ def start_location_2():
 
         if ON_2:
             img_apple_group_2.draw(screen)
+        if not ON_2:
+            img_apple_group_2 = pygame.sprite.Group()
 
         if pygame.sprite.spritecollideany(gg_2, img_apple_group_2):
             ON_2 = False
@@ -1106,6 +1146,8 @@ def start_location_1():
             screen.blit(img_hide_scale, (1920 // 2, 1080 // 2))
         if ON:
             img_apple_group.draw(screen)
+        if not ON:
+            img_apple_group = pygame.sprite.Group()
         if pygame.sprite.spritecollideany(gg, img_apple_group):
             ON = False
             con = sqlite3.connect('SQL\Bag.db')
