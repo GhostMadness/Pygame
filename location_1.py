@@ -76,14 +76,16 @@ def update(one=False, two=False, three=False, four=False, five=False, six=False,
 
 
 def settings():
-    global music_settings, music_location_1, music_location_2, music_location_3, music_location_4, schet, screen
+    global music_settings, music_location_1, music_location_2, music_location_3, music_location_4, schet, screen, collor
 
     def click():
-        global schet, flagor
+        global schet, flagor, collor
         if schet % 2 == 0:
             flagor = True
+            collor = (255, 0, 0)
         elif schet % 2 != 0:
             flagor = False
+            collor = (0, 255, 0)
     background_img = pygame.image.load("SPRITE\SETTINGS_FON_2.jpg")
     button_menu_img = pygame.image.load("SPRITE\EXIT_MENU_BUTTON.png")
     button_menu_img_tr = pygame.transform.scale(button_menu_img, (50, 50))
@@ -121,6 +123,8 @@ def settings():
     text_music_x = 1920 // 2 - 60
     text_music_y = 1080 // 2 - 305
 
+    collor = (0, 255, 0)
+
     running = True
     while running:
         for event in pygame.event.get():
@@ -144,9 +148,9 @@ def settings():
             screen.blit(text_a, (text_a_x, text_a_y))
             screen.blit(text_d, (text_d_x, text_d_y))
             screen.blit(text_enter, (text_enter_x, text_enter_y))
-            screen.blit(text_music, (text_music_x, text_music_y))
+            screen.blit(text_music, (text_music_x, text_music_y)) 
             
-            cute = pygame.draw.rect(screen, (0, 255, 0), (1920 // 2 + 100, 1080 // 2 - 300, 25, 25))
+            cute = pygame.draw.rect(screen, collor, (1920 // 2 + 100, 1080 // 2 - 300, 25, 25))
             pygame.display.flip()
 
 
