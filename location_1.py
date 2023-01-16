@@ -655,6 +655,8 @@ def start_loction_5():
             if a:
                 l_d3 = (False, False)
                 loading_death()
+        screen.blit(sc1, (0, 0))
+        screen.blit(gg_5.image, gg_5.rect)
 
         if pygame.sprite.spritecollideany(gg_5, other_sprite_finish_2):
             music_locatioN_5.stop()
@@ -664,8 +666,6 @@ def start_loction_5():
             sdegfoin1 = False
         if (l_d3[0] == False and l_d3[1] == False):
             screen.blit(img_hide_scale, (1920 // 2, 1080 // 2 + 80))
-        screen.blit(sc1, (0, 0))
-        screen.blit(gg_5.image, gg_5.rect)
         pygame.display.flip()
         clock.tick(60)
 
