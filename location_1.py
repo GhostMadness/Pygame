@@ -607,10 +607,10 @@ def start_loction_5():
     bottom_sprite.add(Stop_2("location_6\esilt\custle.png", (0, 982)))
 
     right_sprite = pygame.sprite.Group()
-    right_sprite.add(Stop_2("location_6\esilt\mogila_1.png", (1780, 0)))
+    right_sprite.add(Stop_2("location_6\esilt\mogila_1.png", (1780 + 100, 0)))
 
     left_sprite = pygame.sprite.Group()
-    left_sprite.add(Stop_2("location_6\esilt\mogila_1.png", (0, 0)))
+    left_sprite.add(Stop_2("location_6\esilt\mogila_1.png", (0 - 100, 0)))
     
     other_sprite = pygame.sprite.Group()
     other_sprite.add(Stop_2("SPRITE\Osminog\Osminog_1.png", (1920 // 2 + 5 - 80, 1080 // 2 + 80), 100, 100))
@@ -770,9 +770,14 @@ def start_location_3():
 
     top_sprite = pygame.sprite.Group()
     left_sprite = pygame.sprite.Group()
+    bottom_sprite = pygame.sprite.Group()
+    right_sprite = pygame.sprite.Group()
 
     top_sprite.add(Stop_2("location_house\sprite_collide\ottom_grass.png", (0, 265)))
     left_sprite.add(Stop_2("location_house\sprite_collide\ght_grass.png", (830, 0)))
+    left_sprite.add(Stop_2("location_house\sprite_collide\ckground_left.png", (0 - 70, 756)))
+    bottom_sprite.add(Stop_2("location_house\sprite_collide\ckground_bottom.png", (0, 1088)))
+    right_sprite.add(Stop_2("location_house\sprite_collide\ckground_right.png", (1915, 0)))
 
     other_sprite = pygame.sprite.Group()
     other_sprite.add(Stop_2("SPRITE\CHUDICK.png", (1920 // 2 + 5 - 80, 1080 // 2 + 80), 100, 100))
@@ -784,7 +789,7 @@ def start_location_3():
 
     clock = pygame.time.Clock()
 
-    gg_3 = Heroy(top=top_sprite, left=left_sprite, x=550, y=100)
+    gg_3 = Heroy(bottom=bottom_sprite, right=right_sprite, top=top_sprite, left=left_sprite, x=550, y=100)
     if location_3:
         gg_3.rect.x = 1230
         gg_3.rect.y = 500
@@ -798,6 +803,12 @@ def start_location_3():
 
     other_sprite_exit = pygame.sprite.Group()
     other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 380)))
+
+
+    #line = pygame.draw.line(screen, (0, 0, 0), (0, 756), (0, 1079))
+    #line_2 = pygame.draw.line(screen, (0, 0, 0), (0, 1079), (544, 1079))
+    #line_3 = pygame.draw.line(screen, (0, 0, 0), (1915, 0), (1915, 1077))
+    #line_4 = pygame.draw.line(screen, (0, 0, 0), (896, 0), (1915, 0))
 
     running = True
     while running:
@@ -827,7 +838,7 @@ def start_location_3():
             if a:
                 l_d2 = (False, False)
                 loading_death()
-        #other_sprite_5
+
         if pygame.sprite.spritecollideany(gg_3, other_sprite_5):
             music_location_3.stop()
             start_loction_5()
