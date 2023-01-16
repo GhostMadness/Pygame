@@ -14,6 +14,7 @@ ON_2 = True
 l_d = (False, False)
 l_d1 = (False, False)
 l_d2 = (False, False)
+l_d3 = (False, False)
 
 pygame.init()
 
@@ -587,7 +588,7 @@ def start_location_6():
 
 def start_loction_5():
     update(seven=True)
-
+    global l_d3
     image_background = pygame.image.load("location_6\esilt\map.png")
     image_1 = pygame.image.load("location_6\esilt\custle.png")
     image_3 = pygame.image.load("location_6\esilt\mogila_1.png")
@@ -598,6 +599,8 @@ def start_loction_5():
     sc1.blit(image_1, (0, 982))
     sc1.blit(image_3, (1780, 0))
     sc1.blit(image_4, (0, 0))
+    
+    sdegfoin1 = True
 
     clock = pygame.time.Clock()
 
@@ -609,6 +612,12 @@ def start_loction_5():
 
     left_sprite = pygame.sprite.Group()
     left_sprite.add(Stop_2("location_6\esilt\mogila_1.png", (0, 0)))
+    
+    other_sprite = pygame.sprite.Group()
+    other_sprite.add(Stop_2("SPRITE\Osminog\Osminog_1.png", (1920 // 2 + 5 - 80, 1080 // 2 + 80), 100, 100))
+
+    img_hide = pygame.image.load("SPRITE\Osminog\Osminog_1.png")
+    img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
 
     gg_5 = Heroy(right=right_sprite, left=left_sprite, bottom=bottom_sprite, x=50, y=975)
 
@@ -636,11 +645,25 @@ def start_loction_5():
             gg_5.botton()
         if key[pygame.K_ESCAPE]:
             running = False
+        
+        if pygame.sprite.spritecollideany(gg_5, other_sprite) and sdegfoin1:
+            music_location_3.stop()
+            a = start_fn(event, 4)
+            one = Live_hide_cl()
+            two = Death_hide_cl()
+            l_d3 = (one.live_print(), two.death_print())
+            if a:
+                l_d3 = (False, False)
+                loading_death()
 
         if pygame.sprite.spritecollideany(gg_5, other_sprite_finish_2):
             music_locatioN_5.stop()
             start_location_6()
             running = False
+        if l_d3[0] == True or l_d3[1] == True:
+            sdegfoin1 = False
+        if (l_d3[0] == False and l_d3[1] == False):
+            screen.blit(img_hide_scale, (1920 // 2, 1080 // 2 + 80))
         screen.blit(sc1, (0, 0))
         screen.blit(gg_5.image, gg_5.rect)
         pygame.display.flip()
@@ -1059,7 +1082,7 @@ def start_location_1():
         screen.blit(button_menu_img_tr, (10, 10))
         if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
             music_location_1.stop()
-            a = start_fn(event, 4)
+            a = start_fn(event, 1)
             one = Live_hide_cl()
             two = Death_hide_cl()
             l_d = (one.live_print(), two.death_print())
