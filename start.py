@@ -129,9 +129,8 @@ class Osminog(pygame.sprite.Sprite):
         if pygame.sprite.collide_mask(self, heart):
             pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
             pygame.mixer.music.set_volume(0.2)
-            number -= 5
+            number -= 2
             hp(number)
-            self.kill()
             pygame.mixer.music.play(0)
 
 
@@ -344,6 +343,7 @@ def war_0():
     all_wars.update()
     all_wars.draw(screen)
 
+
 wars = {'dialog_1': dialog_1, 'war_1': war_1, 'war_2': war_2, 'war_3': war_3, 'war_4': war_4, 'war_5': war_5, 'war_6': war_6, 'war_0': war_0}
 file_wars = open('wars.txt').readlines()
 file_dialog = open('dialog.txt', encoding='utf8').readlines()
@@ -533,9 +533,9 @@ def two(sorce, for_text_beta):
             for_text = for_text_beta
         if b == 1:
             screen.blit(cell.image, cell.rect)
+            all_wars.draw(screen)
         if q % 200 == 0:
             wars[file_wars[s].rstrip()]()
-        all_wars.draw(screen)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
             heart.right()
@@ -564,6 +564,7 @@ class Death_hide_cl():
         Death_fLag = False
         screen.fill((0, 0, 0), (800, 0, 300, 300))
         pygame.display.update()
+        screen.fill((0, 0, 0))
         image1 = pygame.image.load('SPRITE\Hide_2.png')
         screen.blit(image1, (800, 100))
         cell = Cell('SPRITE\для_диалога.png', 400, 600)
