@@ -671,6 +671,45 @@ class Live_hide_cl():
         return go_or_no
 
 
+def three():
+    pass
+
+def boss(number1):
+    global number, all_wars, hp_Hide
+    sc1 = pygame.image.load('Zamock.png')
+    screen.blit(sc1, (0, 0))
+    
+    apple = pygame.sprite.Sprite()
+    apple.image = pygame.image.load('APPLE_HILL.png')
+    apple.rect = apple.image.get_rect()
+    
+    number = number1
+    
+    all_wars = pygame.sprite.Group()
+    
+    hp_Hide = 100
+    
+    running = True
+    
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if not Fight:
+                    if apple[0] < event.pos[0] < apple[0] + apple[2] and apple[1] < event.pos[1] < apple[1] + apple[3]:
+                        bag()
+                        w += 1
+        three()
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_ESCAPE]:
+            con = sqlite3.connect('SQL\Bag.db')
+            cur = con.cursor()
+            res = cur.execute("""update Bag
+                                set Count = 0""").fetchall()
+            con.commit()
+            con.close()
+            pygame.quit()   
+    
+    
 def start_fn(event, monstr, number1):
     global texth, text_xh, text_yh, image1, flag, Fight, s, b, music_fight, hp_Hide, font, myfont, number, all_wars, q, running, heart, w, Death_fLag, cell
     
