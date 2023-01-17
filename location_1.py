@@ -1175,5 +1175,4 @@ def start_location_1():
 
 
 start_menu()
-
 pygame.quit()
