@@ -135,56 +135,55 @@ class Osminog(pygame.sprite.Sprite):
             pygame.mixer.music.play(0)
 
 
-class MegashizaAtak(pygame.sprite.Sprite):
+class Megashiza(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__(all_wars)
-        self.i = random.randrange(1, 4)
+        self.image = pygame.image.load('SPRITE\Megashiza.png')
+        self.im = pygame.image.load('SPRITE\Megashiza.png')
+        self.rect = self.image.get_rect()
+        self.rect.x = 700
+        self.rect.y = -100
+        self.x = 100
+        
+    def update(self):
+        if self.rect.right >= 1920:
+            self.x = -100
+        if self.rect.left <= 0:
+            self.x = 100
+        self.rect = self.rect.move(self.x, 0)
+
+
+class BossAtak(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__(all_wars)
+        self.image = pygame.image.load('SPRITE\Atk_0.png')
+        self.rotate = random.randrange(0, 360)
+        self.image = pygame.transform.rotate(self.image, self.rotate)
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randrange(200, 1700)
+        self.rect.y = random.randrange(300, 1080)
+        self.mask = pygame.mask.from_surface(self.image)
         self.p = 0
-        if self.i == 1:
-            self.image = pygame.image.load('SPRITE\CROW_1.png')
-            self.rect = self.image.get_rect()
-            self.rect.x = cell.rect.left + 10
-            self.rect.y = random.randrange(cell.rect.top + 60, cell.rect.bottom - 60)
-            self.p = 1
-        if self.i == 2:
-            self.image = pygame.image.load('SPRITE\CROW_2.png')
-            self.rect = self.image.get_rect()
-            self.rect.x = cell.rect.right - 10
-            self.rect.y = random.randrange(cell.rect.top + 60, cell.rect.bottom - 60)
-            self.p = 2
-        if self.i == 3:
-            self.image = pygame.image.load('SPRITE\CROW_3.png')
-            self.rect = self.image.get_rect()
-            self.rect.x = cell.rect.left + 10
-            self.rect.y = random.randrange(cell.rect.top + 60, cell.rect.bottom - 60)
-            self.p = 3
-        if self.i == 4:
-            self.image = pygame.image.load('SPRITE\CROW_4.png')
-            self.rect = self.image.get_rect()
-            self.rect.x = cell.rect.right * 10
-            self.rect.y = random.randrange(cell.rect.top + 60, cell.rect.bottom - 60)
-            self.p = 4
-        self.image = pygame.transform.scale(self.image, (50, 50))
     
     def update(self):
-        global number
-        if self.p == 1:
-            self.rect = self.rect.move(10, 10)
-        elif self.p == 2:
-            self.rect = self.rect.move(-10, 10)
-        elif self.p == 3:
-            self.rect = self.rect.move(10, -10)
+        if self.p == 0:
+            self.image = pygame.image.load('SPRITE\Atk_1.png')
+            self.image = pygame.transform.rotate(self.image, self.rotate)
+            self.p = 1
+        elif self.p == 1:
+            self.im = pygame.image.load('SPRITE\Yazik.png')
+            self.im = pygame.transform.scale(self.im, (800, 100))
+            self.im2 = pygame.transform.rotate(self.im, self.rotate + 90)
+            screen.blit(self.im2, self.rect)
+            self.p = 2
+        elif self.p <= 5:
+            self.im2 = pygame.transform.rotate(self.im, self.rotate + 90)
+            self.mask = pygame.mask.from_surface(self.im2)
+            screen.blit(self.im2, self.rect)
+            self.p += 1
         else:
-            self.rect = self.rect.move(-10, -10)
-        if self.rect.bottom >= cell.rect.bottom or self.rect.top <= cell.rect.top:
             self.kill()
-        if pygame.sprite.collide_mask(self, heart):
-            pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
-            pygame.mixer.music.set_volume(0.2)
-            number -= 1
-            hp(number)
-            self.kill()
-            pygame.mixer.music.play(0)
+
 
 class Heart(pygame.sprite.Sprite):
     def __init__(self):
@@ -367,25 +366,13 @@ def dialog_1():
 
 def war_3():
     global w
-    MegashizaAtak()
+    BossAtak()
     w += 1
 
 
 def war_4():
     global w
     WarTwo('SPRITE\BOMB_ATACK.png')
-    w += 1
-
-
-def war_5():
-    global w
-    WarTwo('SPRITE\BOMB_ENEMY.png')
-    w += 1
-
-
-def war_6():
-    global w
-    WarTwo('SPRITE\BOMB_ENEMY.png')
     w += 1
 
 
@@ -396,7 +383,7 @@ def war_0():
     all_wars.draw(screen)
 
 
-wars = {'dialog_1': dialog_1, 'war_1': war_1, 'war_2': war_2, 'war_3': war_3, 'war_4': war_4, 'war_5': war_5, 'war_6': war_6, 'war_0': war_0}
+wars = {'dialog_1': dialog_1, 'war_1': war_1, 'war_2': war_2, 'war_3': war_3, 'war_4': war_4, 'war_0': war_0}
 file_wars = open('wars.txt').readlines()
 file_dialog = open('dialog.txt', encoding='utf8').readlines()
 w = 0
@@ -671,21 +658,133 @@ class Live_hide_cl():
         return go_or_no
 
 
-def three():
-    pass
+def three(sorce, for_text_beta):
+    global running, w, flag, q, for_text, cell, heart, s, b, Fight, mg, sc1
+    if not heart.update_yes():
+        if w == 0:
+            cell = Cell('SPRITE\для_диалога.png', 400, 600)
+            for_text = for_text_beta
+            s = sorce
+            Fight = False
+        elif w < 100 and flag:
+            screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
+            cell = Cell('SPRITE\для update-export.png', 400, 750)
+            heart.rect.center = cell.rect.center
+            heart.live()
+            s += 1
+            flag = False
+            Fight = True
+            b = 1
+        elif w == 100 and not flag:
+            # if type(texth) != str:
+            #     screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
+            screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
+            cell = Cell('SPRITE\для_диалога.png', 400, 600)
+            heart.death()
+            s += 1
+            b = 0
+            flag = True
+            Fight = False
+            for_text += 1
+        elif 100 < w < 200 and flag:
+            screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
+            cell = Cell('SPRITE\для update-export.png', 400, 750)
+            heart.rect.center = cell.rect.center
+            heart.live()
+            s += 1
+            b = 1
+            flag = False
+            Fight = True
+        elif w == 200 and not flag:
+            # if type(texth) != str:
+            #     screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
+            screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
+            cell = Cell('SPRITE\для_диалога.png', 400, 600)
+            heart.death()
+            s += 1
+            b = 0
+            flag = True
+            Fight = False
+            for_text += 1
+        elif 200 < w < 300 and flag:
+            screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
+            cell = Cell('SPRITE\для update-export.png', 400, 750)
+            heart.rect.center = cell.rect.center
+            heart.live()
+            s += 1
+            b = 1
+            flag = False
+            Fight = True
+        elif w == 300 and not flag:
+            # if type(texth) != str:
+            #     screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
+            screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
+            cell = Cell('SPRITE\для_диалога.png', 400, 600)
+            heart.death()
+            s += 1
+            b = 0
+            flag = True
+            Fight = False
+            for_text += 1
+        elif w > 300:
+            w = 1
+            for_text = for_text_beta
+        if b == 1:
+            screen.blit(sc1, (0, 0))
+            screen.blit(cell.image, cell.rect)
+            all_wars.update()
+            all_wars.draw(screen)
+        mg.update()
+        screen.blit(mg.image, mg.rect)
+        if q % 10 == 0:
+            wars[file_wars[s].rstrip()]()
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_d]:
+            heart.right()
+        elif keys[pygame.K_a]:
+            heart.left()
+        elif keys[pygame.K_w]:
+            heart.top()
+        elif keys[pygame.K_s]:
+            heart.bottom()
+        screen.blit(heart.image, heart.rect)
+        q += 1
+        pygame.display.flip()
+        # hp(number)
+    else:
+        heart.update()
+        running = False
+
 
 def boss(number1):
-    global number, all_wars, hp_Hide
-    sc1 = pygame.image.load('Zamock.png')
+    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w
+    
+    screen.fill((0, 0, 0))
+    
+    sc1 = pygame.image.load('SPRITE\Boss_fon.png')
     screen.blit(sc1, (0, 0))
     
-    apple = pygame.sprite.Sprite()
-    apple.image = pygame.image.load('APPLE_HILL.png')
-    apple.rect = apple.image.get_rect()
+    apple = pygame.image.load('SPRITE\APPLE_HILL.png')
+    screen.blit(apple,  (1500, 600))
+    
+    s = 0
+    b = 0
+    w = 0
+    
+    q = 0
+    flag = True
+    
+    all_wars = pygame.sprite.Group()
+    
+    mg = Megashiza()
+    screen.blit(mg.image, mg.rect)
     
     number = number1
     
-    all_wars = pygame.sprite.Group()
+    cell = Cell('SPRITE\для_диалога.png', 400, 600)
+    
+    heart = Heart()
+    heart.death()
     
     hp_Hide = 100
     
@@ -695,10 +794,10 @@ def boss(number1):
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if not Fight:
-                    if apple[0] < event.pos[0] < apple[0] + apple[2] and apple[1] < event.pos[1] < apple[1] + apple[3]:
+                    if 1500 < event.pos[0] < 1611 and 600 < event.pos[1] < 741:
                         bag()
                         w += 1
-        three()
+        three(32, 20)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
             con = sqlite3.connect('SQL\Bag.db')

@@ -1,7 +1,7 @@
 import pygame
 import time
 import random
-from start import screen, start_fn, Death_fLag, go_or_no, Live_hide_cl, Death_hide_cl, number
+from start import screen, start_fn, Death_fLag, go_or_no, Live_hide_cl, Death_hide_cl, number, boss
 from location_2 import start_dias
 import sqlite3
 
@@ -1126,7 +1126,7 @@ def start_location_1():
         screen.blit(button_menu_img_tr, (10, 10))
         if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
             music_location_1.stop()
-            a = start_fn(event, 1, number)
+            a = boss(number)
             one = Live_hide_cl()
             two = Death_hide_cl()
             l_d = (one.live_print(), two.death_print())
