@@ -563,7 +563,10 @@ def start_location_6():
     left_sprite = pygame.sprite.Group()
     left_sprite.add(Stop_2("location_7\esult\pol_left.png", (-100, 0)))
 
-    gg_6 = Heroy(right=right_sprite, left=left_sprite, bottom=bottom_sprite, x=50, y=975)
+    top_sprites = pygame.sprite.Group()
+    top_sprites.add(Stop_2("location_7\esult\pol_top.png", (100, -100)))
+
+    gg_6 = Heroy(right=right_sprite, left=left_sprite, bottom=bottom_sprite, top=top_sprites, x=50, y=975)
 
     running = True
     while running:
@@ -608,7 +611,7 @@ def start_loction_5():
     clock = pygame.time.Clock()
 
     bottom_sprite = pygame.sprite.Group()
-    bottom_sprite.add(Stop_2("location_6\esilt\custle.png", (0, 982)))
+    bottom_sprite.add(Stop_2("location_6\esilt\custle.png", (0, 1050)))
 
     right_sprite = pygame.sprite.Group()
     right_sprite.add(Stop_2("location_6\esilt\mogila_1.png", (1780 + 100, 0)))
@@ -654,7 +657,7 @@ def start_loction_5():
             running = False
         
         if pygame.sprite.spritecollideany(gg_5, other_sprite) and sdegfoin1:
-            music_location_3.stop()
+            music_locatioN_5.stop()
             a = start_fn(event, 4, number)
             one = Live_hide_cl()
             two = Death_hide_cl()
