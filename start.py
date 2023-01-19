@@ -197,7 +197,7 @@ class Knopka(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = random.randrange(cell.rect.x, cell.rect.right)
         self.rect.y = random.randrange(cell.rect.y, cell.rect.bottom)
-        self.maske = pygame.mask.from_surface()
+        self.mask = pygame.mask.from_surface(self.image)
     
     def update(self):
         if pygame.sprite.collide_mask(self, heart):
@@ -771,6 +771,9 @@ def three(sorce, for_text_beta):
         if q % 10 == 0 and Fight:
             BossAtak()
             w += 1
+        if q % 10 == 0:
+            Knopka()
+            
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
             heart.right()
@@ -783,6 +786,8 @@ def three(sorce, for_text_beta):
         screen.blit(heart.image, heart.rect)
         screen.blit(mg.image, mg.rect)
         mg.update()
+        atak_sprites.update()
+        atak_sprites.draw(screen)
         wars[file_wars[s].rstrip()]()
         screen.blit(apple,  (1500, 600))
         q += 1
