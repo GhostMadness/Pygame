@@ -799,7 +799,7 @@ def three(sorce, for_text_beta):
 
 
 def boss(number1):
-    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple
+    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl
     
     screen.fill((0, 0, 0))
     
@@ -830,7 +830,9 @@ def boss(number1):
     heart = Heart()
     heart.death()
     
-    hp_Hide = 100
+    Death_hide_class = Death_hide_cl()
+    
+    hp_Hide = 10
     
     running = True
     
@@ -850,7 +852,10 @@ def boss(number1):
                                 set Count = 0""").fetchall()
             con.commit()
             con.close()
-            pygame.quit()   
+            pygame.quit()
+        if hp_Hide <= 0:
+            Death_hide_class.death_hide()
+            music_fight.stop() 
     
     
 def start_fn(event, monstr, number1):
