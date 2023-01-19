@@ -691,7 +691,6 @@ class Live_hide_cl():
 
 def three(sorce, for_text_beta):
     global running, w, flag, q, for_text, cell, heart, s, b, Fight, mg, sc1, apple
-    clock = pygame.time.Clock()
     if not heart.update_yes():
         if w == 0:
             cell = Cell('SPRITE\для_диалога.png', 400, 600)
@@ -771,7 +770,7 @@ def three(sorce, for_text_beta):
         if q % 10 == 0 and Fight:
             BossAtak()
             w += 1
-        if q % 10 == 0:
+        if q % 100 == 0:
             Knopka()
             
         keys = pygame.key.get_pressed()
@@ -799,7 +798,7 @@ def three(sorce, for_text_beta):
 
 
 def boss(number1):
-    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl
+    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl, music_fight
     
     screen.fill((0, 0, 0))
     
@@ -824,6 +823,16 @@ def boss(number1):
     screen.blit(mg.image, mg.rect)
     
     number = number1
+    
+    music_fight = pygame.mixer.Sound('MUSIC\DOUBLE\IGHT_BOSS.mp3')
+    music_fight.set_volume(0.20)
+    with open('SETTING_FILES\SETTING.txt') as f:
+            text_ms = f.read()
+            text_ms = text_ms.split('=')
+            if text_ms[0] == "music" and text_ms[2] == 0:
+                music_fight.stop()
+            else:
+                music_fight.play(-1)
     
     cell = Cell('SPRITE\для_диалога.png', 400, 600)
     
