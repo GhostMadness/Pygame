@@ -142,14 +142,14 @@ class Megashiza(pygame.sprite.Sprite):
         self.im = pygame.image.load('SPRITE\Megashiza.png')
         self.rect = self.image.get_rect()
         self.rect.x = 700
-        self.rect.y = -100
-        self.x = 100
+        self.rect.y = -50
+        self.x = 50
         
     def update(self):
         if self.rect.right >= 1920:
-            self.x = -100
+            self.x = -50
         if self.rect.left <= 0:
-            self.x = 100
+            self.x = 50
         self.rect = self.rect.move(self.x, 0)
 
 
@@ -171,18 +171,47 @@ class BossAtak(pygame.sprite.Sprite):
             self.image = pygame.transform.rotate(self.image, self.rotate)
             self.p = 1
         elif self.p == 1:
-            self.im = pygame.image.load('SPRITE\Yazik.png')
-            self.im = pygame.transform.scale(self.im, (800, 100))
-            self.im2 = pygame.transform.rotate(self.im, self.rotate + 90)
-            screen.blit(self.im2, self.rect)
+            self.im = pygame.sprite.Sprite()
+            self.im.image = pygame.image.load('SPRITE\Yazik.png')
+            self.im.image = pygame.transform.scale(self.im.image, (800, 200))
+            self.im.image = pygame.transform.rotate(self.im.image, self.rotate + 90)
+            self.im.rect = self.im.image.get_rect()
+            self.im.rect.y = self.rect.bottom
+            self.im.rect.x = self.rect.centerx
+            screen.blit(self.im.image, self.im.rect)
             self.p = 2
         elif self.p <= 5:
-            self.im2 = pygame.transform.rotate(self.im, self.rotate + 90)
-            self.mask = pygame.mask.from_surface(self.im2)
-            screen.blit(self.im2, self.rect)
+            self.mask = pygame.mask.from_surface(self.im.image)
+            screen.blit(self.im.image, self.im.rect)
             self.p += 1
         else:
             self.kill()
+
+
+class Knopka(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__(atak_sprites)
+        self.image = pygame.image.load('SPRITE\Knopka.png')
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randrange(cell.rect.x, cell.rect.right)
+        self.rect.y = random.randrange(cell.rect.y, cell.rect.bottom)
+        self.maske = pygame.mask.from_surface()
+    
+    def update(self):
+        if pygame.sprite.collide_mask(self, heart):
+            root()
+            self.kill()
+
+
+def root():
+    global mg, hp_Hide
+    image = pygame.image.load('SPRITE\Brevno.png')
+    image1 = image
+    for i in range(180):
+        screen.blit(image1, mg.rect)
+        image1 = pygame.transform.rotate(image, i)
+        pygame.display.flip()
+    hp_Hide -= 5
 
 
 class Heart(pygame.sprite.Sprite):
@@ -197,19 +226,19 @@ class Heart(pygame.sprite.Sprite):
     
     def right(self):
         if self.rect.centerx + (max(self.mask.outline(), key=lambda x: x[0])[0] // 2) < cell.rect.right:
-            self.rect = self.rect.move(2, 0)
+            self.rect = self.rect.move(5, 0)
 
     def left(self):
         if self.rect.centerx - (max(self.mask.outline(), key=lambda x: x[0])[0] // 2) + 10 > cell.rect.left:
-            self.rect = self.rect.move(-2, 0)
+            self.rect = self.rect.move(-5, 0)
 
     def top(self):
         if self.rect.centery - (max(self.mask.outline(), key=lambda x: x[1])[0] // 2) > cell.rect.top:
-            self.rect = self.rect.move(0, -2)
+            self.rect = self.rect.move(0, -5)
     
     def bottom(self):
         if self.rect.centery + (max(self.mask.outline(), key=lambda x: x[1])[0] // 2) + 10 < cell.rect.bottom:
-            self.rect= self.rect.move(0, 2)
+            self.rect= self.rect.move(0, 5)
     
     def update(self):
         global Death_fLag
@@ -365,9 +394,7 @@ def dialog_1():
 
 
 def war_3():
-    global w
-    BossAtak()
-    w += 1
+    pass
 
 
 def war_4():
@@ -659,7 +686,7 @@ class Live_hide_cl():
 
 
 def three(sorce, for_text_beta):
-    global running, w, flag, q, for_text, cell, heart, s, b, Fight, mg, sc1
+    global running, w, flag, q, for_text, cell, heart, s, b, Fight, mg, sc1, apple
     if not heart.update_yes():
         if w == 0:
             cell = Cell('SPRITE\для_диалога.png', 400, 600)
@@ -729,15 +756,15 @@ def three(sorce, for_text_beta):
         elif w > 300:
             w = 1
             for_text = for_text_beta
+        screen.blit(sc1, (0, 0))
         if b == 1:
             screen.blit(sc1, (0, 0))
             screen.blit(cell.image, cell.rect)
             all_wars.update()
             all_wars.draw(screen)
-        mg.update()
-        screen.blit(mg.image, mg.rect)
-        if q % 10 == 0:
-            wars[file_wars[s].rstrip()]()
+        if q % 10 == 0 and Fight:
+            BossAtak()
+            w += 1
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
             heart.right()
@@ -748,6 +775,10 @@ def three(sorce, for_text_beta):
         elif keys[pygame.K_s]:
             heart.bottom()
         screen.blit(heart.image, heart.rect)
+        screen.blit(mg.image, mg.rect)
+        mg.update()
+        wars[file_wars[s].rstrip()]()
+        screen.blit(apple,  (1500, 600))
         q += 1
         pygame.display.flip()
         # hp(number)
@@ -757,7 +788,7 @@ def three(sorce, for_text_beta):
 
 
 def boss(number1):
-    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w
+    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple
     
     screen.fill((0, 0, 0))
     
@@ -775,6 +806,7 @@ def boss(number1):
     flag = True
     
     all_wars = pygame.sprite.Group()
+    atak_sprites = pygame.sprite.Group()
     
     mg = Megashiza()
     screen.blit(mg.image, mg.rect)

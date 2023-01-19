@@ -1168,7 +1168,7 @@ def start_location_1():
             shiza_npc_1.click_update()
 
         pygame.display.flip()
-        clock.tick(60)
+        clock.tick(200)
     con = sqlite3.connect('SQL\Bag.db')
     cur = con.cursor()
     res = cur.execute("""update Bag
