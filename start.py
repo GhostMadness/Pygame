@@ -133,6 +133,8 @@ class Osminog(pygame.sprite.Sprite):
             number -= 2
             hp(number)
             pygame.mixer.music.play(0)
+        if self.index == 17:
+            self.index = 1
 
 
 class Megashiza(pygame.sprite.Sprite):
@@ -596,6 +598,7 @@ def two(sorce, for_text_beta):
             for_text += 1
         elif w > 21:
             w = 1
+            s = sorce
             for_text = for_text_beta
         if b == 1:
             screen.blit(cell.image, cell.rect)
@@ -615,7 +618,6 @@ def two(sorce, for_text_beta):
         q += 1
         pygame.display.flip()
         hp(number)
-        clock.tick(10)
     else:
         heart.update()
         #Death_fLag = True
@@ -758,6 +760,7 @@ def three(sorce, for_text_beta):
             for_text += 1
         elif w > 300:
             w = 1
+            s = sorce
             for_text = for_text_beta
         screen.blit(sc1, (0, 0))
         if b == 1:
@@ -795,7 +798,8 @@ def boss(number1):
     
     screen.fill((0, 0, 0))
     
-    sc1 = pygame.image.load('SPRITE\Boss_fon.jpg')
+    sc1 = pygame.image.load('SPRITE\Boss_fon.png')
+    sc1 = pygame.transform.scale(sc1, (1920, 1080))
     screen.blit(sc1, (0, 0))
     
     apple = pygame.image.load('SPRITE\APPLE_HILL.png')
