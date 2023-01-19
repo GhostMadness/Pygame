@@ -527,6 +527,7 @@ def one(sorce, react, for_text_beta):
 
 def two(sorce, for_text_beta):
     global running, w, flag, q, for_text, cell, heart, s, b, Fight
+    clock = pygame.time.Clock()
     if not heart.update_yes():
         if w == 0:
             cell = Cell('SPRITE\для_диалога.png', 400, 600)
@@ -614,6 +615,7 @@ def two(sorce, for_text_beta):
         q += 1
         pygame.display.flip()
         hp(number)
+        clock.tick(10)
     else:
         heart.update()
         #Death_fLag = True
@@ -687,6 +689,7 @@ class Live_hide_cl():
 
 def three(sorce, for_text_beta):
     global running, w, flag, q, for_text, cell, heart, s, b, Fight, mg, sc1, apple
+    clock = pygame.time.Clock()
     if not heart.update_yes():
         if w == 0:
             cell = Cell('SPRITE\для_диалога.png', 400, 600)
@@ -792,7 +795,7 @@ def boss(number1):
     
     screen.fill((0, 0, 0))
     
-    sc1 = pygame.image.load('SPRITE\Boss_fon.png')
+    sc1 = pygame.image.load('SPRITE\Boss_fon.jpg')
     screen.blit(sc1, (0, 0))
     
     apple = pygame.image.load('SPRITE\APPLE_HILL.png')
