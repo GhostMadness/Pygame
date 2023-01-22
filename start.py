@@ -11,6 +11,7 @@ go_or_no = False
 number = 20
 war_now = 1
 clock = pygame.time.Clock()
+conez = False
 
 list_sprites_osminog = ['SPRITE\Osminog\Osminog_1.png', 'SPRITE\Osminog\Osminog_2.png', 'SPRITE\Osminog\Osminog_3.png', 'SPRITE\Osminog\Osminog_4.png', 'SPRITE\Osminog\Osminog_5.png',
                         'SPRITE\Osminog\Osminog_6.png', 'SPRITE\Osminog\Osminog_7.png', 'SPRITE\Osminog\Osminog_8.png', 'SPRITE\Osminog\Osminog_9.png', 'SPRITE\Osminog\Osminog_10.png',
@@ -229,10 +230,10 @@ class Megashiza(pygame.sprite.Sprite):
 class Knopka(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__(atak_sprites)
-        self.image = pygame.image.load('SPRITE\Knopka.png').convert_alpha()
+        self.image = pygame.image.load('SPRITE\knopka.png').convert_alpha()
         self.rect = self.image.get_rect()
-        self.rect.x = random.randrange(cell.rect.x, cell.rect.right)
-        self.rect.y = random.randrange(cell.rect.y, cell.rect.bottom)
+        self.rect.x = random.randint(400, 1100)
+        self.rect.y = random.randint(400, 600)
         self.mask = pygame.mask.from_surface(self.image)
     
     def update(self):
@@ -340,6 +341,7 @@ class Heart(pygame.sprite.Sprite):
             time.sleep(0.5)
             music_dead.stop()
             Death_fLag = True
+            pygame.quit()
         music_dead.stop()
     
     def update_yes(self):
@@ -818,7 +820,7 @@ def three(sorce, for_text_beta):
                 BossAtck()
                 war_now = 1
             w += 1
-        if q % 100 == 0:
+        if q % 500 == 0:
             Knopka()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
@@ -832,7 +834,6 @@ def three(sorce, for_text_beta):
         mg.update()
         q += 1
         screen2.blit(cell.image, cell.rect)
-        atak_sprites.update()
         screen.blit(apple,  (1500, 600))
         screen2.blit(mg.image, mg.rect)
         screen2.blit(heart.image, heart.rect)
@@ -840,6 +841,8 @@ def three(sorce, for_text_beta):
         all_wars.update()
         all_wars.draw(screen2)
         hp(number)
+        atak_sprites.draw(screen2)
+        atak_sprites.update()
         pygame.display.flip()
         #clock.tick(100)
     else:
@@ -847,8 +850,8 @@ def three(sorce, for_text_beta):
         running = False
 
 
-def boss(number1):
-    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl, music_fight, sc_2, clock
+def boss():
+    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl, music_fight, sc_2, clock, conez
     #screen.fill((0, 0, 0))
     
     sc1 = pygame.image.load('SPRITE\Boss_fon.png').convert_alpha()
@@ -871,8 +874,6 @@ def boss(number1):
     mg = Megashiza()
     # screen.blit(mg.image, mg.rect)
     
-    number = number1
-    
     music_fight = pygame.mixer.Sound('MUSIC\DOUBLE\IGHT_BOSS.mp3')
     music_fight.set_volume(0.20)
     with open('SETTING_FILES\SETTING.txt') as f:
@@ -890,7 +891,7 @@ def boss(number1):
     
     Death_hide_class = Death_hide_cl()
     
-    hp_Hide = 100
+    hp_Hide = 50
     
     running = True
     
@@ -898,6 +899,7 @@ def boss(number1):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+                pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if not Fight:
                     if 1500 < event.pos[0] < 1611 and 600 < event.pos[1] < 741:
@@ -914,12 +916,14 @@ def boss(number1):
             con.close()
             pygame.quit()
         if hp_Hide <= 0:
+            conez = True
             Death_hide_class.death_hide()
             music_fight.stop()
+            running = False
         clock.tick(100)
     
     
-def start_fn(event, monstr, number1):
+def start_fn(event, monstr):
     global texth, text_xh, text_yh, image1, flag, Fight, s, b, music_fight, hp_Hide, font, myfont, number, all_wars, q, running, heart, w, Death_fLag, cell
     
     texth = ''
@@ -930,10 +934,6 @@ def start_fn(event, monstr, number1):
     x = 0
 
     screen.fill((0, 0, 0))
-
-    number = 20
-    
-    number = number1
     
     all_wars = pygame.sprite.Group()
     

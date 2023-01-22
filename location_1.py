@@ -1,7 +1,7 @@
 import pygame
 import time
 import random
-from start import screen, start_fn, Death_fLag, go_or_no, Live_hide_cl, Death_hide_cl, number, boss
+from start import screen, start_fn, Death_fLag, go_or_no, Live_hide_cl, Death_hide_cl, number, boss, conez
 from location_2 import start_dias
 import sqlite3
 
@@ -15,6 +15,7 @@ l_d = (False, False)
 l_d1 = (False, False)
 l_d2 = (False, False)
 l_d3 = (False, False)
+l_d6 = (False, False)
 
 pygame.init()
 
@@ -155,6 +156,7 @@ def settings():
 
 
 def loading_death():
+    global number
     size = 1920, 1080
     screen = pygame.display.set_mode(size)
     image_loading = pygame.image.load("SPRITE\APPLE_HILL.png")
@@ -168,6 +170,7 @@ def loading_death():
     a = True
     schet_2 = -30
     schet_3 = 0
+    number = 20
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -577,10 +580,14 @@ def conzovka():
         pygame.display.flip()
 
 def start_location_6():
+    global l_d6
     update(eleven=True)
 
     image_background = pygame.image.load("location_7\esult\map.png")
     image_1 = pygame.image.load("location_7\esult\pol.png")
+
+    omegashiza = pygame.image.load("SPRITE\Megashiza.png")
+    omegashiza = pygame.transform.scale(omegashiza, (100, 100))
 
     sc1 = pygame.Surface((1920, 1080))
     sc1.blit(image_1, (0, 0))
@@ -600,8 +607,11 @@ def start_location_6():
     top_sprites = pygame.sprite.Group()
     top_sprites.add(Stop_2("location_7\esult\pol_top.png", (100, -100)))
 
-    other_sp = pygame.sprite.Group()
-    other_sp.add(Stop_2("SPRITE\VIXOD_LOC.png", (1920 // 2, 1080 // 2)))
+    omegashiza_gr = pygame.sprite.Group()
+    omegashiza_gr.add(Stop_2("SPRITE\Megashiza.png", (1920 // 2, 1080 // 2)))
+
+    # other_sp = pygame.sprite.Group()
+    # other_sp.add(Stop_2("SPRITE\VIXOD_LOC.png", (1920 // 2, 1080 // 2)))
 
     gg_6 = Heroy(right=right_sprite, left=left_sprite, bottom=bottom_sprite, top=top_sprites, x=50, y=975)
 
@@ -624,12 +634,27 @@ def start_location_6():
         if key[pygame.K_ESCAPE]:
             running = False
         
-        if pygame.sprite.spritecollideany(gg_6, other_sp):
+        # if pygame.sprite.spritecollideany(gg_6, other_sp):
+        #     music_location_6.stop()
+        #     conzovka()
+
+        if pygame.sprite.spritecollideany(gg_6, omegashiza_gr):
             music_location_6.stop()
+            a = boss()
+            one = Live_hide_cl()
+            two = Death_hide_cl()
+            l_d6 = (one.live_print(), two.death_print())
+            if a:
+                l_d6 = (False, False)
+                loading_death()
+                running = False
+        
+        if conez:
             conzovka()
 
         screen.blit(sc1, (0, 0))
         screen.blit(gg_6.image, gg_6.rect)
+        screen.blit(omegashiza, (1920 // 2, 1080 // 2))
         pygame.display.flip()
         clock.tick(60)
 
@@ -699,7 +724,7 @@ def start_loction_5():
         
         if pygame.sprite.spritecollideany(gg_5, other_sprite) and sdegfoin1:
             music_locatioN_5.stop()
-            a = start_fn(event, 4, number)
+            a = start_fn(event, 4)
             one = Live_hide_cl()
             two = Death_hide_cl()
             l_d3 = (one.live_print(), two.death_print())
@@ -732,7 +757,7 @@ def start_loction_5():
         if not ON_3:
             img_apple_group_2 = pygame.sprite.Group()
         pygame.display.flip()
-        # clock.tick(60)
+        clock.tick(60)
 
 def start_location_4():
     update(four=True)
@@ -901,7 +926,7 @@ def start_location_3():
 
         if pygame.sprite.spritecollideany(gg_3, other_sprite) and sdegfoin1:
             music_location_3.stop()
-            a = start_fn(event, 3, number)
+            a = start_fn(event, 3)
             one = Live_hide_cl()
             two = Death_hide_cl()
             l_d2 = (one.live_print(), two.death_print())
@@ -1033,7 +1058,7 @@ def start_location_2():
 
         if pygame.sprite.spritecollideany(gg_2, other_sprite) and sdegfoin1:
             music_location_2.stop()
-            a = start_fn(event, 2, number)
+            a = start_fn(event, 2)
             one = Live_hide_cl()
             two = Death_hide_cl()
             l_d1 = (one.live_print(), two.death_print())
@@ -1155,6 +1180,7 @@ def start_location_1():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
                         event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
+                    music_location_1.stop()
                     return start_menu()
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
@@ -1170,7 +1196,7 @@ def start_location_1():
         screen.blit(button_menu_img_tr, (10, 10))
         if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
             music_location_1.stop()
-            a = boss(number)
+            a = boss()
             one = Live_hide_cl()
             two = Death_hide_cl()
             l_d = (one.live_print(), two.death_print())
@@ -1209,7 +1235,7 @@ def start_location_1():
             shiza_npc_1.click_update()
 
         pygame.display.flip()
-        # clock.tick(60)
+        clock.tick(60)
     con = sqlite3.connect('SQL\Bag.db')
     cur = con.cursor()
     res = cur.execute("""update Bag
