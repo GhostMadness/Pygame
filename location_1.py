@@ -544,6 +544,7 @@ class Stop_2(pygame.sprite.Sprite):
         self.rect.y = coord[1]
         if size:
             self.image = pygame.transform.scale(self.image, size)
+
 def conzovka():
     pygame.init()
     pygame.display.set_caption("Phantom")
@@ -552,31 +553,94 @@ def conzovka():
 
     image_player = pygame.image.load("SPRITE\гг.png")
     image_shiza = pygame.image.load("SPRITE\Megashiza.png")
+    image_kitten = pygame.image.load("SPRITE\KITTEN.png")
     image_player = pygame.transform.scale(image_player, (250, 250))
     image_shiza = pygame.transform.scale(image_shiza, (250, 250))
+    image_kitten = pygame.transform.scale(image_kitten, (150, 100))
+
+    music_finall_yra = pygame.mixer.Sound("MUSIC\FIRST\FINALL_TITRI.mp3")
+    music_finall_yra.set_volume(0.2)
+    music_finall_yra.play(-1)
+
+    music_ydar = pygame.mixer.Sound("MUSIC\WHAT\ok.mp3")
+    music_ydar.set_volume(0.2)
+
+
+    color_1 = 0
 
     font = pygame.font.Font(None, 50)
     text = font.render("СПАСИБО ЗА ПРОХОЖДЕНИЕ", True, (230, 230, 230))
     text_x = 1920 // 2 - 50 - 200
-    text_y = 1080 // 2 - 300
+    text_y = 1080 // 2 - 300 + 600
+
+    text_a = font.render("В ГЛАВНЫХ РОЛЯХ:", True, (255, 255, 230))
+    text_a_x = 100
+    text_a_y = 100
 
     x = -400
+    
+    F_Men = True
+    chpok = False
+    fLaf = False
+    y_kitten = -1500
 
     running = True
     while running:
+        text_b = font.render("Артём - Художник, Программист, Геймдизайнер", True, (color_1, 206, 250))
+        text_b_x = 100
+        text_b_y = 200
+
+        text_c = font.render("Дима - Художник, Программист, Геймдизайнер, Саунд-дизайнер", True, (color_1, 206, 250))
+        text_c_x = 100
+        text_c_y = 300
+
+        text_d = font.render("Гранат(друг Димочки) - Художник", True, (color_1, 206, 250))
+        text_d_x = 100
+        text_d_y = 400
+
+        text_f = font.render("Даня(друг Артёмочки) - Художник", True, (color_1, 206, 250))
+        text_f_x = 100
+        text_f_y = 500
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.K_ESCAPE:
+                running = False
+                pygame.quit()
             elif event.type == pygame.MOUSEMOTION:
                 print(event.pos)
         screen.fill((0, 0, 0))
         screen.blit(text, (text_x, text_y))
-        screen.blit(image_player, (x, 1080 // 2))
-        screen.blit(image_shiza, (1920 // 2, 1080 // 2))
+        screen.blit(text_a, (text_a_x, text_a_y))
+        screen.blit(text_b, (text_b_x, text_b_y))
+        screen.blit(text_c, (text_c_x, text_c_y))
+        screen.blit(text_d, (text_d_x, text_d_y))
+        screen.blit(text_f, (text_f_x, text_f_y))
+
         if x <= 800:
             x += 1
-        elif x >= 800:
+        elif x >= 800 and F_Men:
             image_shiza = pygame.transform.scale(image_shiza, (250, 50))
+            F_Men = False
+            chpok = True
+        if chpok:
+            music_ydar.play()
+            chpok = False
+        if fLaf:
+            color_1 -= 1
+        else:
+            color_1 += 1
+        if color_1 == 255:
+            fLaf = True
+        if color_1 == 0:
+                fLaf = False
+        if y_kitten <= 20:
+            y_kitten += 1
+        
+        screen.blit(image_player, (x, 1080 // 2))
+        screen.blit(image_shiza, (1920 // 2, 1080 // 2))
+        screen.blit(image_kitten, (1700, y_kitten))
         pygame.display.flip()
 
 def start_location_6():
@@ -587,7 +651,7 @@ def start_location_6():
     image_1 = pygame.image.load("location_7\esult\pol.png")
 
     omegashiza = pygame.image.load("SPRITE\Megashiza.png")
-    omegashiza = pygame.transform.scale(omegashiza, (100, 100))
+    omegashiza = pygame.transform.scale(omegashiza, (500, 500))
 
     sc1 = pygame.Surface((1920, 1080))
     sc1.blit(image_1, (0, 0))
@@ -1196,7 +1260,7 @@ def start_location_1():
         screen.blit(button_menu_img_tr, (10, 10))
         if pygame.sprite.spritecollideany(gg, other_sprite) and sdegfoin:
             music_location_1.stop()
-            a = boss()
+            a = start_fn(event, 1)
             one = Live_hide_cl()
             two = Death_hide_cl()
             l_d = (one.live_print(), two.death_print())
@@ -1242,7 +1306,6 @@ def start_location_1():
                         set Count = 0""").fetchall()
     con.commit()
     con.close()
-
 
 start_menu()
 pygame.quit()

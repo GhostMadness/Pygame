@@ -12,6 +12,105 @@ number = 20
 war_now = 1
 clock = pygame.time.Clock()
 conez = False
+what_ahaha = False
+
+def conzovka():
+    pygame.init()
+    pygame.display.set_caption("Phantom")
+    size = width, height = 1920, 1080
+    screen = pygame.display.set_mode(size)
+
+    image_player = pygame.image.load("SPRITE\гг.png")
+    image_shiza = pygame.image.load("SPRITE\Megashiza.png")
+    image_kitten = pygame.image.load("SPRITE\KITTEN.png")
+    image_player = pygame.transform.scale(image_player, (250, 250))
+    image_shiza = pygame.transform.scale(image_shiza, (250, 250))
+    image_kitten = pygame.transform.scale(image_kitten, (150, 100))
+
+    music_finall_yra = pygame.mixer.Sound("MUSIC\FIRST\FINALL_TITRI.mp3")
+    music_finall_yra.set_volume(0.2)
+    music_finall_yra.play(-1)
+
+    music_ydar = pygame.mixer.Sound("MUSIC\WHAT\ok.mp3")
+    music_ydar.set_volume(0.2)
+
+
+    color_1 = 0
+
+    font = pygame.font.Font(None, 50)
+    text = font.render("СПАСИБО ЗА ПРОХОЖДЕНИЕ", True, (230, 230, 230))
+    text_x = 1920 // 2 - 50 - 200
+    text_y = 1080 // 2 - 300 + 600
+
+    text_a = font.render("В ГЛАВНЫХ РОЛЯХ:", True, (255, 255, 230))
+    text_a_x = 100
+    text_a_y = 100
+
+    x = -400
+    
+    F_Men = True
+    chpok = False
+    fLaf = False
+    y_kitten = -1500
+
+    running = True
+    while running:
+        text_b = font.render("Артём - Художник, Программист, Геймдизайнер", True, (color_1, 206, 250))
+        text_b_x = 100
+        text_b_y = 200
+
+        text_c = font.render("Дима - Художник, Программист, Геймдизайнер, Саунд-дизайнер", True, (color_1, 206, 250))
+        text_c_x = 100
+        text_c_y = 300
+
+        text_d = font.render("Гранат(друг Димочки) - Художник", True, (color_1, 206, 250))
+        text_d_x = 100
+        text_d_y = 400
+
+        text_f = font.render("Даня(друг Артёмочки) - Художник", True, (color_1, 206, 250))
+        text_f_x = 100
+        text_f_y = 500
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.K_ESCAPE:
+                running = False
+                pygame.quit()
+            elif event.type == pygame.MOUSEMOTION:
+                print(event.pos)
+        screen.fill((0, 0, 0))
+        screen.blit(text, (text_x, text_y))
+        screen.blit(text_a, (text_a_x, text_a_y))
+        screen.blit(text_b, (text_b_x, text_b_y))
+        screen.blit(text_c, (text_c_x, text_c_y))
+        screen.blit(text_d, (text_d_x, text_d_y))
+        screen.blit(text_f, (text_f_x, text_f_y))
+
+        if x <= 800:
+            x += 1
+        elif x >= 800 and F_Men:
+            image_shiza = pygame.transform.scale(image_shiza, (250, 50))
+            F_Men = False
+            chpok = True
+        if chpok:
+            music_ydar.play()
+            chpok = False
+        if fLaf:
+            color_1 -= 1
+        else:
+            color_1 += 1
+        if color_1 == 255:
+            fLaf = True
+        if color_1 == 0:
+                fLaf = False
+        if y_kitten <= 20:
+            y_kitten += 1
+        
+        screen.blit(image_player, (x, 1080 // 2))
+        screen.blit(image_shiza, (1920 // 2, 1080 // 2))
+        screen.blit(image_kitten, (1700, y_kitten))
+        pygame.display.flip()
 
 list_sprites_osminog = ['SPRITE\Osminog\Osminog_1.png', 'SPRITE\Osminog\Osminog_2.png', 'SPRITE\Osminog\Osminog_3.png', 'SPRITE\Osminog\Osminog_4.png', 'SPRITE\Osminog\Osminog_5.png',
                         'SPRITE\Osminog\Osminog_6.png', 'SPRITE\Osminog\Osminog_7.png', 'SPRITE\Osminog\Osminog_8.png', 'SPRITE\Osminog\Osminog_9.png', 'SPRITE\Osminog\Osminog_10.png',
@@ -230,9 +329,9 @@ class Megashiza(pygame.sprite.Sprite):
 class Knopka(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__(atak_sprites)
-        self.image = pygame.image.load('SPRITE\knopka.png').convert_alpha()
+        self.image = pygame.image.load('SPRITE\knopka_1.png').convert_alpha()
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(400, 1100)
+        self.rect.x = random.randint(600, 1000)
         self.rect.y = random.randint(400, 600)
         self.mask = pygame.mask.from_surface(self.image)
     
@@ -287,6 +386,7 @@ class Heart(pygame.sprite.Sprite):
     
     def update(self):
         global Death_fLag
+        pygame.init()
         if number <= 0:
             con = sqlite3.connect('SQL\Bag.db')
             cur = con.cursor()
@@ -341,7 +441,8 @@ class Heart(pygame.sprite.Sprite):
             time.sleep(0.5)
             music_dead.stop()
             Death_fLag = True
-            pygame.quit()
+            if what_ahaha:
+                pygame.quit()
         music_dead.stop()
     
     def update_yes(self):
@@ -851,7 +952,7 @@ def three(sorce, for_text_beta):
 
 
 def boss():
-    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl, music_fight, sc_2, clock, conez
+    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl, music_fight, sc_2, clock, conez, what_ahaha
     #screen.fill((0, 0, 0))
     
     sc1 = pygame.image.load('SPRITE\Boss_fon.png').convert_alpha()
@@ -917,6 +1018,8 @@ def boss():
             pygame.quit()
         if hp_Hide <= 0:
             conez = True
+            what_ahaha = True
+            conzovka()
             Death_hide_class.death_hide()
             music_fight.stop()
             running = False
