@@ -19,7 +19,7 @@ list_sprites_crow = ['SPRITE\CROW_1.png', 'SPRITE\CROW_2.png', 'SPRITE\CROW_3.pn
 class BossAtck(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__(all_wars)
-        self.image = pygame.image.load("final_boss\Atack\cerp.png")
+        self.image = pygame.image.load("final_boss\Atack\cerp.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (270, 200))
         self.rect = self.image.get_rect()
         self.rect.x = 100
@@ -81,7 +81,7 @@ class WarTwo(pygame.sprite.Sprite):
     def update(self):
         global number
         if self.p == 0:
-            self.image = pygame.image.load('SPRITE\BOMB_VZRIV.png')
+            self.image = pygame.image.load('SPRITE\BOMB_VZRIV.png').convert_alpha()
             self.p = 1
             self.image = pygame.transform.scale(self.image, (52, 52))
             self.mask = pygame.mask.from_surface(self.image)
@@ -166,8 +166,8 @@ class Osminog(pygame.sprite.Sprite):
 class Megashiza(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__(all_wars)
-        self.image = pygame.image.load('SPRITE\Megashiza.png')
-        self.im = pygame.image.load('SPRITE\Megashiza.png')
+        self.image = pygame.image.load('SPRITE\Megashiza.png').convert_alpha()
+        self.im = pygame.image.load('SPRITE\Megashiza.png').convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.x = 700
         self.rect.y = -50
@@ -219,7 +219,7 @@ class Megashiza(pygame.sprite.Sprite):
 class Knopka(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__(atak_sprites)
-        self.image = pygame.image.load('SPRITE\Knopka.png')
+        self.image = pygame.image.load('SPRITE\Knopka.png').convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.x = random.randrange(cell.rect.x, cell.rect.right)
         self.rect.y = random.randrange(cell.rect.y, cell.rect.bottom)
@@ -233,7 +233,7 @@ class Knopka(pygame.sprite.Sprite):
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 def root():
     global mg, hp_Hide, war_now
-    image = pygame.image.load('SPRITE\Brevno.png')
+    image = pygame.image.load('SPRITE\Brevno.png').convert_alpha()
     image1 = image
     
     if war_now >= 4:
@@ -251,7 +251,7 @@ def root():
 class Heart(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load('SPRITE\сердце-export.png')
+        self.image = pygame.image.load('SPRITE\сердце-export.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
         self.rect.center = cell.rect.center
@@ -796,11 +796,11 @@ def three(sorce, for_text_beta):
             for_text = for_text_beta
         screen2 = pygame.display.set_mode((1920, 1080))
         screen2.blit(sc1, (0, 0))
-        # if b == 1:
-        #     screen2.blit(sc1, (0, 0))
-        #     screen2.blit(cell.image, cell.rect)
-        #     all_wars.update()
-        #     all_wars.draw(screen2)
+        if b == 1:
+            screen2.blit(sc1, (0, 0))
+            screen2.blit(cell.image, cell.rect)
+            all_wars.update()
+            all_wars.draw(screen2)
         if q % 10 == 0 and Fight:
             if war_now == 1:
                 war_1()
@@ -829,10 +829,6 @@ def three(sorce, for_text_beta):
         screen2.blit(heart.image, heart.rect)
         screen2.blit(mg.image, mg.rect)
         hp(number)
-        screen2.blit(sc1, (0, 0))
-        screen2.blit(cell.image, cell.rect)
-        all_wars.update()
-        all_wars.draw(screen2)
         pygame.display.flip()
     else:
         heart.update()
