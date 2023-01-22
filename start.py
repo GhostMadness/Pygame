@@ -37,9 +37,9 @@ class BossAtck(pygame.sprite.Sprite):
         self.image.get_rect().center = loc
         self.mask = pygame.mask.from_surface(self.image)
 
-        self.rect.x += 10
+        self.rect.x += 7
 
-        if self.rect.x >= 500 or self.rect.y >= 800:
+        if self.rect.x >= 350 or self.rect.y >= 400:
             self.kill()
             return
         if pygame.sprite.collide_mask(self, heart):
@@ -53,7 +53,7 @@ class BossAtck(pygame.sprite.Sprite):
 class War(pygame.sprite.Sprite):
     def __init__(self, filename):
         super().__init__(all_wars)
-        self.image = pygame.image.load(filename)
+        self.image = pygame.image.load(filename).convert_alpha()
         self.image = pygame.transform.scale(self.image, (32, 32))
         self.rect = self.image.get_rect()
         self.rect.x = random.randrange(cell.rect.left + 1, cell.rect.right - 25)
@@ -79,7 +79,7 @@ class War(pygame.sprite.Sprite):
 class WarTwo(pygame.sprite.Sprite):
     def __init__(self, filename):
         super().__init__(all_wars)
-        self.image = pygame.image.load(filename)
+        self.image = pygame.image.load(filename).convert_alpha()
         self.image = pygame.transform.scale(self.image, (32, 32))
         self.rect = self.image.get_rect()
         self.rect.x = random.randrange(cell.rect.left + 27, cell.rect.right - 54)
@@ -124,7 +124,7 @@ class WarThree(pygame.sprite.Sprite):
     def update(self):
         global number
         if self.p == 0:
-            self.image = pygame.image.load(self.filename)
+            self.image = pygame.image.load(self.filename).convert_alpha()
             self.image = pygame.transform.scale(self.image, (120, cell.rect.bottom - cell.rect.y - 20))
             self.mask = pygame.mask.from_surface(self.image)
             self.p = 1
@@ -149,7 +149,7 @@ class WarThree(pygame.sprite.Sprite):
 class Osminog(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__(all_wars)
-        self.image = pygame.image.load(list_sprites_osminog[0])
+        self.image = pygame.image.load(list_sprites_osminog[0]).convert_alpha()
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
         self.index = 0
@@ -160,7 +160,7 @@ class Osminog(pygame.sprite.Sprite):
         global number
         self.index += 1
         screen.fill((0, 0, 0), (self.rect.x, self.rect.y, self.rect.right - self.rect.x, self.rect.bottom - self.rect.y))
-        self.image = pygame.image.load(list_sprites_osminog[self.index])
+        self.image = pygame.image.load(list_sprites_osminog[self.index]).convert_alpha()
         self.mask = pygame.mask.from_surface(self.image)
         if pygame.sprite.collide_mask(self, heart):
             pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
@@ -184,9 +184,9 @@ class Megashiza(pygame.sprite.Sprite):
         
     def update(self):
         if self.rect.right >= 1920:
-            self.x = -20
+            self.x = -5
         if self.rect.left <= 0:
-            self.x = 20
+            self.x = 5
         self.rect = self.rect.move(self.x, 0)
 
 
@@ -245,7 +245,7 @@ def root():
     image = pygame.image.load('SPRITE\Brevno.png').convert_alpha()
     image1 = image
     
-    if war_now >= 4:
+    if war_now >= 3:
         war_now = 1
     else:
         war_now += 1
@@ -304,7 +304,7 @@ class Heart(pygame.sprite.Sprite):
                     music_dead.play(-1)
             
             music_fight.stop()
-            self.image = pygame.image.load('SPRITE\сердце-export.png')
+            self.image = pygame.image.load('SPRITE\сердце-export.png').convert_alpha()
             self.rect = self.image.get_rect()
             self.rect.center = cell.rect.center
             self.rect.x -= 10
@@ -313,25 +313,25 @@ class Heart(pygame.sprite.Sprite):
             screen.blit(self.image, self.rect)
             pygame.display.flip()
             time.sleep(0.5)
-            self.image = pygame.image.load('SPRITE\сердце_2-export.png')
+            self.image = pygame.image.load('SPRITE\сердце_2-export.png').convert_alpha()
             self.rect.center = cell.rect.center
             screen.blit(cell.image, cell.rect)
             screen.blit(self.image, self.rect)
             pygame.display.flip()
             time.sleep(0.5)
-            self.image = pygame.image.load('SPRITE\сердце_3-export.png')
+            self.image = pygame.image.load('SPRITE\сердце_3-export.png').convert_alpha()
             self.rect.center = cell.rect.center
             screen.blit(cell.image, cell.rect)
             screen.blit(self.image, self.rect)
             pygame.display.flip()
             time.sleep(0.5)
-            self.image = pygame.image.load('SPRITE\сердце_4-export.png')
+            self.image = pygame.image.load('SPRITE\сердце_4-export.png').convert_alpha()
             self.rect.center = cell.rect.center
             screen.blit(cell.image, cell.rect)
             screen.blit(self.image, self.rect)
             pygame.display.flip()
             time.sleep(0.9)
-            self.image = pygame.image.load('SPRITE\сердце_5-export.png')
+            self.image = pygame.image.load('SPRITE\сердце_5-export.png').convert_alpha()
             self.rect.center = cell.rect.center
             screen.blit(cell.image, cell.rect)
             screen.blit(self.image, self.rect)
@@ -676,7 +676,7 @@ class Death_hide_cl():
         screen.fill((0, 0, 0), (800, 0, 300, 300))
         pygame.display.update()
         screen.fill((0, 0, 0))
-        image1 = pygame.image.load('SPRITE\Hide_2.png')
+        image1 = pygame.image.load('SPRITE\Hide_2.png').convert()
         screen.blit(image1, (800, 100))
         cell = Cell('SPRITE\для_диалога.png', 400, 600)
         font = pygame.font.Font(None, 50)
@@ -732,6 +732,7 @@ class Live_hide_cl():
 
 
 def three(sorce, for_text_beta):
+    pygame.init()
     global running, w, flag, q, for_text, cell, heart, s, b, Fight, mg, sc1, apple, number, war_now, screen2, clock
     if not heart.update_yes():
         if w == 0:
@@ -805,19 +806,16 @@ def three(sorce, for_text_beta):
             for_text = for_text_beta
         screen2 = pygame.display.set_mode((1920, 1080))
         screen2.blit(sc1, (0, 0))
-        if b == 1:
-            screen2.blit(sc1, (0, 0))
-            screen2.blit(cell.image, cell.rect)
-            all_wars.update()
-            all_wars.draw(screen2)
+        # if b == 1:
+        #     screen2.blit(sc1, (0, 0))
+        #     all_wars.update()
+        #     all_wars.draw(screen2)
         if q % 10 == 0 and Fight:
             if war_now == 1:
                 war_1()
             elif war_now == 2:
                 BossAtck()
                 war_now = 1
-            elif war_now == 3:
-                war_4()
             w += 1
         if q % 100 == 0:
             Knopka()
@@ -831,31 +829,34 @@ def three(sorce, for_text_beta):
         elif keys[pygame.K_s]:
             heart.bottom()
         mg.update()
-        atak_sprites.update()
-        screen2.blit(apple,  (1500, 600))
         q += 1
-        wars[file_wars[s].rstrip()]()
-        screen2.blit(heart.image, heart.rect)
+        screen2.blit(cell.image, cell.rect)
+        atak_sprites.update()
+        screen.blit(apple,  (1500, 600))
         screen2.blit(mg.image, mg.rect)
+        screen2.blit(heart.image, heart.rect)
+        #wars[file_wars[s].rstrip()]()
+        all_wars.update()
+        all_wars.draw(screen2)
         hp(number)
         pygame.display.flip()
+        #clock.tick(100)
     else:
         heart.update()
         running = False
-    clock.tick(60)
 
 
 def boss(number1):
     global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl, music_fight, sc_2, clock
     
-    screen.fill((0, 0, 0))
+    #screen.fill((0, 0, 0))
     
-    sc1 = pygame.image.load('SPRITE\Boss_fon.png')
+    sc1 = pygame.image.load('SPRITE\Boss_fon.png').convert_alpha()
     sc1 = pygame.transform.scale(sc1, (1920, 1080))
     screen.blit(sc1, (0, 0))
     
-    apple = pygame.image.load('SPRITE\APPLE_HILL.png')
-    screen.blit(apple,  (1500, 600))
+    apple = pygame.image.load('SPRITE\APPLE_HILL.png').convert_alpha()
+    #screen.blit(apple,  (1500, 600))
     
     s = 0
     b = 0
@@ -868,7 +869,7 @@ def boss(number1):
     atak_sprites = pygame.sprite.Group()
     
     mg = Megashiza()
-    screen.blit(mg.image, mg.rect)
+    # screen.blit(mg.image, mg.rect)
     
     number = number1
     
@@ -892,7 +893,6 @@ def boss(number1):
     hp_Hide = 100
     
     running = True
-    sc_2.blit(screen, (0, 0))
     
     while running:
         for event in pygame.event.get():
@@ -914,7 +914,7 @@ def boss(number1):
         if hp_Hide <= 0:
             Death_hide_class.death_hide()
             music_fight.stop()
-        clock.tick(60)
+        clock.tick(100)
     
     
 def start_fn(event, monstr, number1):
@@ -936,19 +936,19 @@ def start_fn(event, monstr, number1):
     all_wars = pygame.sprite.Group()
     
     if monstr == 1:
-        image1 = pygame.image.load('SPRITE\Hide_1.png')
+        image1 = pygame.image.load('SPRITE\Hide_1.png').convert_alpha()
     if monstr == 2:
-        image1 = pygame.image.load('SPRITE\ENEMY.png')
+        image1 = pygame.image.load('SPRITE\ENEMY.png').convert_alpha()
     if monstr == 3:
-        image1 = pygame.image.load('SPRITE\CHUDICK.png')
+        image1 = pygame.image.load('SPRITE\CHUDICK.png').convert_alpha()
         y = 100
     if monstr == 4:
-        image1 = pygame.image.load('SPRITE\Osminog\Osminog_1.png')
+        image1 = pygame.image.load('SPRITE\Osminog\Osminog_1.png').convert_alpha()
         Osminog(650, 100)
         x = 150
     if monstr == 5:
         screen.fill((0, 0, 0))
-        image1 = pygame.image.load('SPRITE\Megashiza.png')
+        image1 = pygame.image.load('SPRITE\Megashiza.png').convert_alpha()
         x = 150
         y = 100
     music_fight = pygame.mixer.Sound('MUSIC\DOUBLE\IGHT_BOSS.mp3')
