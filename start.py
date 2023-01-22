@@ -35,9 +35,10 @@ class BossAtck(pygame.sprite.Sprite):
         loc = self.image.get_rect().center
         self.image = pygame.transform.rotate(self.image, self.angle)
         self.image.get_rect().center = loc
+        self.mask = pygame.mask.from_surface(self.image)
 
         self.rect.x += 10
-        
+
         if self.rect.x >= 500 or self.rect.y >= 800:
             self.kill()
             return
