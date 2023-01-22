@@ -9,6 +9,7 @@ Death_fLag = False
 go_or_no = False
 number = 20
 war_now = 1
+clock = pygame.time.Clock()
 
 list_sprites_osminog = ['SPRITE\Osminog\Osminog_1.png', 'SPRITE\Osminog\Osminog_2.png', 'SPRITE\Osminog\Osminog_3.png', 'SPRITE\Osminog\Osminog_4.png', 'SPRITE\Osminog\Osminog_5.png',
                         'SPRITE\Osminog\Osminog_6.png', 'SPRITE\Osminog\Osminog_7.png', 'SPRITE\Osminog\Osminog_8.png', 'SPRITE\Osminog\Osminog_9.png', 'SPRITE\Osminog\Osminog_10.png',
@@ -723,7 +724,7 @@ class Live_hide_cl():
 
 
 def three(sorce, for_text_beta):
-    global running, w, flag, q, for_text, cell, heart, s, b, Fight, mg, sc1, apple, number, war_now, screen2
+    global running, w, flag, q, for_text, cell, heart, s, b, Fight, mg, sc1, apple, number, war_now, screen2, clock
     if not heart.update_yes():
         if w == 0:
             cell = Cell('SPRITE\для_диалога.png', 400, 600)
@@ -833,10 +834,11 @@ def three(sorce, for_text_beta):
     else:
         heart.update()
         running = False
+    clock.tick(60)
 
 
 def boss(number1):
-    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl, music_fight, sc_2
+    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl, music_fight, sc_2, clock
     
     screen.fill((0, 0, 0))
     
@@ -903,7 +905,8 @@ def boss(number1):
             pygame.quit()
         if hp_Hide <= 0:
             Death_hide_class.death_hide()
-            music_fight.stop() 
+            music_fight.stop()
+        clock.tick(60)
     
     
 def start_fn(event, monstr, number1):
@@ -1043,3 +1046,4 @@ def start_fn(event, monstr, number1):
             Live_hide_class.live_hide()
             music_fight.stop()
     return Death_fLag
+clock.tick(30)
