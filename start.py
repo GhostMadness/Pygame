@@ -3,6 +3,7 @@ import random
 import time
 import sqlite3
 
+pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
 sc_2 = pygame.display.set_mode((1920, 1080))
 Death_fLag = False
@@ -848,7 +849,6 @@ def three(sorce, for_text_beta):
 
 def boss(number1):
     global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl, music_fight, sc_2, clock
-    
     #screen.fill((0, 0, 0))
     
     sc1 = pygame.image.load('SPRITE\Boss_fon.png').convert_alpha()
@@ -896,6 +896,8 @@ def boss(number1):
     
     while running:
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if not Fight:
                     if 1500 < event.pos[0] < 1611 and 600 < event.pos[1] < 741:
