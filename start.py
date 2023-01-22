@@ -30,9 +30,14 @@ class BossAtck(pygame.sprite.Sprite):
 
     def update(self):
         global number, heart
-        self.image = pygame.transform.rotate(self.image, self.angle)
         self.angle -= 0.2
+
+        loc = self.image.get_rect().center
+        self.image = pygame.transform.rotate(self.image, self.angle)
+        self.image.get_rect().center = loc
+
         self.rect.x += 10
+        
         if self.rect.x >= 500 or self.rect.y >= 800:
             self.kill()
             return
