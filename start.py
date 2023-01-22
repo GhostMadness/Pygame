@@ -820,8 +820,6 @@ def three(sorce, for_text_beta):
                 BossAtck()
                 war_now = 1
             w += 1
-        if q % 500 == 0:
-            Knopka()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
             heart.right()
@@ -843,6 +841,8 @@ def three(sorce, for_text_beta):
         hp(number)
         atak_sprites.draw(screen2)
         atak_sprites.update()
+        if q % 400 == 0:
+            Knopka()
         pygame.display.flip()
         #clock.tick(100)
     else:
