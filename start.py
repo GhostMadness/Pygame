@@ -796,11 +796,11 @@ def three(sorce, for_text_beta):
             for_text = for_text_beta
         screen2 = pygame.display.set_mode((1920, 1080))
         screen2.blit(sc1, (0, 0))
-        if b == 1:
-            screen2.blit(sc1, (0, 0))
-            screen2.blit(cell.image, cell.rect)
-            all_wars.update()
-            all_wars.draw(screen2)
+        # if b == 1:
+        #     screen2.blit(sc1, (0, 0))
+        #     screen2.blit(cell.image, cell.rect)
+        #     all_wars.update()
+        #     all_wars.draw(screen2)
         if q % 10 == 0 and Fight:
             if war_now == 1:
                 war_1()
@@ -812,7 +812,6 @@ def three(sorce, for_text_beta):
             w += 1
         if q % 100 == 0:
             Knopka()
-            
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
             heart.right()
@@ -822,14 +821,18 @@ def three(sorce, for_text_beta):
             heart.top()
         elif keys[pygame.K_s]:
             heart.bottom()
-        screen2.blit(heart.image, heart.rect)
-        screen2.blit(mg.image, mg.rect)
         mg.update()
         atak_sprites.update()
         screen2.blit(apple,  (1500, 600))
         q += 1
         wars[file_wars[s].rstrip()]()
+        screen2.blit(heart.image, heart.rect)
+        screen2.blit(mg.image, mg.rect)
         hp(number)
+        screen2.blit(sc1, (0, 0))
+        screen2.blit(cell.image, cell.rect)
+        all_wars.update()
+        all_wars.draw(screen2)
         pygame.display.flip()
     else:
         heart.update()
