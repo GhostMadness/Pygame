@@ -24,14 +24,16 @@ class BossAtck(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (270, 200))
         self.rect = self.image.get_rect()
         self.rect.x = 100
-        self.rect.y = random.randint(200, 400)
+        self.rect.y = random.randint(50, 400)
         self.mask = pygame.mask.from_surface(self.image)
+        self.angle = 0
 
     def update(self):
         global number, heart
-        self.image = pygame.transform.rotate(self.image, 1)
+        self.image = pygame.transform.rotate(self.image, self.angle)
+        self.angle -= 0.2
         self.rect.x += 10
-        if self.rect.x >= 1000:
+        if self.rect.x >= 500 or self.rect.y >= 800:
             self.kill()
             return
         if pygame.sprite.collide_mask(self, heart):
