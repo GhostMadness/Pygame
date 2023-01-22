@@ -826,10 +826,9 @@ def three(sorce, for_text_beta):
         screen2.blit(mg.image, mg.rect)
         mg.update()
         atak_sprites.update()
-        atak_sprites.draw(screen2)
-        wars[file_wars[s].rstrip()]()
         screen2.blit(apple,  (1500, 600))
         q += 1
+        wars[file_wars[s].rstrip()]()
         hp(number)
         pygame.display.flip()
     else:
