@@ -975,7 +975,7 @@ def boss():
     mg = Megashiza()
     # screen.blit(mg.image, mg.rect)
     
-    music_fight = pygame.mixer.Sound('MUSIC\DOUBLE\IGHT_BOSS.mp3')
+    music_fight = pygame.mixer.Sound('MUSIC\FIRST\FIGHT_BOSS_FINAL.mp3')
     music_fight.set_volume(0.20)
     with open('SETTING_FILES\SETTING.txt') as f:
             text_ms = f.read()
@@ -1122,6 +1122,9 @@ def start_fn(event, monstr):
     
     while running:
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if not Fight:
                     if ataka[0] < event.pos[0] < ataka[0] + ataka[2] and ataka[1] < event.pos[1] < ataka[1] + ataka[3]:
