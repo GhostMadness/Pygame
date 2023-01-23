@@ -1019,6 +1019,7 @@ def boss():
         if hp_Hide <= 0:
             conez = True
             what_ahaha = True
+            music_fight.stop()
             conzovka()
             Death_hide_class.death_hide()
             music_fight.stop()
