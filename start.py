@@ -1163,4 +1163,15 @@ def start_fn(event, monstr):
             Live_hide_class.live_hide()
             music_fight.stop()
     return Death_fLag
+
+
+def give_hp():
+    global number
+    return number
+
+
+def load_number(n):
+    global number
+    number = n
+
 clock.tick(30)

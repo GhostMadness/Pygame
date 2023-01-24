@@ -1,7 +1,7 @@
 import pygame
 import time
 import random
-from start import screen, start_fn, Death_fLag, go_or_no, Live_hide_cl, Death_hide_cl, number, boss, conez
+from start import screen, start_fn, Death_fLag, go_or_no, Live_hide_cl, Death_hide_cl, number, boss, conez, give_hp, load_number
 from location_2 import start_dias
 import sqlite3
 
@@ -171,6 +171,7 @@ def loading_death():
     schet_2 = -30
     schet_3 = 0
     number = 20
+    load_number(number)
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -644,7 +645,7 @@ def conzovka():
         pygame.display.flip()
 
 def start_location_6():
-    global l_d6
+    global l_d6, number
     update(eleven=True)
 
     image_background = pygame.image.load("location_7\esult\map.png")
@@ -712,6 +713,7 @@ def start_location_6():
                 l_d6 = (False, False)
                 loading_death()
                 running = False
+                number = give_hp()
         
         if conez:
             conzovka()
@@ -724,7 +726,7 @@ def start_location_6():
 
 def start_loction_5():
     update(seven=True)
-    global l_d3
+    global l_d3, number
     image_background = pygame.image.load("location_6\esilt\map.png")
     image_1 = pygame.image.load("location_6\esilt\custle.png")
     image_3 = pygame.image.load("location_6\esilt\mogila_1.png")
@@ -794,6 +796,7 @@ def start_loction_5():
             l_d3 = (one.live_print(), two.death_print())
             if a:
                 l_d3 = (False, False)
+                number = give_hp()
                 loading_death()
         screen.blit(sc1, (0, 0))
         screen.blit(gg_5.image, gg_5.rect)
@@ -825,7 +828,7 @@ def start_loction_5():
 
 def start_location_4():
     update(four=True)
-    global location_3, music_location_4, screen
+    global location_3, music_location_4, screen, number
 
     image_background = pygame.image.load("location_5_men\RESULT\location_5_man.png")
     image_1 = pygame.image.load("location_5_men\RESULT\iblioteka.png")
@@ -912,7 +915,7 @@ def start_location_4():
 
 def start_location_3():
     update(three=True)
-    global location_2, location_3, music_location_3, l_d2
+    global location_2, location_3, music_location_3, l_d2, number
     size = 1920, 1080
     screen = pygame.display.set_mode(size)
     image_background = pygame.image.load("location_house\ckground.png")
@@ -997,6 +1000,7 @@ def start_location_3():
             if a:
                 l_d2 = (False, False)
                 ON_3 = False
+                number = give_hp()
                 loading_death()
 
         if pygame.sprite.spritecollideany(gg_3, other_sprite_5):
@@ -1039,7 +1043,7 @@ def start_location_3():
 
 def start_location_2():
     update(two=True)
-    global location_2, location_1, ON_2, Death_fLag, l_d1, music_location_2
+    global location_2, location_1, ON_2, Death_fLag, l_d1, music_location_2, number
     size = 1920, 1080
     screen_local_2 = pygame.display.set_mode(size)
     image_background = pygame.image.load("location_4\esult_sprite\map.png")
@@ -1130,6 +1134,7 @@ def start_location_2():
                 l_d1 = (False, False)
                 ON_2 = False
                 Death_fLag = False
+                number = give_hp()
                 loading_death()
 
         if pygame.sprite.spritecollideany(gg_2, men_group) and key[pygame.K_RETURN]:
@@ -1192,7 +1197,7 @@ class Stop_2_Apple(pygame.sprite.Sprite):
 
 def start_location_1():
     update(one=True)
-    global location_1, gg, Death_fLag, go_or_no, l_d, ON, enter, music_location_1
+    global location_1, gg, Death_fLag, go_or_no, l_d, ON, enter, music_location_1, number
     running = True
     x, y = 0, 0
     infoObject = pygame.display.Info()
@@ -1270,6 +1275,7 @@ def start_location_1():
                 Death_fLag = False
                 loading_death()
                 running = False
+                number = give_hp()
         if pygame.sprite.spritecollideany(gg, other_sprite_2):
             music_location_1.stop()
             start_location_2()
