@@ -151,6 +151,7 @@ class BossAtck(pygame.sprite.Sprite):
             self.kill()
             pygame.mixer.music.play(0)
 
+
 class War(pygame.sprite.Sprite):
     def __init__(self, filename):
         super().__init__(all_wars)
@@ -200,7 +201,7 @@ class WarTwo(pygame.sprite.Sprite):
         if self.rect.centery >= cell.rect.bottom - 5 or self.rect.centerx >= cell.rect.right - 5 or self.rect.centerx <= cell.rect.left + 5 or b == 0:
             screen.fill((0, 0, 0), (self.rect.centerx - 27, self.rect.centery - 27, 54, 54))
             self.kill()
-        if pygame.sprite.collide_mask(self, heart):
+        if pygame.sprite.collide_mask(self, heart) and self.p == 1:
             pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
             pygame.mixer.music.set_volume(0.2)
             number -= 2
@@ -330,8 +331,9 @@ class Knopka(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__(atak_sprites)
         self.image = pygame.image.load('SPRITE\knopka_1.png').convert_alpha()
+        self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(600, 1000)
+        self.rect.x = random.randint(700, 1000)
         self.rect.y = random.randint(400, 600)
         self.mask = pygame.mask.from_surface(self.image)
     
@@ -342,18 +344,25 @@ class Knopka(pygame.sprite.Sprite):
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 def root():
-    global mg, hp_Hide, war_now
+    global mg, hp_Hide, war_now, sc1, apple
     image = pygame.image.load('SPRITE\Brevno.png').convert_alpha()
     image1 = image
+    rect = mg.rect.left - 100
     
     if war_now >= 3:
         war_now = 1
     else:
         war_now += 1
 
-    for i in range(180):
-        screen.blit(image1, mg.rect)
+    for i in range(-90, 90):
+        screen.blit(sc1, (0, 0))
+        screen.blit(apple,  (1500, 600))
+        screen.blit(cell.image, cell.rect)
+        screen.blit(heart.image, heart.rect)
+        screen.blit(mg.image, mg.rect)
+        screen.blit(image1, (rect, 0))
         image1 = pygame.transform.rotate(image, i)
+        rect += 2
         pygame.display.flip()
     hp_Hide -= 5
 
@@ -528,7 +537,6 @@ def war_2():
     w += 11
 
 
-
 def dialog_1():
     global cell
     global for_text
@@ -661,8 +669,7 @@ def one(sorce, react, for_text_beta):
         q += 1
         if b == 1:
             screen.blit(cell.image, cell.rect)
-        if react == 'p' or react == 'c' and q % 60 == 0 or react == 'ch' and q % 100 == 0:
-            print(10)
+        if react == 'p' or react == 'c' and q % 100 == 0 or react == 'ch' and q % 100 == 0:
             all_wars.update()
         all_wars.draw(screen)
         screen.blit(heart.image, heart.rect)
@@ -942,7 +949,7 @@ def three(sorce, for_text_beta):
         all_wars.update()
         all_wars.draw(screen2)
         hp(number)
-        if q % 400 == 0:
+        if q % 400 == 0 and Fight:
             Knopka()
         pygame.display.flip()
         #clock.tick(100)

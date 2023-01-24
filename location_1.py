@@ -4,6 +4,7 @@ import random
 from start import screen, start_fn, Death_fLag, go_or_no, Live_hide_cl, Death_hide_cl, number, boss, conez, give_hp, load_number
 from location_2 import start_dias
 import sqlite3
+print
 
 # UTF-8
 location_3 = False
@@ -609,8 +610,6 @@ def conzovka():
             if event.type == pygame.K_ESCAPE:
                 running = False
                 pygame.quit()
-            elif event.type == pygame.MOUSEMOTION:
-                print(event.pos)
         screen.fill((0, 0, 0))
         screen.blit(text, (text_x, text_y))
         screen.blit(text_a, (text_a_x, text_a_y))
@@ -685,8 +684,6 @@ def start_location_6():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.MOUSEMOTION:
-                print(event.pos)
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
             gg_6.right()
@@ -774,8 +771,6 @@ def start_loction_5():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.MOUSEMOTION:
-                print(event.pos)
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
             gg_5.right()
@@ -977,8 +972,6 @@ def start_location_3():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.MOUSEMOTION:
-                print(event.pos)
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
             gg_3.right()
