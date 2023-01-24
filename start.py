@@ -292,39 +292,26 @@ class Megashiza(pygame.sprite.Sprite):
         self.rect = self.rect.move(self.x, 0)
 
 
-# class BossAtak(pygame.sprite.Sprite):
-#     def __init__(self):
-#         super().__init__(all_wars)
-#         self.image = pygame.image.load('SPRITE\Atk_0.png')
-#         self.rotate = random.randrange(0, 360)
-#         self.image = pygame.transform.rotate(self.image, self.rotate)
-#         self.rect = self.image.get_rect()
-#         self.rect.x = random.randrange(200, 1700)
-#         self.rect.y = random.randrange(300, 1080)
-#         self.mask = pygame.mask.from_surface(self.image)
-#         self.p = 0
-    
-#     def update(self):
-#         if self.p == 0:
-#             self.image = pygame.image.load('SPRITE\Atk_1.png')
-#             self.image = pygame.transform.rotate(self.image, self.rotate)
-#             self.p = 1
-#         elif self.p == 1:
-        #     self.im = pygame.sprite.Sprite()
-        #     self.im.image = pygame.image.load('SPRITE\Yazik.png')
-        #     self.im.image = pygame.transform.scale(self.im.image, (800, 200))
-        #     self.im.image = pygame.transform.rotate(self.im.image, self.rotate + 90)
-        #     self.im.rect = self.im.image.get_rect()
-        #     self.im.rect.y = self.rect.bottom
-        #     self.im.rect.x = self.rect.centerx
-        #     screen.blit(self.im.image, self.im.rect)
-        #     self.p = 2
-        # elif self.p <= 5:
-        #     self.mask = pygame.mask.from_surface(self.im.image)
-        #     screen.blit(self.im.image, self.im.rect)
-        #     self.p += 1
-        # else:
-        #     self.kill()
+class BossAtck(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__(all_wars)
+        self.image = pygame.image.load('SPRITE\Atk_0.png')
+        rotate = random.randrange(0, 360)
+        self.image = pygame.transform.rotate(self.image, rotate)
+        self.rect = self.image.get_rect()
+        print(rotate)
+        if rotate < 90:
+            self.rect.y = cell.rect.top - (self.rect.bottom - self.rect.y)
+            self.rect.x = random.randrange(cell.rect.x, cell.rect.right - (self.rect.right - self.rect.x))
+        elif rotate < 180:
+            self.rect.y = random.randrange(cell.rect.y, cell.rect.bottom - (self.rect.bottom - self.rect.y))
+            self.rect.x = cell.rect.right + (self.rect.right - self.rect.x)
+        elif rotate < 270:
+            self.rect.y = cell.rect.bottom + (self.rect.bottom - self.rect.y)
+            self.rect.x = random.randrange(cell.rect.x, cell.rect.right - (self.rect.right - self.rect.x))
+        else:
+            self.rect.y = random.randrange(cell.rect.y, cell.rect.bottom - (self.rect.bottom - self.rect.y))
+            self.rect.x = cell.rect.left - (self.rect.right - self.rect.x)
 
 
 class Knopka(pygame.sprite.Sprite):
