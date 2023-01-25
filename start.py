@@ -327,9 +327,9 @@ class BossAtack(pygame.sprite.Sprite):
             self.image = pygame.image.load('SPRITE\Atk_1.png')
             self.image = pygame.transform.rotate(self.image, self.rotate)
             self.p += 1
-        elif self.p <= 5:
+        elif self.p <= 50:
             self.image = pygame.image.load('final_boss\Atk_all.png')
-            self.image = pygame.transform.scale(self.image, (350, 350))
+            self.image = pygame.transform.scale(self.image, (100, 350))
             self.image = pygame.transform.rotate(self.image, self.rotate)
             self.mask = pygame.mask.from_surface(self.image)
             self.p += 1
@@ -338,7 +338,7 @@ class BossAtack(pygame.sprite.Sprite):
         if pygame.sprite.collide_mask(self, heart):
             pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
             pygame.mixer.music.set_volume(0.2)
-            number -= 3
+            number -= 0.1
             hp(number)
             pygame.mixer.music.play(0)
 
@@ -934,14 +934,13 @@ def three(sorce, for_text_beta):
         #     all_wars.update()
         #     all_wars.draw(screen2)
         if q % 10 == 0 and Fight:
-            if war_now == 1:
-                BossAtack()
-            elif war_now == 2:
+            if war_now == 2:
                 BossAtck()
                 war_now = 1
             w += 1
-        if q % 800 == 0 and Fight:
+        if q % 100 == 0 and Fight:
             if war_now == 1:
+                BossAtack()
                 atak_sprites.update()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
