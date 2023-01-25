@@ -349,8 +349,8 @@ class Knopka(pygame.sprite.Sprite):
         self.image = pygame.image.load('SPRITE\knopka_1.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (30, 30))
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(700, 1000)
-        self.rect.y = random.randint(400, 600)
+        self.rect.x = random.randint(cell.rect.x, cell.rect.right - (self.rect.right - self.rect.x))
+        self.rect.y = random.randint(cell.rect.y, cell.rect.bottom - (self.rect.bottom - self.rect.y))
         self.mask = pygame.mask.from_surface(self.image)
     
     def update(self):
@@ -1017,7 +1017,7 @@ def boss():
     
     Death_hide_class = Death_hide_cl()
     
-    hp_Hide = 50
+    hp_Hide = 10
     
     running = True
     
