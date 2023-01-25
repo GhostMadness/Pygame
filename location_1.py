@@ -2,9 +2,7 @@ import pygame
 import time
 import random
 from start import screen, start_fn, Death_fLag, go_or_no, Live_hide_cl, Death_hide_cl, number, boss, conez, give_hp, load_number
-from location_2 import start_dias
 import sqlite3
-print
 
 # UTF-8
 location_3 = False
@@ -17,6 +15,7 @@ l_d1 = (False, False)
 l_d2 = (False, False)
 l_d3 = (False, False)
 l_d6 = (False, False)
+hide = True
 
 pygame.init()
 
@@ -823,7 +822,9 @@ def start_loction_5():
 
 def start_location_4():
     update(four=True)
-    global location_3, music_location_4, screen, number
+    global location_3, music_location_4, screen, number, hide
+
+    hide = False
 
     image_background = pygame.image.load("location_5_men\RESULT\location_5_man.png")
     image_1 = pygame.image.load("location_5_men\RESULT\iblioteka.png")
@@ -851,6 +852,11 @@ def start_location_4():
     left_sprites.add(Stop_2("location_5_men\RESULT\oxes_collide.png", (0, 913)))
     top_sprites.add(Stop_2("location_5_men\RESULT\object_collide.png", (895, 0)))
 
+    top_sprites.add(Stop_2("location_5_men\sprite_collide\stenka_top.png", (39, -100)))
+    bottom_sprite.add(Stop_2("location_5_men\sprite_collide\stenka_bottom.png", (212, 1100)))
+    bottom_sprite.add(Stop_2("location_5_men\sprite_collide\stenka_bottom_1.png", (991, 1100)))
+    left_sprites.add(Stop_2("location_5_men\sprite_collide\stenka_left.png", (-70, 0)))
+
     clock = pygame.time.Clock()
 
     gg_4 = Heroy(bottom=bottom_sprite, right=right_sprite, left=left_sprites, top=top_sprites, x=1050, y=1000)
@@ -869,11 +875,18 @@ def start_location_4():
     rect_but_menu.x = 10
     rect_but_menu.y = 10
 
+    #(0, 0)
+    #(39, 0)
+    #(212, 1073)
+    #(991, 1068)
+
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.MOUSEMOTION:
+                print(event.pos)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
                         event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
@@ -927,9 +940,11 @@ def start_location_3():
     right_sprite = pygame.sprite.Group()
 
     top_sprite.add(Stop_2("location_house\sprite_collide\ottom_grass.png", (0, 265)))
+    top_sprite.add(Stop_2("location_house\sprite_collide\ckround_top.png", (896, -70)))
     left_sprite.add(Stop_2("location_house\sprite_collide\ght_grass.png", (830, 0)))
     left_sprite.add(Stop_2("location_house\sprite_collide\ckground_left.png", (0 - 70, 756)))
     bottom_sprite.add(Stop_2("location_house\sprite_collide\ckground_bottom.png", (0, 1088)))
+    bottom_sprite.add(Stop_2("location_house\sprite_collide\ckground_bottom_1.png", (1226, 1100)))
     right_sprite.add(Stop_2("location_house\sprite_collide\ckground_right.png", (1915, 0)))
 
     other_sprite = pygame.sprite.Group()
@@ -957,11 +972,8 @@ def start_location_3():
     other_sprite_exit = pygame.sprite.Group()
     other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 380)))
 
-
-    #line = pygame.draw.line(screen, (0, 0, 0), (0, 756), (0, 1079))
-    #line_2 = pygame.draw.line(screen, (0, 0, 0), (0, 1079), (544, 1079))
-    #line_3 = pygame.draw.line(screen, (0, 0, 0), (1915, 0), (1915, 1077))
-    #line_4 = pygame.draw.line(screen, (0, 0, 0), (896, 0), (1915, 0))
+    #(896, 0)
+    #(1226, 1076)
 
     img_apple_group_2 = pygame.sprite.Group()
     img_apple_group_2.add(Stop_2_Apple("SPRITE\APPLE_HILL.png", (521, 1045 - 150)))
@@ -1036,7 +1048,7 @@ def start_location_3():
 
 def start_location_2():
     update(two=True)
-    global location_2, location_1, ON_2, Death_fLag, l_d1, music_location_2, number
+    global location_2, location_1, ON_2, Death_fLag, l_d1, music_location_2, number, hide
     size = 1920, 1080
     screen_local_2 = pygame.display.set_mode(size)
     image_background = pygame.image.load("location_4\esult_sprite\map.png")
@@ -1072,9 +1084,9 @@ def start_location_2():
     other_sprite = pygame.sprite.Group()
     other_sprite.add(Stop_2("SPRITE\ENEMY.png", (1920 // 2 + 5 - 80, 1080 // 2 + 80), 100, 100))
 
-    menshik = NPC_BUILDING("SPRITE\pNPC\Men.png", 100, 100, "Мужик", (250, 0, 0))
+    menshik = NPC_BUILDING("SPRITE\pNPC\Men.png", 1800, 417, "Мужик", (250, 0, 0))
     men_group = pygame.sprite.Group()
-    men_group.add(Stop_2("SPRITE\pNPC\Men.png", (1800, 417), (100, 100)))
+    men_group.add(menshik)
 
     img_hide = pygame.image.load("SPRITE\ENEMY.png")
     img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
@@ -1111,10 +1123,9 @@ def start_location_2():
         if key[pygame.K_ESCAPE]:
             running = False
         screen_local_2.blit(sc1, (0, 0))
-        npc_1_group.draw(screen)
         npc_2_group.draw(screen)
         npc_3_group.draw(screen)
-        men_group.draw(screen)
+        npc_1_group.draw(screen)
         screen_local_2.blit(gg_2.image, gg_2.rect)
 
         if pygame.sprite.spritecollideany(gg_2, other_sprite) and sdegfoin1:
@@ -1130,9 +1141,12 @@ def start_location_2():
                 number = give_hp()
                 loading_death()
 
-        if pygame.sprite.spritecollideany(gg_2, men_group) and key[pygame.K_RETURN]:
+        if pygame.sprite.spritecollideany(gg_2, men_group) and key[pygame.K_RETURN] and hide:
             menshik.dialog("Тсс.. ТихоN Я скажу тебе обо всёмN у меня дома")
             menshik.click_update()
+        
+        if hide:
+            men_group.draw(screen)
 
         if pygame.sprite.spritecollideany(gg_2, other_sprite_2):
             music_location_2.stop()
