@@ -667,6 +667,7 @@ def one(sorce, react, for_text_beta):
             for_text += 1
         elif w > 300:
             w = 1
+            s = sorce
             for_text = for_text_beta
         if react == 'p' and q % 30 == 0 or react == 'c' and q % 30 == 0 or react == 'ch' and q % 200 == 0 or b == 0:
             wars[file_wars[s].rstrip()]()
