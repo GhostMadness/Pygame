@@ -946,7 +946,7 @@ def three(sorce, for_text_beta):
 
 
 def boss():
-    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl, music_fight, sc_2, clock, conez, what_ahaha
+    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl, music_fight, sc_2, clock, conez, what_ahaha, running
     #screen.fill((0, 0, 0))
     
     sc1 = pygame.image.load('SPRITE\Boss_fon.png').convert_alpha()
@@ -1019,6 +1019,7 @@ def boss():
             music_fight.stop()
             running = False
         clock.tick(100)
+    return Death_fLag
     
     
 def start_fn(event, monstr):
