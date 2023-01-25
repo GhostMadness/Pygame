@@ -5,6 +5,7 @@ from start import screen, start_fn, Death_fLag, go_or_no, Live_hide_cl, Death_hi
 import sqlite3
 
 # UTF-8
+location_3_1 = False
 location_3 = False
 location_2 = False
 location_1 = False
@@ -15,6 +16,7 @@ l_d1 = (False, False)
 l_d2 = (False, False)
 l_d3 = (False, False)
 l_d6 = (False, False)
+
 hide = True
 
 pygame.init()
@@ -649,8 +651,8 @@ def start_location_6():
     image_background = pygame.image.load("location_7\esult\map.png")
     image_1 = pygame.image.load("location_7\esult\pol.png")
 
-    omegashiza = pygame.image.load("SPRITE\Megashiza.png")
-    omegashiza = pygame.transform.scale(omegashiza, (500, 500))
+    omegashiza = pygame.image.load("SPRITE\Shiza_01.png")
+    omegashiza = pygame.transform.scale(omegashiza, (100, 100))
 
     sc1 = pygame.Surface((1920, 1080))
     sc1.blit(image_1, (0, 0))
@@ -722,7 +724,7 @@ def start_location_6():
 
 def start_loction_5():
     update(seven=True)
-    global l_d3, number
+    global l_d3, number, location_3_1
     image_background = pygame.image.load("location_6\esilt\map.png")
     image_1 = pygame.image.load("location_6\esilt\custle.png")
     image_3 = pygame.image.load("location_6\esilt\mogila_1.png")
@@ -741,6 +743,10 @@ def start_loction_5():
     bottom_sprite = pygame.sprite.Group()
     bottom_sprite.add(Stop_2("location_6\esilt\custle.png", (0, 1050)))
 
+    top_sprites = pygame.sprite.Group()
+    top_sprites.add(Stop_2("location_6\sp\stn_top.png", (30, -50)))
+    top_sprites.add(Stop_2("location_6\sp\stn_top_1.png", (1000, -50)))
+
     right_sprite = pygame.sprite.Group()
     right_sprite.add(Stop_2("location_6\esilt\mogila_1.png", (1780 + 100, 0)))
 
@@ -753,10 +759,10 @@ def start_loction_5():
     img_hide = pygame.image.load("SPRITE\Osminog\Osminog_1.png")
     img_hide_scale = pygame.transform.scale(img_hide, (100, 100))
 
-    gg_5 = Heroy(right=right_sprite, left=left_sprite, bottom=bottom_sprite, x=50, y=975)
+    gg_5 = Heroy(right=right_sprite, left=left_sprite, top=top_sprites, bottom=bottom_sprite, x=50, y=975)
 
     other_sprite_finish = pygame.sprite.Group()
-    other_sprite_finish.add(Stop_2("SPRITE\VIXOD_LOC.png", (1920 // 2 + 100, 0)))
+    other_sprite_finish.add(Stop_2("SPRITE\VIXOD_LOC.png", (864, -400)))
 
     other_sprite_finish_2 = pygame.sprite.Group()
     other_sprite_finish_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (856, 962)))
@@ -770,6 +776,8 @@ def start_loction_5():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.MOUSEMOTION:
+                print(event.pos)
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
             gg_5.right()
@@ -798,6 +806,11 @@ def start_loction_5():
         if pygame.sprite.spritecollideany(gg_5, other_sprite_finish_2):
             music_locatioN_5.stop()
             start_location_6()
+            running = False
+        if pygame.sprite.spritecollideany(gg_5, other_sprite_finish):
+            music_locatioN_5.stop()
+            location_3_1 = True
+            start_location_3()
             running = False
         if l_d3[0] == True or l_d3[1] == True:
             sdegfoin1 = False
@@ -923,7 +936,7 @@ def start_location_4():
 
 def start_location_3():
     update(three=True)
-    global location_2, location_3, music_location_3, l_d2, number
+    global location_2, location_3, music_location_3, l_d2, number, location_3_1
     size = 1920, 1080
     screen = pygame.display.set_mode(size)
     image_background = pygame.image.load("location_house\ckground.png")
@@ -962,6 +975,10 @@ def start_location_3():
         gg_3.rect.x = 1230
         gg_3.rect.y = 500
         location_3 = False
+    if location_3_1:
+        gg_3.rect.x = 644
+        gg_3.rect.y = 936
+        location_3_1 = False
 
     other_sprite_2 = pygame.sprite.Group()
     other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1134, 86)))
@@ -984,6 +1001,8 @@ def start_location_3():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.MOUSEMOTION:
+                print(event.pos)
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
             gg_3.right()
