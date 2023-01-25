@@ -31,9 +31,9 @@ war_0
 dialog_1
 
 dialog_1
-war_3
+BossAtck
 dialog_1
-war_3
+BossAtck
 dialog_1
-war_3
+BossAtck
 dialog_1

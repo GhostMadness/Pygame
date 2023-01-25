@@ -150,10 +150,10 @@ class BossAtck(pygame.sprite.Sprite):
         if self.rect.x >= 350 or self.rect.y >= 400:
             self.kill()
             return
-        if pygame.sprite.collide_mask(self, heart):
+        if pygame.sprite.collide_mask(self, cell):
             pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
             pygame.mixer.music.set_volume(0.2)
-            number -= 5
+            number -= 0.5
             hp(number)
             self.kill()
             pygame.mixer.music.play(0)
@@ -315,11 +315,11 @@ class BossAtack(pygame.sprite.Sprite):
             self.rect.y = random.randrange(cell.rect.y, cell.rect.bottom - (self.rect.bottom - self.rect.y))
             self.rect.x = cell.rect.left - (self.rect.right - self.rect.x)
         elif self.rotate < 270:
-            self.rect.y = cell.rect.bottom + (self.rect.bottom - self.rect.y)
+            self.rect.y = cell.rect.bottom + (self.rect.bottom - self.rect.y - 300)
             self.rect.x = random.randrange(cell.rect.x, cell.rect.right - (self.rect.right - self.rect.x))
         else:
             self.rect.y = random.randrange(cell.rect.y, cell.rect.bottom - (self.rect.bottom - self.rect.y))
-            self.rect.x = cell.rect.right + (self.rect.right - self.rect.x)
+            self.rect.x = cell.rect.right + (self.rect.right - self.rect.x - 300)
     
     def update(self):
         global number
@@ -345,9 +345,9 @@ class BossAtack(pygame.sprite.Sprite):
 
 class Knopka(pygame.sprite.Sprite):
     def __init__(self):
-        super().__init__(atak_sprites)
+        super().__init__(all_wars)
         self.image = pygame.image.load('SPRITE\knopka_1.png').convert_alpha()
-        self.image = pygame.transform.scale(self.image, (100, 100))
+        self.image = pygame.transform.scale(self.image, (30, 30))
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(700, 1000)
         self.rect.y = random.randint(400, 600)
@@ -538,7 +538,8 @@ class Cell(pygame.sprite.Sprite):
         self.image = pygame.image.load(filename)
         self.rect = self.image.get_rect()
         self.rect.top = top
-        self.rect.left = left     
+        self.rect.left = left
+        self.mask = pygame.mask.from_surface(self.image)
 
 
 def war_1():
@@ -579,7 +580,7 @@ def war_0():
     all_wars.draw(screen)
 
 
-wars = {'dialog_1': dialog_1, 'war_1': war_1, 'war_2': war_2, 'war_4': war_4, 'war_0': war_0}
+wars = {'dialog_1': dialog_1, 'war_1': war_1, 'war_2': war_2, 'war_4': war_4, 'war_0': war_0, 'BossAtck': BossAtck}
 file_wars = open('wars.txt').readlines()
 file_dialog = open('dialog.txt', encoding='utf8').readlines()
 w = 0
@@ -934,13 +935,14 @@ def three(sorce, for_text_beta):
         #     all_wars.update()
         #     all_wars.draw(screen2)
         if q % 10 == 0 and Fight:
+            if war_now == 1:
+                BossAtack()
             if war_now == 2:
                 BossAtck()
                 war_now = 1
             w += 1
-        if q % 100 == 0 and Fight:
+        if q % 300 == 0 and Fight:
             if war_now == 1:
-                BossAtack()
                 atak_sprites.update()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
@@ -953,15 +955,17 @@ def three(sorce, for_text_beta):
             heart.bottom()
         mg.update()
         q += 1
-        #wars[file_wars[s].rstrip()]()
         screen2.blit(cell.image, cell.rect)
-        atak_sprites.draw(screen2)
-        atak_sprites.update()
+        atak_sprites.draw(screen)
         screen2.blit(heart.image, heart.rect)
         screen.blit(apple,  (1500, 600))
         screen2.blit(mg.image, mg.rect)
         all_wars.update()
         all_wars.draw(screen2)
+        if not Fight:
+            wars[file_wars[s].rstrip()]()
+            if q % 50 == 0:
+                wars[file_wars[s + 1].rstrip()]()
         hp(number)
         if q % 400 == 0 and Fight:
             Knopka()
