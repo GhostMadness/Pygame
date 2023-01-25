@@ -768,8 +768,6 @@ def start_loction_5():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.MOUSEMOTION:
-                print(event.pos)
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
             gg_5.right()
@@ -792,6 +790,7 @@ def start_loction_5():
                 l_d3 = (False, False)
                 number = give_hp()
                 loading_death()
+                running = False
         screen.blit(sc1, (0, 0))
         screen.blit(gg_5.image, gg_5.rect)
 
@@ -885,8 +884,6 @@ def start_location_4():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.MOUSEMOTION:
-                print(event.pos)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if rect_but_menu[0] < event.pos[0] < rect_but_menu[0] + rect_but_menu[2] and rect_but_menu[1] < \
                         event.pos[1] < rect_but_menu[1] + rect_but_menu[3]:
@@ -985,8 +982,6 @@ def start_location_3():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.MOUSEMOTION:
-                print(event.pos)
         key = pygame.key.get_pressed()
         if key[pygame.K_d]:
             gg_3.right()
@@ -1010,6 +1005,7 @@ def start_location_3():
                 ON_3 = False
                 number = give_hp()
                 loading_death()
+                running = False
 
         if pygame.sprite.spritecollideany(gg_3, other_sprite_5):
             music_location_3.stop()
@@ -1143,6 +1139,7 @@ def start_location_2():
                 Death_fLag = False
                 number = give_hp()
                 loading_death()
+                running = False
 
         if pygame.sprite.spritecollideany(gg_2, men_group) and key[pygame.K_RETURN] and hide:
             menshik.dialog("Тсс.. ТихоN Я скажу тебе обо всёмN у меня дома")

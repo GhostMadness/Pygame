@@ -15,7 +15,7 @@ conez = False
 what_ahaha = False
 
 def conzovka():
-    global rect_img_kit
+    global rect_img_kit, running
     pygame.init()
     pygame.display.set_caption("Phantom")
     size = width, height = 1920, 1080
@@ -86,7 +86,6 @@ def conzovka():
                 if 1699 < event.pos[0] and 1871 > event.pos[0]:
                     if 29 < event.pos[1] and 104 > event.pos[1]:
                         running = False
-                        pygame.quit()
         screen.fill((0, 0, 0))
         screen.blit(text, (text_x, text_y))
         screen.blit(text_a, (text_a_x, text_a_y))
@@ -966,8 +965,7 @@ def three(sorce, for_text_beta):
 
 
 def boss():
-    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl, music_fight, sc_2, clock, conez, what_ahaha, running
-    #screen.fill((0, 0, 0))
+    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl, music_fight, sc_2, clock, conez, what_ahaha, running, Death_fLag
 
     pygame.init()
     
@@ -976,7 +974,6 @@ def boss():
     screen.blit(sc1, (0, 0))
     
     apple = pygame.image.load('SPRITE\APPLE_HILL.png').convert_alpha()
-    #screen.blit(apple,  (1500, 600))
     
     s = 0
     b = 0
@@ -989,7 +986,6 @@ def boss():
     atak_sprites = pygame.sprite.Group()
     
     mg = Megashiza()
-    # screen.blit(mg.image, mg.rect)
     
     music_fight = pygame.mixer.Sound('MUSIC\FIRST\FIGHT_BOSS_FINAL.mp3')
     music_fight.set_volume(0.20)
@@ -1018,10 +1014,9 @@ def boss():
                 running = False
                 pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if not Fight:
-                    if 1500 < event.pos[0] < 1611 and 600 < event.pos[1] < 741:
-                        bag()
-                        w += 1
+                if 1500 < event.pos[0] < 1611 and 600 < event.pos[1] < 741:
+                    bag()
+                    w += 1
         three(32, 20)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
@@ -1038,9 +1033,9 @@ def boss():
             what_ahaha = True
             music_fight.stop()
             conzovka()
-            Death_hide_class.death_hide()
             music_fight.stop()
             running = False
+            Death_fLag = False
         clock.tick(100)
     return Death_fLag
 
@@ -1180,6 +1175,7 @@ def start_fn(event, monstr):
         if hp_Hide > 32:
             Live_hide_class.live_hide()
             music_fight.stop()
+        clock.tick(100)
     return Death_fLag
 
 
