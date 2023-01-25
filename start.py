@@ -299,26 +299,48 @@ class Megashiza(pygame.sprite.Sprite):
         self.rect = self.rect.move(self.x, 0)
 
 
-class BossAtck(pygame.sprite.Sprite):
+class BossAtack(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__(all_wars)
         self.image = pygame.image.load('SPRITE\Atk_0.png')
-        rotate = random.randrange(0, 360)
-        self.image = pygame.transform.rotate(self.image, rotate)
+        self.rotate = random.randrange(0, 360)
+        self.image = pygame.transform.rotate(self.image, self.rotate)
         self.rect = self.image.get_rect()
-        print(rotate)
-        if rotate < 90:
+        self.p = 0
+        self.mask = pygame.mask.from_surface(self.image)
+        if self.rotate < 90:
             self.rect.y = cell.rect.top - (self.rect.bottom - self.rect.y)
             self.rect.x = random.randrange(cell.rect.x, cell.rect.right - (self.rect.right - self.rect.x))
-        elif rotate < 180:
+        elif self.rotate < 180:
             self.rect.y = random.randrange(cell.rect.y, cell.rect.bottom - (self.rect.bottom - self.rect.y))
-            self.rect.x = cell.rect.right + (self.rect.right - self.rect.x)
-        elif rotate < 270:
+            self.rect.x = cell.rect.left - (self.rect.right - self.rect.x)
+        elif self.rotate < 270:
             self.rect.y = cell.rect.bottom + (self.rect.bottom - self.rect.y)
             self.rect.x = random.randrange(cell.rect.x, cell.rect.right - (self.rect.right - self.rect.x))
         else:
             self.rect.y = random.randrange(cell.rect.y, cell.rect.bottom - (self.rect.bottom - self.rect.y))
-            self.rect.x = cell.rect.left - (self.rect.right - self.rect.x)
+            self.rect.x = cell.rect.right + (self.rect.right - self.rect.x)
+    
+    def update(self):
+        global number
+        if self.p == 0:
+            self.image = pygame.image.load('SPRITE\Atk_1.png')
+            self.image = pygame.transform.rotate(self.image, self.rotate)
+            self.p += 1
+        elif self.p <= 5:
+            self.image = pygame.image.load('final_boss\Atk_all.png')
+            self.image = pygame.transform.scale(self.image, (350, 350))
+            self.image = pygame.transform.rotate(self.image, self.rotate)
+            self.mask = pygame.mask.from_surface(self.image)
+            self.p += 1
+        else:
+            self.kill()
+        if pygame.sprite.collide_mask(self, heart):
+            pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
+            pygame.mixer.music.set_volume(0.2)
+            number -= 3
+            hp(number)
+            pygame.mixer.music.play(0)
 
 
 class Knopka(pygame.sprite.Sprite):
@@ -544,10 +566,6 @@ def dialog_1():
         screen.blit(text, (text_x, text_y))
 
 
-def war_3():
-    pass
-
-
 def war_4():
     global w
     WarTwo('SPRITE\BOMB_ATACK.png')
@@ -561,7 +579,7 @@ def war_0():
     all_wars.draw(screen)
 
 
-wars = {'dialog_1': dialog_1, 'war_1': war_1, 'war_2': war_2, 'war_3': war_3, 'war_4': war_4, 'war_0': war_0}
+wars = {'dialog_1': dialog_1, 'war_1': war_1, 'war_2': war_2, 'war_4': war_4, 'war_0': war_0}
 file_wars = open('wars.txt').readlines()
 file_dialog = open('dialog.txt', encoding='utf8').readlines()
 w = 0
@@ -917,11 +935,14 @@ def three(sorce, for_text_beta):
         #     all_wars.draw(screen2)
         if q % 10 == 0 and Fight:
             if war_now == 1:
-                war_1()
+                BossAtack()
             elif war_now == 2:
                 BossAtck()
                 war_now = 1
             w += 1
+        if q % 800 == 0 and Fight:
+            if war_now == 1:
+                atak_sprites.update()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
             heart.right()
@@ -953,7 +974,7 @@ def three(sorce, for_text_beta):
 
 
 def boss():
-    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl, music_fight, sc_2, clock, conez, what_ahaha
+    global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl, music_fight, sc_2, clock, conez, what_ahaha, running
     #screen.fill((0, 0, 0))
     
     sc1 = pygame.image.load('SPRITE\Boss_fon.png').convert_alpha()
@@ -1016,6 +1037,7 @@ def boss():
                                 set Count = 0""").fetchall()
             con.commit()
             con.close()
+            running = False
             pygame.quit()
         if hp_Hide <= 0:
             conez = True
@@ -1026,7 +1048,8 @@ def boss():
             music_fight.stop()
             running = False
         clock.tick(100)
-    
+    return Death_fLag
+
     
 def start_fn(event, monstr):
     global texth, text_xh, text_yh, image1, flag, Fight, s, b, music_fight, hp_Hide, font, myfont, number, all_wars, q, running, heart, w, Death_fLag, cell
