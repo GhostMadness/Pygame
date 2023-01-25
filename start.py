@@ -19,15 +19,17 @@ def conzovka():
     pygame.display.set_caption("Phantom")
     size = width, height = 1920, 1080
     screen = pygame.display.set_mode(size)
+    
+    image_kitten = pygame.sprite.Sprite()
 
     image_player = pygame.image.load("SPRITE\гг.png")
     image_shiza = pygame.image.load("SPRITE\Megashiza.png")
-    image_kitten = pygame.image.load("SPRITE\KITTEN.png")
+    image_kitten.image = pygame.image.load("SPRITE\KITTEN.png")
     image_player = pygame.transform.scale(image_player, (250, 250))
     image_shiza = pygame.transform.scale(image_shiza, (250, 250))
-    image_kitten = pygame.transform.scale(image_kitten, (150, 100))
+    image_kitten.image = pygame.transform.scale(image_kitten, (150, 100))
 
-    rect = image_kitten.get_rect()
+    image_kitten.rect = image_kitten.get_rect()
 
     music_finall_yra = pygame.mixer.Sound("MUSIC\FIRST\FINALL_TITRI.mp3")
     music_finall_yra.set_volume(0.2)
@@ -82,8 +84,9 @@ def conzovka():
             elif event.type == pygame.MOUSEMOTION:
                 print(event.pos)
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if rect[0] < event.pos[0] < rect[0] + rect[2] and rect[1] < \
-                        event.pos[1] < rect[1] + rect[3]:
+                image_kitten.rect = image_kitten.image.get_rect()
+                if image_kitten.rect.x < event.pos[0] < image_kitten.rect.right and image_kitten.rect.y < \
+                        event.pos[1] < image_kitten.rect.bottom:
                     running = False
                     pygame.quit()
         screen.fill((0, 0, 0))
