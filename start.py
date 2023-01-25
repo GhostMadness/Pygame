@@ -292,26 +292,49 @@ class Megashiza(pygame.sprite.Sprite):
         self.rect = self.rect.move(self.x, 0)
 
 
-class BossAtck(pygame.sprite.Sprite):
+class BossAtack(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__(all_wars)
         self.image = pygame.image.load('SPRITE\Atk_0.png')
-        rotate = random.randrange(0, 360)
-        self.image = pygame.transform.rotate(self.image, rotate)
+        self.rotate = random.randrange(0, 360)
+        self.image = pygame.transform.rotate(self.image, self.rotate)
         self.rect = self.image.get_rect()
-        print(rotate)
-        if rotate < 90:
+        self.mask = pygame.mask.from_surface()
+        self.p = 0
+        if self.rotate < 90:
             self.rect.y = cell.rect.top - (self.rect.bottom - self.rect.y)
             self.rect.x = random.randrange(cell.rect.x, cell.rect.right - (self.rect.right - self.rect.x))
-        elif rotate < 180:
+        elif self.rotate < 180:
             self.rect.y = random.randrange(cell.rect.y, cell.rect.bottom - (self.rect.bottom - self.rect.y))
-            self.rect.x = cell.rect.right + (self.rect.right - self.rect.x)
-        elif rotate < 270:
+            self.rect.x = cell.rect.left - (self.rect.right - self.rect.x)
+        elif self.rotate < 270:
             self.rect.y = cell.rect.bottom + (self.rect.bottom - self.rect.y)
             self.rect.x = random.randrange(cell.rect.x, cell.rect.right - (self.rect.right - self.rect.x))
         else:
             self.rect.y = random.randrange(cell.rect.y, cell.rect.bottom - (self.rect.bottom - self.rect.y))
-            self.rect.x = cell.rect.left - (self.rect.right - self.rect.x)
+            self.rect.x = cell.rect.right + (self.rect.right - self.rect.x)
+    
+    def update(self):
+        global number
+        if self.p == 0:
+            self.image = pygame.image.load('SPRITE\Atk_1.png')
+            self.image = pygame.transform.rotate(self.image, self.rotate)
+            self.rect = self.image.get_rect()
+        elif self.p <= 5:
+            self.image = pygame.image.load('final_boss\Atk_all.png')
+            self.image = pygame.transform.rotate(self.image, self.rotate)
+            self.rect = self.image.get_rect()
+            self.mask = pygame.mask.from_surface()
+        else:
+            self.kill()
+        if pygame.sprite.collide_mask(self, heart) and self.p >= 1:
+            pygame.mixer.music.load('MUSIC\FIRST\ARGH_2.mp3')
+            pygame.mixer.music.set_volume(0.2)
+            number -= 3
+            hp(number)
+            screen.fill((0, 0, 0), (self.rect.x, self.rect.y, self.rect.right - self.rect.x, self.rect.bottom - self.rect.y))
+            self.kill()
+            pygame.mixer.music.play(0)
 
 
 class Knopka(pygame.sprite.Sprite):
@@ -910,7 +933,7 @@ def three(sorce, for_text_beta):
         #     all_wars.draw(screen2)
         if q % 10 == 0 and Fight:
             if war_now == 1:
-                war_1()
+                BossAtack()
             elif war_now == 2:
                 BossAtck()
                 war_now = 1
