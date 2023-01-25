@@ -967,7 +967,7 @@ def start_location_3():
     other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1134, 86)))
 
     other_sprite_5 = pygame.sprite.Group()
-    other_sprite_5.add(Stop_2("SPRITE\VIXOD_LOC.png", (811, 1077)))
+    other_sprite_5.add(Stop_2("SPRITE\VIXOD_LOC.png", (800, 1077)))
 
     other_sprite_exit = pygame.sprite.Group()
     other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 380)))
