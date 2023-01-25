@@ -668,7 +668,7 @@ def start_location_6():
     left_sprite.add(Stop_2("location_7\esult\pol_left.png", (-100, 0)))
 
     top_sprites = pygame.sprite.Group()
-    top_sprites.add(Stop_2("location_7\esult\pol_top.png", (100, -100)))
+    top_sprites.add(Stop_2("location_7\esult\pol_top.png", (100, -80)))
 
     omegashiza_gr = pygame.sprite.Group()
     omegashiza_gr.add(Stop_2("SPRITE\Megashiza.png", (1920 // 2, 1080 // 2)))
@@ -967,7 +967,7 @@ def start_location_3():
     other_sprite_2.add(Stop_2("SPRITE\VIXOD_LOC.png", (1134, 86)))
 
     other_sprite_5 = pygame.sprite.Group()
-    other_sprite_5.add(Stop_2("SPRITE\VIXOD_LOC.png", (811, 1077)))
+    other_sprite_5.add(Stop_2("SPRITE\VIXOD_LOC.png", (800, 1077)))
 
     other_sprite_exit = pygame.sprite.Group()
     other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 380)))
