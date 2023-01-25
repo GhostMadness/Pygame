@@ -462,8 +462,6 @@ class NPC_BUILDING_SHIZA(pygame.sprite.Sprite):
                 self.schet += 1
                 time.sleep(0.1)
 
-        # ПИСАТЬ КАЖДОЕ НОВОЕ СЛОВОСОЧЕТАНИЕ ЧЕРЕЗ N КОГДА ПЕРЕДАЁШЬ В ФУНКЦИЮ ТЕКСТ ПЕРСОНАЖА!!! ПРИМЕР СНИЗУ!!!
-
 
 class Heroy(pygame.sprite.Sprite):
     def __init__(self, right=None, left=None, bottom=None, top=None, x=600, y=400):
@@ -675,9 +673,6 @@ def start_location_6():
     omegashiza_gr = pygame.sprite.Group()
     omegashiza_gr.add(Stop_2("SPRITE\Megashiza.png", (1920 // 2, 1080 // 2)))
 
-    # other_sp = pygame.sprite.Group()
-    # other_sp.add(Stop_2("SPRITE\VIXOD_LOC.png", (1920 // 2, 1080 // 2)))
-
     gg_6 = Heroy(right=right_sprite, left=left_sprite, bottom=bottom_sprite, top=top_sprites, x=50, y=975)
 
     running = True
@@ -696,14 +691,11 @@ def start_location_6():
             gg_6.botton()
         if key[pygame.K_ESCAPE]:
             running = False
-        
-        # if pygame.sprite.spritecollideany(gg_6, other_sp):
-        #     music_location_6.stop()
-        #     conzovka()
 
         if pygame.sprite.spritecollideany(gg_6, omegashiza_gr):
             music_location_6.stop()
             a = boss()
+            running = False
             one = Live_hide_cl()
             two = Death_hide_cl()
             l_d6 = (one.live_print(), two.death_print())
@@ -888,11 +880,6 @@ def start_location_4():
     rect_but_menu.x = 10
     rect_but_menu.y = 10
 
-    #(0, 0)
-    #(39, 0)
-    #(212, 1073)
-    #(991, 1068)
-
     running = True
     while running:
         for event in pygame.event.get():
@@ -988,9 +975,6 @@ def start_location_3():
 
     other_sprite_exit = pygame.sprite.Group()
     other_sprite_exit.add(Stop_2("SPRITE\VIXOD_LOC.png", (-350, 380)))
-
-    #(896, 0)
-    #(1226, 1076)
 
     img_apple_group_2 = pygame.sprite.Group()
     img_apple_group_2.add(Stop_2_Apple("SPRITE\APPLE_HILL.png", (521, 1045 - 150)))

@@ -15,6 +15,7 @@ conez = False
 what_ahaha = False
 
 def conzovka():
+    global rect_img_kit
     pygame.init()
     pygame.display.set_caption("Phantom")
     size = width, height = 1920, 1080
@@ -24,12 +25,12 @@ def conzovka():
 
     image_player = pygame.image.load("SPRITE\гг.png")
     image_shiza = pygame.image.load("SPRITE\Megashiza.png")
-    image_kitten.image = pygame.image.load("SPRITE\KITTEN.png")
+    image_kitten = pygame.image.load("SPRITE\KITTEN.png")
     image_player = pygame.transform.scale(image_player, (250, 250))
     image_shiza = pygame.transform.scale(image_shiza, (250, 250))
-    image_kitten.image = pygame.transform.scale(image_kitten, (150, 100))
+    image_kitten = pygame.transform.scale(image_kitten, (150, 100))
 
-    image_kitten.rect = image_kitten.get_rect()
+    rect_img_kit = image_kitten.get_rect()
 
     music_finall_yra = pygame.mixer.Sound("MUSIC\FIRST\FINALL_TITRI.mp3")
     music_finall_yra.set_volume(0.2)
@@ -81,14 +82,11 @@ def conzovka():
             if event.type == pygame.K_ESCAPE:
                 running = False
                 pygame.quit()
-            elif event.type == pygame.MOUSEMOTION:
-                print(event.pos)
             if event.type == pygame.MOUSEBUTTONDOWN:
-                image_kitten.rect = image_kitten.image.get_rect()
-                if image_kitten.rect.x < event.pos[0] < image_kitten.rect.right and image_kitten.rect.y < \
-                        event.pos[1] < image_kitten.rect.bottom:
-                    running = False
-                    pygame.quit()
+                if 1699 < event.pos[0] and 1871 > event.pos[0]:
+                    if 29 < event.pos[1] and 104 > event.pos[1]:
+                        running = False
+                        pygame.quit()
         screen.fill((0, 0, 0))
         screen.blit(text, (text_x, text_y))
         screen.blit(text_a, (text_a_x, text_a_y))
@@ -789,7 +787,6 @@ def two(sorce, for_text_beta):
         hp(number)
     else:
         heart.update()
-        #Death_fLag = True
         running = False
 
 
@@ -877,8 +874,6 @@ def three(sorce, for_text_beta):
             Fight = True
             b = 1
         elif w == 100 and not flag:
-            # if type(texth) != str:
-            #     screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
             cell = Cell('SPRITE\для_диалога.png', 400, 600)
             heart.death()
@@ -897,8 +892,6 @@ def three(sorce, for_text_beta):
             flag = False
             Fight = True
         elif w == 200 and not flag:
-            # if type(texth) != str:
-            #     screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
             cell = Cell('SPRITE\для_диалога.png', 400, 600)
             heart.death()
@@ -917,8 +910,6 @@ def three(sorce, for_text_beta):
             flag = False
             Fight = True
         elif w == 300 and not flag:
-            # if type(texth) != str:
-            #     screen.fill((0, 0, 0), pygame.Rect(text_xh, text_yh, texth.get_width() + 100, texth.get_height()))
             screen.fill((0, 0, 0), (cell.rect.x, cell.rect.y, cell.rect.right - cell.rect.x, 790 - cell.rect.y))
             cell = Cell('SPRITE\для_диалога.png', 400, 600)
             heart.death()
@@ -933,10 +924,6 @@ def three(sorce, for_text_beta):
             for_text = for_text_beta
         screen2 = pygame.display.set_mode((1920, 1080))
         screen2.blit(sc1, (0, 0))
-        # if b == 1:
-        #     screen2.blit(sc1, (0, 0))
-        #     all_wars.update()
-        #     all_wars.draw(screen2)
         if q % 10 == 0 and Fight:
             if war_now == 1:
                 BossAtack()
@@ -973,7 +960,6 @@ def three(sorce, for_text_beta):
         if q % 400 == 0 and Fight:
             Knopka()
         pygame.display.flip()
-        #clock.tick(100)
     else:
         heart.update()
         running = False
@@ -982,6 +968,8 @@ def three(sorce, for_text_beta):
 def boss():
     global number, all_wars, hp_Hide, mg, sc1, cell, heart, s, b, q, flag, w, atak_sprites, apple, Death_hide_cl, music_fight, sc_2, clock, conez, what_ahaha, running
     #screen.fill((0, 0, 0))
+
+    pygame.init()
     
     sc1 = pygame.image.load('SPRITE\Boss_fon.png').convert_alpha()
     sc1 = pygame.transform.scale(sc1, (1920, 1080))
@@ -1020,7 +1008,7 @@ def boss():
     
     Death_hide_class = Death_hide_cl()
     
-    hp_Hide = 10
+    hp_Hide = 25
     
     running = True
     
